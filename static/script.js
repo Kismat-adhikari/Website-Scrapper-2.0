@@ -67,12 +67,12 @@ function updateProgress(percent, message) {
 }
 
 // Tab switching
-document.querySelectorAll('.tab-btn').forEach(btn => {
+document.querySelectorAll('.nav-item').forEach(btn => {
     btn.addEventListener('click', () => {
         const tab = btn.dataset.tab;
         
         // Remove active from all
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         
         // Add active to clicked

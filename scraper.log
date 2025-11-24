@@ -4783,3 +4783,43 @@
 2025-11-24 16:43:19,030 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\advanced_scraper_features.py', reloading
 2025-11-24 16:43:19,063 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
 2025-11-24 16:43:19,072 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 16:43:19,705 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 16:43:21,253 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 16:43:21,253 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 16:43:21,253 - INFO - Email validator initialized with SMTP verification
+2025-11-24 16:43:21,254 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 16:43:21,254 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 16:43:21,256 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 16:43:21,283 - WARNING -  * Debugger is active!
+2025-11-24 16:43:21,289 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 16:43:29,964 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 16:43:31,055 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 16:56:56,200 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 16:56:56,201 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 16:56:56,201 - INFO - Email validator initialized with SMTP verification
+2025-11-24 16:56:56,201 - INFO - Initialized ParallelScraper with 5 workers
+2025-11-24 16:56:56,201 - INFO - Initialized MultiPageScraper
+2025-11-24 16:56:56,203 - INFO - Initialized AddressExtractor
+2025-11-24 16:56:56,203 - INFO - Initialized CompanyInfoExtractor
+2025-11-24 16:56:56,203 - INFO - Initialized DataQualityScorer
+2025-11-24 16:56:56,203 - INFO - Initialized AdvancedRetryStrategy
+2025-11-24 16:56:56,203 - INFO - Initialized AdvancedScraperPipeline
+2025-11-24 16:57:02,455 - INFO - Starting scrape for https://www.littlecollinsnyc.com/ (auto_aggressive: True)
+2025-11-24 16:57:04,414 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/ on attempt 1
+2025-11-24 16:57:04,678 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 16:57:04,728 - INFO - Found social links: {"facebook": ["https://www.facebook.com/littlecollinsnyc"], "instagram": ["https://www.instagram.com/littlecollinsnyc/"]}
+2025-11-24 16:57:04,729 - INFO - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.75 | LoadTime: 0.00s | Reason: Success
+2025-11-24 16:57:04,730 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 16:57:04,731 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 16:57:04,731 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 16:57:04,731 - INFO - Validation Summary for https://www.littlecollinsnyc.com/: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 16:57:09,431 - INFO - Starting scrape for https://www.littlecollinsnyc.com/contact (auto_aggressive: True)
+2025-11-24 16:57:09,563 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 16:57:09,621 - INFO - Found social links: {"facebook": ["https://www.facebook.com/littlecollinsnyc"], "instagram": ["https://www.instagram.com/littlecollinsnyc/"]}
+2025-11-24 16:57:09,621 - INFO - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.68 | LoadTime: 0.00s | Reason: Success
+2025-11-24 16:57:09,623 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 16:57:09,624 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/contact
+2025-11-24 16:57:09,624 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/contact
+2025-11-24 16:57:09,624 - INFO - Validation Summary for https://www.littlecollinsnyc.com/contact: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 16:57:09,643 - DEBUG - Recorded success for https://www.littlecollinsnyc.com/
+2025-11-24 16:57:09,643 - INFO - Advanced scrape completed for https://www.littlecollinsnyc.com/: Quality=0.67, Emails=0, Phones=2, Addresses=2, Company=Little Collins

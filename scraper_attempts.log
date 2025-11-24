@@ -172,3 +172,5 @@
 2025-11-24 15:34:32,631 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.68 | LoadTime: 0.11s | Reason: Success
 2025-11-24 15:38:42,551 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.75 | LoadTime: 0.63s | Reason: Success
 2025-11-24 15:38:48,987 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.68 | LoadTime: 0.18s | Reason: Success
+2025-11-24 16:57:04,729 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.75 | LoadTime: 0.00s | Reason: Success
+2025-11-24 16:57:09,621 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.68 | LoadTime: 0.00s | Reason: Success
