@@ -772,14 +772,15 @@ class ContactExtractor:
         'partner', 'principal'
     ]
     
-    # Social media patterns
+    # Social media patterns (more flexible to catch variations)
     SOCIAL_PATTERNS = {
-        'linkedin': r'(?:https?://)?(?:www\.)?linkedin\.com/(?:company|in)/[\w-]+',
-        'twitter': r'(?:https?://)?(?:www\.)?twitter\.com/[\w]+',
+        'linkedin': r'(?:https?://)?(?:www\.)?linkedin\.com/(?:company|in|profile)?/?[\w-]+',
+        'twitter': r'(?:https?://)?(?:www\.)?(?:twitter|x)\.com/[\w]+',
         'facebook': r'(?:https?://)?(?:www\.)?facebook\.com/[\w.-]+',
         'instagram': r'(?:https?://)?(?:www\.)?instagram\.com/[\w.]+',
         'github': r'(?:https?://)?(?:www\.)?github\.com/[\w-]+',
-        'youtube': r'(?:https?://)?(?:www\.)?youtube\.com/(?:c|channel|user)/[\w-]+',
+        'youtube': r'(?:https?://)?(?:www\.)?youtube\.com/(?:c|channel|user|@)?[\w-]+',
+        'tiktok': r'(?:https?://)?(?:www\.)?tiktok\.com/@[\w.-]+',
     }
     
     # No-reply email patterns to exclude
@@ -888,7 +889,7 @@ class WebScraper:
         self.session = requests.Session()
         self.extractor = ContactExtractor()
         self.page_discovery = PageDiscovery(max_pages=max_pages_per_site)
-        self.precheck = PreCheckSystem(timeout=5) if enable_precheck else None
+        self.precheck = PreCheckSystem(timeout=3) if enable_precheck else None  # Reduced timeout for speed
         self.mode_selector = FetchModeSelector()
         self.retry_strategy = RetryStrategy(max_retries=5)
         self.hard_mode_delay = hard_mode_delay  # Delay between requests in hard mode
@@ -925,14 +926,18 @@ class WebScraper:
         
         return FailureReason.UNKNOWN
 
-    def scrape_url(self, url: str, auto_aggressive: bool = True) -> ScraperResult:
+    def scrape_url(self, url: str, auto_aggressive: bool = True, fast_mode: bool = False) -> ScraperResult:
         """
         Scrape URL with optional auto-aggressive mode detection
         
         Args:
             url: URL to scrape
             auto_aggressive: If True, automatically escalate to aggressive strategies if normal fails
+            fast_mode: If True, skip fallback modes and return quickly with FAST_HTML only
         """
+        # Set fast_mode for this scrape
+        self.fast_mode = fast_mode
+        
         logger.info(f"Starting scrape for {url} (auto_aggressive: {auto_aggressive})")
         
         if not url.startswith(('http://', 'https://')):
@@ -1064,6 +1069,8 @@ class WebScraper:
 
         # Format social links as JSON string
         social_links_str = json.dumps({k: list(v) for k, v in social_links.items()}) if social_links else ""
+        if social_links_str:
+            logger.info(f"Found social links: {social_links_str}")
         
         # Format phone list
         phone_list_str = '; '.join(sorted(list(phones)))
@@ -1133,8 +1140,8 @@ class WebScraper:
         total_retries = 0
         failure_reason = FailureReason.UNKNOWN
         
-        # Determine max retries based on mode
-        max_attempts = 3 if mode == FetchMode.FAST_HTML else (2 if mode == FetchMode.JS_RENDERING else 1)
+        # Determine max retries based on mode (reduced for speed)
+        max_attempts = 2 if mode == FetchMode.FAST_HTML else (1 if mode == FetchMode.JS_RENDERING else 1)
         
         for attempt in range(max_attempts):
             try:
@@ -1383,7 +1390,7 @@ class WebScraper:
         logger.debug(f"Discovered {len(contact_pages)} contact pages and {len(team_pages)} team pages")
 
         # Scan discovered pages (limit to prevent excessive scraping)
-        for discovered_url in list(all_discovered_pages)[:5]:  # Limit to 5 discovered pages
+        for discovered_url in list(all_discovered_pages)[:2]:  # Limit to 2 discovered pages for speed
             try:
                 discovered_html, success, _, _ = self._fetch_with_mode(discovered_url, FetchMode.FAST_HTML)
                 if success and discovered_html:

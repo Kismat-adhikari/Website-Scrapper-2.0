@@ -82,12 +82,14 @@ class EnhancedScraperResult:
     
     def to_dict(self):
         """Convert to dictionary for CSV"""
+        import json
         return {
             'url': self.url,
             'status': self.status,
             'emails': '; '.join(self.emails) if self.emails else 'Not found',
             'phones': '; '.join(self.phones) if self.phones else 'Not found',
             'addresses': '; '.join(str(a) for a in self.addresses) if self.addresses else 'Not found',
+            'social_links': json.dumps(self.social_links) if self.social_links else 'Not found',
             'company_name': self.company_name if self.company_name else 'Not found',
             'company_description': self.company_description if self.company_description else 'Not found',
             'pages_scraped': str(self.pages_scraped),
@@ -511,7 +513,8 @@ class AdvancedScraperPipeline:
         max_workers: int = 50,
         max_pages_per_site: int = 5,
         enable_address_extraction: bool = True,
-        enable_company_info: bool = True
+        enable_company_info: bool = True,
+        fast_mode: bool = False
     ):
         self.base_scraper = base_scraper
         self.parallel_scraper = ParallelScraper(max_workers=max_workers)
@@ -522,6 +525,7 @@ class AdvancedScraperPipeline:
         self.retry_strategy = AdvancedRetryStrategy()
         self.enable_address_extraction = enable_address_extraction
         self.enable_company_info = enable_company_info
+        self.fast_mode = fast_mode
         
         self._log("Initialized AdvancedScraperPipeline", logging.INFO)
     
@@ -530,15 +534,25 @@ class AdvancedScraperPipeline:
         start_time = time.time()
         
         try:
-            # Initial scrape
-            result = self.base_scraper.scrape_url(url)
+            # Initial scrape with fast_mode flag
+            result = self.base_scraper.scrape_url(url, fast_mode=self.fast_mode)
             
             # Convert to enhanced result
+            # Parse social_links from JSON string if available
+            social_links_dict = {}
+            if hasattr(result, 'social_links') and result.social_links:
+                try:
+                    import json
+                    social_links_dict = json.loads(result.social_links)
+                except:
+                    pass
+            
             enhanced = EnhancedScraperResult(
                 url=url,
                 status=result.status,
                 emails=result.emails,
                 phones=result.phones,
+                social_links=social_links_dict,
                 pages_scanned=result.pages_scanned,
                 leadership_count=result.leadership_count,
                 confidence_score=result.confidence_score,
@@ -558,16 +572,29 @@ class AdvancedScraperPipeline:
             if self.enable_address_extraction and html:
                 enhanced.addresses = self.address_extractor.extract_addresses(html)
             
-            # Discover and scrape additional pages
-            if html:
+            # Discover and scrape additional pages in parallel (skip in fast mode)
+            if html and not self.fast_mode:
                 discovered_pages = self.multi_page_scraper.discover_pages(url, html)
                 enhanced.pages_scraped = {page_type.value: False for page_type in PageType}
                 
-                for page_type, page_url in discovered_pages.items():
+                # Scrape pages in parallel for speed
+                def scrape_page(page_info):
+                    page_type, page_url = page_info
                     try:
-                        page_result = self.base_scraper.scrape_url(page_url)
+                        page_result = self.base_scraper.scrape_url(page_url, fast_mode=self.fast_mode)
+                        return (page_type, page_result, None)
+                    except Exception as e:
+                        self._log(f"Error scraping {page_type.value} page: {str(e)}", logging.DEBUG)
+                        return (page_type, None, e)
+                
+                # Use ThreadPoolExecutor for parallel scraping (increased workers)
+                with ThreadPoolExecutor(max_workers=5) as executor:
+                    results = list(executor.map(scrape_page, discovered_pages.items()))
+                
+                # Process results
+                for page_type, page_result, error in results:
+                    if page_result:
                         enhanced.pages_scraped[page_type.value] = True
-                        
                         enhanced.emails.extend(page_result.emails)
                         enhanced.phones.extend(page_result.phones)
                         enhanced.pages_scanned += page_result.pages_scanned
@@ -578,9 +605,6 @@ class AdvancedScraperPipeline:
                                 enhanced.addresses.extend(
                                     self.address_extractor.extract_addresses(page_html)
                                 )
-                    
-                    except Exception as e:
-                        self._log(f"Error scraping {page_type.value} page: {str(e)}", logging.DEBUG)
             
             # Remove duplicates
             enhanced.emails = list(set(enhanced.emails))

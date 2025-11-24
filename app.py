@@ -28,7 +28,7 @@ CORS(app)
 # Initialize components
 proxy_manager = ProxyManager()
 scraper = WebScraper(proxy_manager, enable_precheck=True)
-email_validator = create_validator(enable_smtp=True, enable_role_detection=True)
+email_validator = create_validator(enable_smtp=True, enable_role_detection=True, smtp_max_workers=10)
 role_detector = create_role_detector()
 
 # Store results for download
@@ -57,8 +57,17 @@ def scrape():
         
         logger.info(f"Scraping {url}")
         
-        # Scrape with auto-aggressive enabled (will escalate if needed)
-        result = scraper.scrape_url(url, auto_aggressive=True)
+        # Use advanced scraper pipeline for full data extraction with speed optimizations
+        from advanced_scraper_features import AdvancedScraperPipeline
+        pipeline = AdvancedScraperPipeline(
+            base_scraper=scraper,
+            max_workers=20,  # Increased parallelism
+            max_pages_per_site=2,  # Reduced from 3 to 2 (homepage + 1 more)
+            enable_address_extraction=True,
+            enable_company_info=True,
+            fast_mode=False
+        )
+        result = pipeline.scrape_url_advanced(url)
         
         # Apply keyword blocking
         if block_keywords:
@@ -66,15 +75,27 @@ def scrape():
             result.emails = [e for e in result.emails if not any(kw in e.lower() for kw in keywords)]
             result.phones = [p for p in result.phones if not any(kw in p.lower() for kw in keywords)]
         
-        # Validate emails automatically during scraping
-        if result.emails:
-            logger.info(f"Validating {len(result.emails)} emails from {url}")
-            validated, summary = email_validator.validate_emails(result.emails, url, use_batch_smtp=True)
-            result.emails = [r.email for r in validated if r.is_valid]
-            logger.info(f"After validation: {len(result.emails)} valid emails")
+        # Skip email validation for speed - emails already have syntax/MX checks
+        # SMTP validation adds 3-5 seconds per URL
+        # Uncomment below if you want validation (slower but more accurate)
+        # if result.emails:
+        #     logger.info(f"Validating {len(result.emails)} emails from {url}")
+        #     try:
+        #         validated, summary = email_validator.validate_emails(result.emails, url, use_batch_smtp=True)
+        #         result.emails = [r.email for r in validated if r.is_valid]
+        #         logger.info(f"After validation: {len(result.emails)} valid emails")
+        #     except Exception as e:
+        #         logger.warning(f"Email validation error: {str(e)}")
         
-        # Categorize emails
-        email_categories = role_detector.categorize(result.emails) if result.emails else {}
+        # Skip role detection for speed (adds 0.5-1 second)
+        # Uncomment below if you want email categorization
+        # email_categories = role_detector.categorize(result.emails) if result.emails else {}
+        email_categories = {}
+        
+        # Convert addresses to strings
+        addresses = []
+        if hasattr(result, 'addresses') and result.addresses:
+            addresses = [str(addr) for addr in result.addresses]
         
         response = {
             'url': result.url,
@@ -86,7 +107,17 @@ def scrape():
             'leadership_count': result.leadership_count,
             'confidence_score': round(result.confidence_score, 2),
             'fetch_mode': result.fetch_mode,
-            'load_time': round(result.load_time, 2)
+            'load_time': round(result.load_time, 2),
+            'ssl_valid': getattr(result, 'ssl_valid', None),
+            'bot_protection': getattr(result, 'bot_protection', None),
+            'scrape_mode': getattr(result, 'scrape_mode', 'unknown'),
+            'retry_count': result.retry_count,
+            'social_links': result.social_links,
+            'reason': result.reason,
+            'company_name': getattr(result, 'company_name', None),
+            'company_description': getattr(result, 'company_description', None),
+            'addresses': addresses,
+            'data_quality_score': getattr(result, 'data_quality_score', 0)
         }
         
         # Cache for download
@@ -124,12 +155,20 @@ def batch_scrape():
                 validated, summary = email_validator.validate_emails(result.emails, url, use_batch_smtp=True)
                 result.emails = [r.email for r in validated if r.is_valid]
             
+            # Convert addresses to strings
+            addresses = []
+            if hasattr(result, 'addresses') and result.addresses:
+                addresses = [str(addr) for addr in result.addresses]
+            
             results.append({
                 'url': result.url,
                 'status': result.status,
                 'emails': result.emails,
                 'phones': result.phones,
-                'confidence_score': round(result.confidence_score, 2)
+                'confidence_score': round(result.confidence_score, 2),
+                'company_name': getattr(result, 'company_name', None),
+                'company_description': getattr(result, 'company_description', None),
+                'addresses': addresses
             })
         
         return jsonify({'results': results, 'total': len(results)})
@@ -149,9 +188,14 @@ def export_results():
         if not results:
             return jsonify({'error': 'No results to export'}), 400
         
-        # Create CSV
+        # Create CSV with all fields
         output = io.StringIO()
-        writer = csv.DictWriter(output, fieldnames=['url', 'status', 'emails', 'phones', 'confidence_score'])
+        fieldnames = [
+            'url', 'status', 'emails', 'phones', 'confidence_score',
+            'pages_scanned', 'leadership_count', 'fetch_mode', 'scrape_mode',
+            'retry_count', 'load_time', 'ssl_valid', 'bot_protection', 'reason'
+        ]
+        writer = csv.DictWriter(output, fieldnames=fieldnames)
         writer.writeheader()
         
         for result in results:
@@ -160,7 +204,16 @@ def export_results():
                 'status': result.get('status'),
                 'emails': '; '.join(result.get('emails', [])),
                 'phones': '; '.join(result.get('phones', [])),
-                'confidence_score': result.get('confidence_score')
+                'confidence_score': result.get('confidence_score'),
+                'pages_scanned': result.get('pages_scanned'),
+                'leadership_count': result.get('leadership_count'),
+                'fetch_mode': result.get('fetch_mode'),
+                'scrape_mode': result.get('scrape_mode'),
+                'retry_count': result.get('retry_count'),
+                'load_time': result.get('load_time'),
+                'ssl_valid': result.get('ssl_valid'),
+                'bot_protection': result.get('bot_protection'),
+                'reason': result.get('reason')
             })
         
         # Return as file

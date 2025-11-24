@@ -41,6 +41,26 @@
                     <span class="btn-loader" style="display:none;">⏳ Scraping...</span>
                 </button>
 
+                <!-- Progress Indicator -->
+                <div id="progressContainer" style="display:none; margin-top: 20px;">
+                    <div class="progress-info">
+                        <span id="progressText">Starting...</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Real-time Logs (Expandable) -->
+                <div id="logsContainer" style="display:none; margin-top: 20px;">
+                    <div class="logs-header" onclick="toggleLogs()" style="cursor: pointer;">
+                        <h4>📋 Activity Log <span id="logsToggle">▼</span></h4>
+                        <button class="btn btn-small" onclick="clearLogs(event)">Clear</button>
+                    </div>
+                    <div id="logsList" class="logs-list logs-expanded"></div>
+                </div>
+
                 <div id="singleResults" class="results" style="display:none;">
                     <div class="result-header">
                         <h3>Results</h3>
