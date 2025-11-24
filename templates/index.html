@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper - Extract Contact Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🔍 Web Scraper</h1>
+                <p>Extract emails, phones & contact info from any website</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="single">Single URL</button>
+                <button class="tab-btn" data-tab="batch">Batch URLs</button>
+            </div>
+
+            <!-- Single URL Tab -->
+            <div id="single" class="tab-content active">
+                <div class="form-group">
+                    <label>Website URL</label>
+                    <input type="text" id="singleUrl" placeholder="https://example.com" class="input">
+                </div>
+
+                <div class="form-group">
+                    <label>Block Keywords (comma-separated)</label>
+                    <input type="text" id="blockKeywords" placeholder="e.g., noreply, @outlook, team" class="input">
+                </div>
+
+                <button class="btn btn-primary" onclick="scrapeSingle()">
+                    <span class="btn-text">Scrape Website</span>
+                    <span class="btn-loader" style="display:none;">⏳ Scraping...</span>
+                </button>
+
+                <!-- Progress Indicator -->
+                <div id="progressContainer" style="display:none; margin-top: 20px;">
+                    <div class="progress-info">
+                        <span id="progressText">Starting...</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Real-time Logs (Expandable) -->
+                <div id="logsContainer" style="display:none; margin-top: 20px;">
+                    <div class="logs-header" onclick="toggleLogs()" style="cursor: pointer;">
+                        <h4>📋 Activity Log <span id="logsToggle">▼</span></h4>
+                        <button class="btn btn-small" onclick="clearLogs(event)">Clear</button>
+                    </div>
+                    <div id="logsList" class="logs-list logs-expanded"></div>
+                </div>
+
+                <div id="singleResults" class="results" style="display:none;">
+                    <div class="result-header">
+                        <h3>Results</h3>
+                        <button class="btn btn-small" onclick="downloadResults()">📥 Download CSV</button>
+                    </div>
+                    <div id="resultsContent"></div>
+                </div>
+            </div>
+
+            <!-- Batch URLs Tab -->
+            <div id="batch" class="tab-content">
+                <div class="form-group">
+                    <label>URLs (one per line)</label>
+                    <textarea id="batchUrls" placeholder="https://example1.com&#10;https://example2.com" class="textarea"></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="scrapeBatch()">
+                    <span class="btn-text">Scrape All</span>
+                    <span class="btn-loader" style="display:none;">⏳ Processing...</span>
+                </button>
+
+                <div id="batchResults" class="results" style="display:none;">
+                    <h3>Batch Results</h3>
+                    <div id="batchResultsContent"></div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Web Scraper v1.0 | Fast • Accurate • Reliable</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
