@@ -1410,6 +1410,75 @@ class WebScraper:
         return min(score, 1.0)
 
 
+def _apply_keyword_blocking(result: ScraperResult, block_keywords: List[str]) -> ScraperResult:
+    """Filter out emails, phones, and pages that contain blocked keywords"""
+    
+    # Filter emails - remove if any blocked keyword is in the email
+    filtered_emails = []
+    for email in result.emails:
+        email_lower = email.lower()
+        if not any(keyword in email_lower for keyword in block_keywords):
+            filtered_emails.append(email)
+    
+    # Filter phones - remove if any blocked keyword is in the phone
+    filtered_phones = []
+    for phone in result.phones:
+        phone_lower = phone.lower()
+        if not any(keyword in phone_lower for keyword in block_keywords):
+            filtered_phones.append(phone)
+    
+    # Update result with filtered data
+    result.emails = filtered_emails
+    result.phones = filtered_phones
+    result.email_list = '; '.join(filtered_emails)
+    result.phone_list = '; '.join(filtered_phones)
+    
+    # Update status if all data was blocked
+    if not filtered_emails and not filtered_phones and result.status == "success":
+        result.status = "blocked"
+        result.reason = f"All results blocked by keywords: {', '.join(block_keywords)}"
+    
+    return result
+
+
+def _apply_keyword_blocking_advanced(result, block_keywords: List[str]):
+    """Filter out emails, phones, and addresses that contain blocked keywords (for advanced mode)"""
+    
+    # Filter emails
+    if result.emails:
+        filtered_emails = []
+        for email in result.emails:
+            email_lower = email.lower()
+            if not any(keyword in email_lower for keyword in block_keywords):
+                filtered_emails.append(email)
+        result.emails = filtered_emails
+    
+    # Filter phones
+    if result.phones:
+        filtered_phones = []
+        for phone in result.phones:
+            phone_lower = phone.lower()
+            if not any(keyword in phone_lower for keyword in block_keywords):
+                filtered_phones.append(phone)
+        result.phones = filtered_phones
+    
+    # Filter addresses - convert to string first
+    if result.addresses:
+        filtered_addresses = []
+        for address in result.addresses:
+            # Convert address object to string
+            address_str = str(address).lower()
+            if not any(keyword in address_str for keyword in block_keywords):
+                filtered_addresses.append(address)
+        result.addresses = filtered_addresses
+    
+    # Update status if all data was blocked
+    if not result.emails and not result.phones and not result.addresses and result.status == "success":
+        result.status = "blocked"
+    
+    return result
+
+
 def load_urls(input_source: str) -> List[str]:
     if input_source.startswith('http://') or input_source.startswith('https://'):
         return [input_source]
@@ -1449,8 +1518,21 @@ def interactive_mode(scraper: 'WebScraper', output_file: str):
         if not url.startswith('http'):
             url = 'https://' + url
         
+        # Get blocking keywords from user
+        print("\nEnter keywords to BLOCK (comma-separated):")
+        print("Examples: 'team, contact, @outlook, outlook'")
+        print("Press ENTER to block nothing")
+        block_input = input("Block keywords: ").strip()
+        
+        # Parse blocking keywords
+        block_keywords = []
+        if block_input:
+            block_keywords = [kw.strip().lower() for kw in block_input.split(',') if kw.strip()]
+        
         # Scrape the URL with timeout
         print(f"\nScraping {url}...")
+        if block_keywords:
+            print(f"Blocking: {', '.join(block_keywords)}")
         print("-" * 60)
         
         # Use threading to add timeout
@@ -1471,6 +1553,10 @@ def interactive_mode(scraper: 'WebScraper', output_file: str):
         if result is None:
             print(f"✗ Failed: No result returned")
             return
+        
+        # Apply blocking keywords to filter results
+        if block_keywords:
+            result = _apply_keyword_blocking(result, block_keywords)
         
         # Show result
         print(f"✓ Status: {result.status}")
@@ -1531,8 +1617,21 @@ def advanced_interactive_mode(scraper: 'WebScraper', output_file: str):
         if not url.startswith('http'):
             url = 'https://' + url
         
+        # Get blocking keywords from user
+        print("\nEnter keywords to BLOCK (comma-separated):")
+        print("Examples: 'team, contact, @outlook, outlook'")
+        print("Press ENTER to block nothing")
+        block_input = input("Block keywords: ").strip()
+        
+        # Parse blocking keywords
+        block_keywords = []
+        if block_input:
+            block_keywords = [kw.strip().lower() for kw in block_input.split(',') if kw.strip()]
+        
         # Scrape with advanced features
         print(f"\nScraping {url}...")
+        if block_keywords:
+            print(f"Blocking: {', '.join(block_keywords)}")
         print("-" * 70)
         
         # Use threading to add timeout
@@ -1553,6 +1652,10 @@ def advanced_interactive_mode(scraper: 'WebScraper', output_file: str):
         if result is None:
             print(f"✗ Failed: No result returned")
             return
+        
+        # Apply blocking keywords to filter results
+        if block_keywords:
+            result = _apply_keyword_blocking_advanced(result, block_keywords)
         
         # Show result
         print(f"✓ Status: {result.status}")

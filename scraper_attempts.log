@@ -107,3 +107,15 @@
 2025-11-24 09:25:01,819 - URL: https://www.littlecollinsnyc.com/ | Status: failed | Mode: hard_mode | Retries: 16 | Pages: 0 | Emails: 0 | Phones: 0 | Confidence: 0.00 | LoadTime: 0.00s | Reason: All fetch modes failed: unknown (retries: 16)
 2025-11-24 09:28:10,963 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
 2025-11-24 09:28:25,748 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:32:28,410 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:32:33,712 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:36:36,741 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:36:41,722 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:37:12,696 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:37:18,257 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:40:15,583 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:40:21,960 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:42:59,748 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:43:04,984 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:43:20,100 - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
+2025-11-24 09:43:25,670 - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
