@@ -1,6 +1,6 @@
 """
 Email Validation Module for Web Scraper
-Provides multi-stage email validation with confidence scoring.
+Provides multi-stage email validation with confidence scoring and SMTP verification.
 """
 
 import re
@@ -13,6 +13,18 @@ from typing import List, Dict, Tuple, Optional, Set
 from dataclasses import dataclass, asdict
 from enum import Enum
 from datetime import datetime
+
+try:
+    from smtp_verifier import SMTPVerifier, create_smtp_verifier
+    SMTP_VERIFIER_AVAILABLE = True
+except ImportError:
+    SMTP_VERIFIER_AVAILABLE = False
+
+try:
+    from role_detector import RoleDetector, create_role_detector, EmailType
+    ROLE_DETECTOR_AVAILABLE = True
+except ImportError:
+    ROLE_DETECTOR_AVAILABLE = False
 
 # Configure logging
 email_validator_logger = logging.getLogger('email_validator')
@@ -96,41 +108,74 @@ class EmailValidator:
     
     def __init__(
         self,
-        enable_smtp_check: bool = False,
+        enable_smtp_check: bool = True,
         smtp_timeout: int = 5,
         domain_whitelist: Optional[Set[str]] = None,
         domain_blacklist: Optional[Set[str]] = None,
         custom_disposable_domains: Optional[Set[str]] = None,
-        scraper_confidence: float = 0.5
+        scraper_confidence: float = 0.5,
+        use_smtp_pool: bool = True,
+        smtp_cache_ttl: int = 3600,
+        smtp_max_workers: int = 5,
+        enable_role_detection: bool = True,
+        prefer_personal_emails: bool = True
     ):
         """
         Initialize email validator
         
         Args:
-            enable_smtp_check: Enable SMTP verification (slower, may trigger rate limits)
+            enable_smtp_check: Enable SMTP verification (now enabled by default with pooling)
             smtp_timeout: Timeout for SMTP connections in seconds
             domain_whitelist: Set of domains to always accept
             domain_blacklist: Set of domains to always reject
             custom_disposable_domains: Additional disposable domains to check
             scraper_confidence: Base confidence from scraper (0.0-1.0)
+            use_smtp_pool: Use connection pooling for SMTP (faster, recommended)
+            smtp_cache_ttl: Cache time-to-live in seconds
+            smtp_max_workers: Max parallel SMTP verification threads
+            enable_role_detection: Enable role-based email detection
+            prefer_personal_emails: Boost confidence for personal emails, lower for generic roles
         """
-        self.enable_smtp_check = enable_smtp_check
+        self.enable_smtp_check = enable_smtp_check and SMTP_VERIFIER_AVAILABLE
         self.smtp_timeout = smtp_timeout
         self.domain_whitelist = domain_whitelist or set()
         self.domain_blacklist = domain_blacklist or set()
         self.scraper_confidence = max(0.0, min(1.0, scraper_confidence))
+        self.enable_role_detection = enable_role_detection and ROLE_DETECTOR_AVAILABLE
+        self.prefer_personal_emails = prefer_personal_emails
+        
+        # Initialize SMTP verifier with pooling if available
+        self.smtp_verifier = None
+        if self.enable_smtp_check and use_smtp_pool:
+            self.smtp_verifier = create_smtp_verifier(
+                enable_cache=True,
+                cache_ttl=smtp_cache_ttl,
+                max_workers=smtp_max_workers
+            )
+        
+        # Initialize role detector if available
+        self.role_detector = None
+        if self.enable_role_detection:
+            self.role_detector = create_role_detector()
         
         # Merge custom disposable domains
         self.disposable_domains = self.DISPOSABLE_DOMAINS.copy()
         if custom_disposable_domains:
             self.disposable_domains.update(custom_disposable_domains)
         
-        self._log("Initialized EmailValidator", logging.INFO)
+        features = []
+        if self.smtp_verifier:
+            features.append("SMTP pooling")
+        if self.role_detector:
+            features.append("role detection")
+        mode = f"with {', '.join(features)}" if features else "basic mode"
+        self._log(f"Initialized EmailValidator {mode}", logging.INFO)
     
     def validate_emails(
         self,
         emails: List[str],
-        website_url: str = "unknown"
+        website_url: str = "unknown",
+        use_batch_smtp: bool = True
     ) -> Tuple[List[EmailValidationResult], ValidationSummary]:
         """
         Validate a list of emails with multi-stage checks
@@ -138,6 +183,7 @@ class EmailValidator:
         Args:
             emails: List of email addresses to validate
             website_url: Source website for logging context
+            use_batch_smtp: Use parallel SMTP verification for faster processing
             
         Returns:
             Tuple of (validation results, summary statistics)
@@ -146,10 +192,64 @@ class EmailValidator:
             self._log(f"No emails to validate for {website_url}", logging.DEBUG)
             return [], ValidationSummary(0, 0, 0, 0.0, [], [], [])
         
-        results = []
+        # Pre-filter with syntax and disposable checks
+        pre_filtered = []
         for email in emails:
-            result = self.validate_email(email, website_url)
-            results.append(result)
+            email = email.strip().lower()
+            if not self._check_syntax(email):
+                continue
+            domain = email.split('@')[1]
+            if self._check_disposable(domain):
+                continue
+            if not self._check_mx_record(domain):
+                continue
+            pre_filtered.append(email)
+        
+        # Batch SMTP verification if enabled
+        if use_batch_smtp and self.smtp_verifier and pre_filtered:
+            smtp_results = self.smtp_verifier.verify_emails_batch(pre_filtered)
+            
+            # Batch role detection if enabled
+            role_results = None
+            if self.role_detector:
+                role_results = self.role_detector.detect_batch(pre_filtered)
+            
+            results = []
+            for idx, (email, smtp_result) in enumerate(zip(pre_filtered, smtp_results)):
+                confidence = 0.6  # Base confidence after pre-filters
+                
+                if smtp_result.is_valid:
+                    confidence = min(1.0, confidence + 0.2)
+                else:
+                    confidence = max(0.0, confidence - 0.3)
+                
+                # Apply role detection adjustments
+                if role_results and self.prefer_personal_emails:
+                    role_result = role_results[idx]
+                    if role_result.is_personal:
+                        confidence = min(1.0, confidence + 0.15)
+                    elif role_result.is_generic:
+                        confidence = max(0.0, confidence - 0.4)
+                    elif role_result.email_type.value == "role_based":
+                        confidence = max(0.0, confidence - 0.15)
+                
+                result = EmailValidationResult(
+                    email=email,
+                    is_valid=confidence >= 0.6,
+                    confidence_score=confidence,
+                    reason=ValidationReason.VALID if confidence >= 0.6 else ValidationReason.UNKNOWN_ERROR,
+                    syntax_valid=True,
+                    mx_exists=True,
+                    is_disposable=False,
+                    smtp_verified=smtp_result.is_valid
+                )
+                results.append(result)
+        else:
+            # Sequential validation
+            results = []
+            for email in pre_filtered:
+                result = self.validate_email(email, website_url)
+                results.append(result)
         
         summary = self._generate_summary(results)
         self._log_summary(website_url, summary)
@@ -256,12 +356,47 @@ class EmailValidator:
         
         confidence += 0.4
         
-        # Stage 4: Optional SMTP Check
+        # Stage 4: SMTP Verification (with pooling if available)
         smtp_verified = False
         if self.enable_smtp_check:
-            smtp_verified = self._check_smtp(email, domain)
-            if smtp_verified:
-                confidence = min(1.0, confidence + 0.2)
+            if self.smtp_verifier:
+                # Use high-performance SMTP verifier with pooling
+                smtp_result = self.smtp_verifier.verify_email(email)
+                smtp_verified = smtp_result.is_valid
+                if smtp_verified:
+                    confidence = min(1.0, confidence + 0.2)
+                    self._log(
+                        f"SMTP verified: {email} (time: {smtp_result.verification_time:.2f}s, cached: {smtp_result.cached}) from {website_url}",
+                        logging.DEBUG
+                    )
+                else:
+                    # SMTP rejected - lower confidence
+                    confidence = max(0.0, confidence - 0.3)
+            else:
+                # Fallback to legacy SMTP check
+                smtp_verified = self._check_smtp(email, domain)
+                if smtp_verified:
+                    confidence = min(1.0, confidence + 0.2)
+        
+        # Stage 5: Role-Based Detection
+        role_info = None
+        if self.role_detector:
+            role_result = self.role_detector.detect(email)
+            role_info = role_result
+            
+            if self.prefer_personal_emails:
+                if role_result.is_personal:
+                    # Boost confidence for personal emails
+                    confidence = min(1.0, confidence + 0.15)
+                    self._log(f"Personal email detected: {email}", logging.DEBUG)
+                elif role_result.is_generic:
+                    # Lower confidence for generic/automated emails
+                    confidence = max(0.0, confidence - 0.4)
+                    self._log(f"Generic email detected: {email} (role: {role_result.role})", logging.DEBUG)
+                elif role_result.email_type.value == "role_based":
+                    # Slightly lower confidence for role-based emails
+                    confidence = max(0.0, confidence - 0.15)
+                    self._log(f"Role-based email detected: {email} (role: {role_result.role})", logging.DEBUG)
         
         # Final result
         is_valid = confidence >= 0.6  # Threshold for valid email
@@ -374,6 +509,52 @@ class EmailValidator:
             f"Invalid={summary.invalid_emails}, AvgConfidence={summary.average_confidence}",
             logging.INFO
         )
+    
+    def filter_personal_emails(self, emails: List[str]) -> List[str]:
+        """Filter to only personal emails (exclude roles and generic)"""
+        if not self.role_detector:
+            return emails
+        return self.role_detector.filter_personal_only(emails)
+    
+    def filter_exclude_generic(self, emails: List[str]) -> List[str]:
+        """Filter out generic/automated emails (noreply, no-reply, etc)"""
+        if not self.role_detector:
+            return emails
+        return self.role_detector.filter_exclude_generic(emails)
+    
+    def filter_exclude_roles(self, emails: List[str]) -> List[str]:
+        """Filter out role-based emails (support, sales, info, etc)"""
+        if not self.role_detector:
+            return emails
+        return self.role_detector.filter_exclude_roles(emails)
+    
+    def categorize_emails(self, emails: List[str]) -> Dict[str, List[str]]:
+        """Categorize emails by type (personal, role_based, generic, unknown)"""
+        if not self.role_detector:
+            return {'all': emails}
+        return self.role_detector.categorize(emails)
+    
+    def get_email_quality_score(self, emails: List[str]) -> float:
+        """Get quality score (0-1) based on personal email percentage"""
+        if not self.role_detector:
+            return 0.5
+        summary = self.role_detector.get_summary(emails)
+        return summary['quality_score']
+    
+    def get_stats(self) -> Dict:
+        """Get validation statistics including SMTP pool stats and role detection"""
+        stats = {}
+        if self.smtp_verifier:
+            stats['smtp'] = self.smtp_verifier.get_stats()
+        if self.role_detector:
+            stats['role_detector'] = "enabled"
+        return stats
+    
+    def close(self):
+        """Close SMTP connections and cleanup"""
+        if self.smtp_verifier:
+            self.smtp_verifier.close()
+            self._log("Closed SMTP verifier and connection pool", logging.INFO)
 
 
 class EmailValidationPipeline:
@@ -456,26 +637,38 @@ class EmailValidationPipeline:
 
 
 def create_validator(
-    enable_smtp: bool = False,
+    enable_smtp: bool = True,
     domain_whitelist: Optional[List[str]] = None,
     domain_blacklist: Optional[List[str]] = None,
-    custom_disposable: Optional[List[str]] = None
+    custom_disposable: Optional[List[str]] = None,
+    use_smtp_pool: bool = True,
+    smtp_max_workers: int = 5,
+    enable_role_detection: bool = True,
+    prefer_personal_emails: bool = True
 ) -> EmailValidator:
     """
     Factory function to create configured validator
     
     Args:
-        enable_smtp: Enable SMTP verification
+        enable_smtp: Enable SMTP verification (now enabled by default)
         domain_whitelist: List of allowed domains
         domain_blacklist: List of blocked domains
         custom_disposable: Additional disposable domains
+        use_smtp_pool: Use connection pooling for SMTP (recommended)
+        smtp_max_workers: Max parallel SMTP verification threads
+        enable_role_detection: Enable role-based email detection (filters generic emails)
+        prefer_personal_emails: Boost confidence for personal emails
         
     Returns:
-        Configured EmailValidator instance
+        Configured EmailValidator instance with SMTP verification + role detection
     """
     return EmailValidator(
         enable_smtp_check=enable_smtp,
         domain_whitelist=set(domain_whitelist) if domain_whitelist else None,
         domain_blacklist=set(domain_blacklist) if domain_blacklist else None,
-        custom_disposable_domains=set(custom_disposable) if custom_disposable else None
+        custom_disposable_domains=set(custom_disposable) if custom_disposable else None,
+        use_smtp_pool=use_smtp_pool,
+        smtp_max_workers=smtp_max_workers,
+        enable_role_detection=enable_role_detection,
+        prefer_personal_emails=prefer_personal_emails
     )

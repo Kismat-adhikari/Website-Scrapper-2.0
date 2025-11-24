@@ -32,6 +32,12 @@ except ImportError:
     ADVANCED_FEATURES_AVAILABLE = False
 
 try:
+    from aggressive_scraper import create_aggressive_scraper
+    AGGRESSIVE_SCRAPER_AVAILABLE = True
+except ImportError:
+    AGGRESSIVE_SCRAPER_AVAILABLE = False
+
+try:
     from phone_validator import create_validator as create_phone_validator
     PHONE_VALIDATOR_AVAILABLE = True
 except ImportError:
@@ -1695,6 +1701,7 @@ def main():
     parser.add_argument('--max-pages', type=int, default=10, help='Maximum pages to discover per site')
     parser.add_argument('--interactive', action='store_true', help='Interactive mode: paste URLs one at a time')
     parser.add_argument('--basic', action='store_true', help='Basic mode: disable advanced features (emails & phones only)')
+    parser.add_argument('--aggressive', action='store_true', help='Aggressive mode: try multiple strategies to scrape any website (JS, hard mode, etc)')
 
     args = parser.parse_args()
     
@@ -1751,16 +1758,34 @@ def main():
     else:
         # Basic mode - standard scraping
         logger.info("Using basic features (emails & phones only)")
-        results = []
-        with ThreadPoolExecutor(max_workers=args.threads) as executor:
-            futures = {executor.submit(scraper.scrape_url, url): url for url in urls}
-            for future in as_completed(futures):
-                try:
-                    result = future.result()
-                    results.append(result)
-                    logger.info(f"Completed: {result.url} - Status: {result.status}")
-                except Exception as e:
-                    logger.error(f"Error processing {futures[future]}: {str(e)}")
+        
+        # Use aggressive scraper if requested
+        if args.aggressive and AGGRESSIVE_SCRAPER_AVAILABLE:
+            logger.info("Using AGGRESSIVE mode - will try multiple strategies per site")
+            aggressive_scraper = create_aggressive_scraper(scraper)
+            results = []
+            with ThreadPoolExecutor(max_workers=args.threads) as executor:
+                futures = {executor.submit(aggressive_scraper.scrape_aggressive, url): url for url in urls}
+                for future in as_completed(futures):
+                    try:
+                        result = future.result()
+                        results.append(result)
+                        logger.info(f"Completed: {result.url} - Status: {result.status}")
+                    except Exception as e:
+                        logger.error(f"Error processing {futures[future]}: {str(e)}")
+            logger.info(f"Aggressive scraper stats: {aggressive_scraper.get_strategy_stats()}")
+        else:
+            # Standard scraping
+            results = []
+            with ThreadPoolExecutor(max_workers=args.threads) as executor:
+                futures = {executor.submit(scraper.scrape_url, url): url for url in urls}
+                for future in as_completed(futures):
+                    try:
+                        result = future.result()
+                        results.append(result)
+                        logger.info(f"Completed: {result.url} - Status: {result.status}")
+                    except Exception as e:
+                        logger.error(f"Error processing {futures[future]}: {str(e)}")
 
     # Write results to CSV with timestamp
     if results:

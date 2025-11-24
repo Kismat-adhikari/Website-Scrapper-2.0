@@ -2960,3 +2960,27 @@
 2025-11-24 09:43:25,671 - INFO - Validation Summary for https://www.littlecollinsnyc.com/contact: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
 2025-11-24 09:43:25,701 - DEBUG - Recorded success for https://www.littlecollinsnyc.com/
 2025-11-24 09:43:25,701 - INFO - Advanced scrape completed for https://www.littlecollinsnyc.com/: Quality=0.67, Emails=0, Phones=2, Addresses=2, Company=Little Collins
+2025-11-24 12:49:03,486 - INFO - Initialized ParallelScraper with 5 workers
+2025-11-24 12:49:03,487 - INFO - Initialized MultiPageScraper
+2025-11-24 12:49:03,487 - INFO - Initialized AddressExtractor
+2025-11-24 12:49:03,488 - INFO - Initialized CompanyInfoExtractor
+2025-11-24 12:49:03,488 - INFO - Initialized DataQualityScorer
+2025-11-24 12:49:03,488 - INFO - Initialized AdvancedRetryStrategy
+2025-11-24 12:49:03,488 - INFO - Initialized AdvancedScraperPipeline
+2025-11-24 12:49:21,508 - INFO - Starting scrape for https://www.littlecollinsnyc.com/
+2025-11-24 12:49:22,255 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/ on attempt 1
+2025-11-24 12:49:22,544 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 12:49:22,625 - INFO - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.00s | Reason: Success
+2025-11-24 12:49:22,626 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 12:49:22,627 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 12:49:22,628 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 12:49:22,628 - INFO - Validation Summary for https://www.littlecollinsnyc.com/: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 12:49:28,588 - INFO - Starting scrape for https://www.littlecollinsnyc.com/contact
+2025-11-24 12:49:28,735 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 12:49:28,891 - INFO - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.37 | LoadTime: 0.00s | Reason: Success
+2025-11-24 12:49:28,892 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 12:49:28,892 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/contact
+2025-11-24 12:49:28,892 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/contact
+2025-11-24 12:49:28,893 - INFO - Validation Summary for https://www.littlecollinsnyc.com/contact: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 12:49:28,934 - DEBUG - Recorded success for https://www.littlecollinsnyc.com/
+2025-11-24 12:49:28,935 - INFO - Advanced scrape completed for https://www.littlecollinsnyc.com/: Quality=0.67, Emails=0, Phones=2, Addresses=2, Company=Little Collins
