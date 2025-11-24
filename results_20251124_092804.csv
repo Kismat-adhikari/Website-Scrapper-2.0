@@ -1,0 +1,3 @@
+url,status,emails,phones,addresses,company_name,company_description,pages_scraped,data_quality_score,confidence_score,pages_scanned,leadership_count,retry_count,fetch_mode,reason,load_time,validation_timestamp
+https://www.littlecollinsnyc.com/,success,Not found,2123081969; +12123081969,"New York, NY 10017; New York, NY 10017",Little Collins,"Little Collins is a cafe dedicated to serving exquisite food and drink in a 
+cozy, friendly atmosphere.","{'homepage': False, 'contact': True, 'about': False, 'team': False, 'careers': False, 'services': False, 'blog': False}",0.67,0.41,3,0,0,fast_html,Success,18.02,2025-11-24T09:28:10.968496

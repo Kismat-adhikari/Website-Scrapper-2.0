@@ -1,0 +1,2 @@
+url,status,emails,phones,addresses,company_name,company_description,pages_scraped,data_quality_score,confidence_score,pages_scanned,leadership_count,retry_count,fetch_mode,reason,load_time,validation_timestamp
+https://www.littlecollinsnyc.com/,failed,Not found,Not found,Not found,Not found,Not found,{},0.0,0.0,0,0,16,hard_mode,All fetch modes failed: unknown (retries: 16),18.17,2025-11-24T09:25:01.821094
