@@ -2984,3 +2984,222 @@
 2025-11-24 12:49:28,893 - INFO - Validation Summary for https://www.littlecollinsnyc.com/contact: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
 2025-11-24 12:49:28,934 - DEBUG - Recorded success for https://www.littlecollinsnyc.com/
 2025-11-24 12:49:28,935 - INFO - Advanced scrape completed for https://www.littlecollinsnyc.com/: Quality=0.67, Emails=0, Phones=2, Addresses=2, Company=Little Collins
+2025-11-24 13:15:09,208 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:15:09,209 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:15:09,210 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:15:09,248 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.18.58:5000
+2025-11-24 13:15:09,248 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 13:15:09,267 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:15:09,928 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:15:09,928 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:15:09,929 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:15:09,940 - WARNING -  * Debugger is active!
+2025-11-24 13:15:09,950 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:15:11,923 - INFO - 127.0.0.1 - - [24/Nov/2025 13:15:11] "GET / HTTP/1.1" 200 -
+2025-11-24 13:15:12,081 - INFO - 127.0.0.1 - - [24/Nov/2025 13:15:12] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-24 13:15:12,083 - INFO - 127.0.0.1 - - [24/Nov/2025 13:15:12] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-24 13:15:12,161 - INFO - 127.0.0.1 - - [24/Nov/2025 13:15:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-24 13:15:22,185 - INFO - Scraping https://www.littlecollinsnyc.com/ (aggressive: False)
+2025-11-24 13:15:22,186 - INFO - Starting scrape for https://www.littlecollinsnyc.com/
+2025-11-24 13:15:22,186 - INFO - Pre-checking https://www.littlecollinsnyc.com/
+2025-11-24 13:15:23,150 - INFO - https://www.littlecollinsnyc.com/: Site accessible, using normal HTML fetch (load_time: 0.55s)
+2025-11-24 13:15:24,151 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/ on attempt 1
+2025-11-24 13:15:24,726 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 13:15:24,812 - INFO - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.41 | LoadTime: 0.55s | Reason: Success
+2025-11-24 13:15:24,814 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 13:15:24,815 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:15:24,815 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:15:24,815 - INFO - Validation Summary for https://www.littlecollinsnyc.com/: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 13:15:24,816 - INFO - 127.0.0.1 - - [24/Nov/2025 13:15:24] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-24 13:16:23,761 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:16:23,763 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:16:24,063 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:16:25,848 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:16:25,849 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:16:25,850 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:16:25,865 - WARNING -  * Debugger is active!
+2025-11-24 13:16:25,869 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:25:43,684 - INFO - 127.0.0.1 - - [24/Nov/2025 13:25:43] "GET / HTTP/1.1" 200 -
+2025-11-24 13:25:43,771 - INFO - 127.0.0.1 - - [24/Nov/2025 13:25:43] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-24 13:25:43,775 - INFO - 127.0.0.1 - - [24/Nov/2025 13:25:43] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-24 13:25:56,033 - INFO - Scraping https://www.littlecollinsnyc.com/ (aggressive: False)
+2025-11-24 13:25:56,033 - INFO - Starting scrape for https://www.littlecollinsnyc.com/
+2025-11-24 13:25:56,034 - INFO - Pre-checking https://www.littlecollinsnyc.com/
+2025-11-24 13:25:57,451 - INFO - https://www.littlecollinsnyc.com/: Site accessible, using normal HTML fetch (load_time: 0.81s)
+2025-11-24 13:25:58,334 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/ on attempt 1
+2025-11-24 13:25:58,754 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 13:25:58,866 - INFO - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.75 | LoadTime: 0.81s | Reason: Success
+2025-11-24 13:25:58,866 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 13:25:58,867 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:25:58,867 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:25:58,868 - INFO - Validation Summary for https://www.littlecollinsnyc.com/: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 13:25:58,869 - INFO - 127.0.0.1 - - [24/Nov/2025 13:25:58] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-24 13:32:26,438 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:32:26,443 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:32:27,413 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:32:29,086 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:32:29,088 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:32:29,089 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:32:29,118 - WARNING -  * Debugger is active!
+2025-11-24 13:32:29,124 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:32:35,932 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:32:35,934 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:32:36,792 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:32:38,021 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:32:38,022 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:32:38,023 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:32:38,042 - WARNING -  * Debugger is active!
+2025-11-24 13:32:38,048 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:32:45,207 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:32:45,208 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:32:45,208 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:32:45,593 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:32:46,944 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:32:46,944 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:32:46,945 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:32:46,978 - WARNING -  * Debugger is active!
+2025-11-24 13:32:46,986 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:37:59,308 - INFO - 127.0.0.1 - - [24/Nov/2025 13:37:59] "GET / HTTP/1.1" 200 -
+2025-11-24 13:37:59,415 - INFO - 127.0.0.1 - - [24/Nov/2025 13:37:59] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-24 13:37:59,415 - INFO - 127.0.0.1 - - [24/Nov/2025 13:37:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-24 13:39:40,863 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:39:40,865 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:39:41,550 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:39:43,111 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:39:43,112 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:39:43,113 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:39:43,138 - WARNING -  * Debugger is active!
+2025-11-24 13:39:43,143 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:39:51,594 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:39:51,595 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:39:51,596 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:39:52,844 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:39:54,257 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:39:54,257 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:39:54,257 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:39:54,281 - WARNING -  * Debugger is active!
+2025-11-24 13:39:54,291 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:40:32,446 - INFO - 127.0.0.1 - - [24/Nov/2025 13:40:32] "GET / HTTP/1.1" 200 -
+2025-11-24 13:40:32,561 - INFO - 127.0.0.1 - - [24/Nov/2025 13:40:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-24 13:40:32,563 - INFO - 127.0.0.1 - - [24/Nov/2025 13:40:32] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-24 13:40:36,361 - INFO - Scraping https://x.com/itsleilasantese
+2025-11-24 13:40:36,361 - INFO - Starting scrape for https://x.com/itsleilasantese (auto_aggressive: True)
+2025-11-24 13:40:36,361 - INFO - Pre-checking https://x.com/itsleilasantese
+2025-11-24 13:40:37,132 - WARNING - https://x.com/itsleilasantese: Site unreachable (bot protection: 403)
+2025-11-24 13:40:37,132 - WARNING - Skipping https://x.com/itsleilasantese: Site unreachable (bot protection: 403)
+2025-11-24 13:40:37,134 - INFO - 127.0.0.1 - - [24/Nov/2025 13:40:37] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-24 13:40:47,039 - INFO - Scraping https://www.littlecollinsnyc.com/
+2025-11-24 13:40:47,040 - INFO - Starting scrape for https://www.littlecollinsnyc.com/ (auto_aggressive: True)
+2025-11-24 13:40:47,041 - INFO - Pre-checking https://www.littlecollinsnyc.com/
+2025-11-24 13:40:48,072 - INFO - https://www.littlecollinsnyc.com/: Site accessible, using normal HTML fetch (load_time: 0.63s)
+2025-11-24 13:40:48,850 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/ on attempt 1
+2025-11-24 13:40:49,234 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 13:40:49,308 - INFO - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.75 | LoadTime: 0.63s | Reason: Success
+2025-11-24 13:40:49,308 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 13:40:49,309 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:40:49,309 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:40:49,310 - INFO - Validation Summary for https://www.littlecollinsnyc.com/: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 13:40:49,310 - INFO - 127.0.0.1 - - [24/Nov/2025 13:40:49] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-24 13:41:17,118 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:41:17,130 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:41:17,699 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:41:19,168 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:41:19,169 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:41:19,169 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:41:19,205 - WARNING -  * Debugger is active!
+2025-11-24 13:41:19,220 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:41:29,662 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:41:29,663 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:41:30,782 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:41:31,388 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:41:31,390 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:41:31,390 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:41:31,404 - WARNING -  * Debugger is active!
+2025-11-24 13:41:31,408 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:42:55,376 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:42:55,377 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:42:55,758 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:42:57,111 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:42:57,112 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:42:57,112 - INFO - Email validator initialized with SMTP verification
+2025-11-24 13:42:57,112 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:42:57,112 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:42:57,113 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:42:57,125 - WARNING -  * Debugger is active!
+2025-11-24 13:42:57,128 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:43:14,986 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:43:14,987 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:43:15,623 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:43:16,345 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:43:16,345 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:43:16,345 - INFO - Email validator initialized with SMTP verification
+2025-11-24 13:43:16,346 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:43:16,346 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:43:16,346 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:43:16,358 - WARNING -  * Debugger is active!
+2025-11-24 13:43:16,362 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:50:58,624 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:50:58,625 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-24 13:50:59,475 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:51:01,342 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:51:01,342 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:51:01,343 - INFO - Email validator initialized with SMTP verification
+2025-11-24 13:51:01,344 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:51:01,344 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:51:01,344 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:51:01,373 - WARNING -  * Debugger is active!
+2025-11-24 13:51:01,379 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:52:36,175 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:52:36,176 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:52:36,176 - INFO - Email validator initialized with SMTP verification
+2025-11-24 13:52:36,177 - INFO - Initialized ParallelScraper with 5 workers
+2025-11-24 13:52:36,177 - INFO - Initialized MultiPageScraper
+2025-11-24 13:52:36,178 - INFO - Initialized AddressExtractor
+2025-11-24 13:52:36,178 - INFO - Initialized CompanyInfoExtractor
+2025-11-24 13:52:36,178 - INFO - Initialized DataQualityScorer
+2025-11-24 13:52:36,178 - INFO - Initialized AdvancedRetryStrategy
+2025-11-24 13:52:36,178 - INFO - Initialized AdvancedScraperPipeline
+2025-11-24 13:52:41,787 - INFO - Starting scrape for https://www.littlecollinsnyc.com/ (auto_aggressive: True)
+2025-11-24 13:52:42,580 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\urllib3\\connectionpool.py', reloading
+2025-11-24 13:52:42,981 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/ on attempt 1
+2025-11-24 13:52:43,096 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:52:43,623 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 13:52:43,662 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:52:43,662 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:52:43,663 - INFO - Email validator initialized with SMTP verification
+2025-11-24 13:52:43,663 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:52:43,663 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:52:43,664 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:52:43,667 - INFO - URL: https://www.littlecollinsnyc.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.75 | LoadTime: 0.00s | Reason: Success
+2025-11-24 13:52:43,668 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 13:52:43,668 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:52:43,668 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/
+2025-11-24 13:52:43,669 - INFO - Validation Summary for https://www.littlecollinsnyc.com/: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 13:52:43,675 - WARNING -  * Debugger is active!
+2025-11-24 13:52:43,678 - INFO -  * Debugger PIN: 265-613-800
+2025-11-24 13:52:46,727 - INFO - Starting scrape for https://www.littlecollinsnyc.com/contact (auto_aggressive: True)
+2025-11-24 13:52:47,128 - INFO - Fast HTML fetch succeeded for https://www.littlecollinsnyc.com/contact on attempt 1
+2025-11-24 13:52:47,186 - INFO - URL: https://www.littlecollinsnyc.com/contact | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 2 | Confidence: 0.68 | LoadTime: 0.00s | Reason: Success
+2025-11-24 13:52:47,187 - INFO - Initialized PhoneValidator (library: False, voip_check: True, reject_voip: False)
+2025-11-24 13:52:47,187 - INFO - Valid phone: +12123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/contact
+2025-11-24 13:52:47,187 - INFO - Valid phone: 2123081969 (confidence: 0.70, type: unknown) from https://www.littlecollinsnyc.com/contact
+2025-11-24 13:52:47,188 - INFO - Validation Summary for https://www.littlecollinsnyc.com/contact: Total=2, Valid=2, Invalid=0, AvgConfidence=0.7, Mobile=0, FixedLine=0, VoIP=0
+2025-11-24 13:52:47,204 - DEBUG - Recorded success for https://www.littlecollinsnyc.com/
+2025-11-24 13:52:47,204 - INFO - Advanced scrape completed for https://www.littlecollinsnyc.com/: Quality=0.67, Emails=0, Phones=2, Addresses=2, Company=Little Collins
+2025-11-24 13:54:47,933 - INFO - 127.0.0.1 - - [24/Nov/2025 13:54:47] "GET / HTTP/1.1" 200 -
+2025-11-24 13:54:48,038 - INFO - 127.0.0.1 - - [24/Nov/2025 13:54:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-24 13:54:48,042 - INFO - 127.0.0.1 - - [24/Nov/2025 13:54:48] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-24 13:56:43,689 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:56:43,692 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\app.py', reloading
+2025-11-24 13:56:44,621 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-24 13:56:46,178 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:56:46,179 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:56:46,179 - INFO - Email validator initialized with SMTP verification
+2025-11-24 13:56:46,180 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:56:46,181 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-24 13:56:46,182 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-24 13:56:46,213 - WARNING -  * Debugger is active!
+2025-11-24 13:56:46,222 - INFO -  * Debugger PIN: 265-613-800

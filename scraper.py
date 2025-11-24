@@ -882,7 +882,7 @@ class ContactExtractor:
 
 
 class WebScraper:
-    def __init__(self, proxy_manager: ProxyManager, timeout: int = 10, enable_precheck: bool = True, hard_mode_delay: float = 0.5, max_pages_per_site: int = 10):
+    def __init__(self, proxy_manager: ProxyManager, timeout: int = 10, enable_precheck: bool = True, hard_mode_delay: float = 0.5, max_pages_per_site: int = 10, enable_email_validation: bool = True):
         self.proxy_manager = proxy_manager
         self.timeout = timeout
         self.session = requests.Session()
@@ -892,6 +892,16 @@ class WebScraper:
         self.mode_selector = FetchModeSelector()
         self.retry_strategy = RetryStrategy(max_retries=5)
         self.hard_mode_delay = hard_mode_delay  # Delay between requests in hard mode
+        
+        # Initialize email validator if available
+        self.email_validator = None
+        if enable_email_validation:
+            try:
+                from email_validator import create_validator
+                self.email_validator = create_validator(enable_smtp=True, enable_role_detection=True)
+                logger.info("Email validator initialized with SMTP verification")
+            except ImportError:
+                logger.warning("Email validator not available")
 
     def _detect_failure_reason(self, error: Exception, response_code: Optional[int] = None) -> FailureReason:
         """Detect the reason for failure from exception or response code"""
@@ -915,8 +925,15 @@ class WebScraper:
         
         return FailureReason.UNKNOWN
 
-    def scrape_url(self, url: str) -> ScraperResult:
-        logger.info(f"Starting scrape for {url}")
+    def scrape_url(self, url: str, auto_aggressive: bool = True) -> ScraperResult:
+        """
+        Scrape URL with optional auto-aggressive mode detection
+        
+        Args:
+            url: URL to scrape
+            auto_aggressive: If True, automatically escalate to aggressive strategies if normal fails
+        """
+        logger.info(f"Starting scrape for {url} (auto_aggressive: {auto_aggressive})")
         
         if not url.startswith(('http://', 'https://')):
             url = f'https://{url}'
@@ -934,6 +951,7 @@ class WebScraper:
         scrape_mode = ScrapeMode.NORMAL.value
         fetch_mode = FetchMode.FAST_HTML.value
         retry_count = 0
+        used_aggressive = False
 
         try:
             precheck_result = None
@@ -1009,6 +1027,19 @@ class WebScraper:
                     if not success:
                         last_failure_reason = failure_reason
                         self.retry_strategy.record_failure(url, FetchMode.HARD_MODE.value, failure_reason)
+                
+                # Auto-escalate to aggressive mode if enabled and still failing
+                if not success and auto_aggressive:
+                    logger.info(f"All standard modes failed for {url}, auto-escalating to aggressive scraper")
+                    used_aggressive = True
+                    try:
+                        from aggressive_scraper import create_aggressive_scraper
+                        aggressive_scraper = create_aggressive_scraper(self)
+                        aggressive_result = aggressive_scraper.scrape_aggressive(url)
+                        if aggressive_result and aggressive_result.status == "success":
+                            return aggressive_result
+                    except Exception as e:
+                        logger.debug(f"Aggressive scraper failed: {str(e)}")
 
             if success and html:
                 emails, phones, leadership_count, pages_scanned, social_links = self._extract_from_html(url, html)
@@ -1372,35 +1403,69 @@ class WebScraper:
             except Exception as e:
                 logger.debug(f"Failed to scan discovered page {discovered_url}: {str(e)}")
 
+        # Validate emails if validator is available
+        if self.email_validator and emails:
+            try:
+                logger.debug(f"Validating {len(emails)} emails from {base_url}")
+                validated_results, summary = self.email_validator.validate_emails(list(emails), base_url, use_batch_smtp=True)
+                # Keep only valid emails
+                emails = {r.email for r in validated_results if r.is_valid}
+                logger.info(f"Email validation complete: {len(emails)} valid emails out of {len(list(emails))}")
+            except Exception as e:
+                logger.debug(f"Email validation error: {str(e)}")
+
         return emails, phones, leadership_count, pages_scanned, social_links
 
     @staticmethod
     def _calculate_confidence(emails: Set[str], phones: Set[str], leadership_count: int, pages_scanned: int, fetch_method: int, retry_count: int = 0) -> float:
         """
         Calculate confidence score 0-1 based on:
-        - Number of emails found (0.25)
-        - Number of phones found (0.20)
-        - Number of pages scanned (0.20)
-        - Leadership mentions (0.15)
+        - Number of emails found (0.30)
+        - Number of phones found (0.25)
+        - Number of pages scanned (0.15)
+        - Leadership mentions (0.10)
         - Fetch method (0.10)
         - Retry count (0.10)
         """
         score = 0.0
         
-        # Email score (0-0.25)
-        email_score = min(len(emails) / 5.0, 1.0) * 0.25
+        # Base score for finding ANY data
+        has_data = len(emails) > 0 or len(phones) > 0
+        if has_data:
+            score += 0.15
+        
+        # Email score (0-0.30)
+        # More generous: 1 email = 0.15, 2+ = 0.30
+        if len(emails) >= 2:
+            email_score = 0.30
+        elif len(emails) == 1:
+            email_score = 0.15
+        else:
+            email_score = 0.0
         score += email_score
         
-        # Phone score (0-0.20)
-        phone_score = min(len(phones) / 3.0, 1.0) * 0.20
+        # Phone score (0-0.25)
+        # More generous: 1 phone = 0.12, 2+ = 0.25
+        if len(phones) >= 2:
+            phone_score = 0.25
+        elif len(phones) == 1:
+            phone_score = 0.12
+        else:
+            phone_score = 0.0
         score += phone_score
         
-        # Pages scanned score (0-0.20)
-        pages_score = min(pages_scanned / 5.0, 1.0) * 0.20
+        # Pages scanned score (0-0.15)
+        # More generous: 1 page = 0.08, 2+ = 0.15
+        if pages_scanned >= 2:
+            pages_score = 0.15
+        elif pages_scanned >= 1:
+            pages_score = 0.08
+        else:
+            pages_score = 0.0
         score += pages_score
         
-        # Leadership mentions score (0-0.15)
-        leadership_score = min(leadership_count / 10.0, 1.0) * 0.15
+        # Leadership mentions score (0-0.10)
+        leadership_score = min(leadership_count / 5.0, 1.0) * 0.10
         score += leadership_score
         
         # Fetch method score (0-0.10)
@@ -1775,10 +1840,12 @@ def main():
                         logger.error(f"Error processing {futures[future]}: {str(e)}")
             logger.info(f"Aggressive scraper stats: {aggressive_scraper.get_strategy_stats()}")
         else:
-            # Standard scraping
+            # Standard scraping with auto-aggressive enabled by default
+            logger.info("Using standard scraping with auto-aggressive mode (will escalate if needed)")
             results = []
             with ThreadPoolExecutor(max_workers=args.threads) as executor:
-                futures = {executor.submit(scraper.scrape_url, url): url for url in urls}
+                # auto_aggressive=True by default - will escalate if normal modes fail
+                futures = {executor.submit(scraper.scrape_url, url, auto_aggressive=True): url for url in urls}
                 for future in as_completed(futures):
                     try:
                         result = future.result()
