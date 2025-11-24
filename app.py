@@ -14,6 +14,7 @@ import logging
 
 # Import scraper modules
 from scraper import WebScraper, ProxyManager
+from async_scraper import scrape_url_async_wrapper, scrape_urls_batch_wrapper
 from aggressive_scraper import create_aggressive_scraper
 from email_validator import create_validator
 from role_detector import create_role_detector
@@ -24,6 +25,14 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 CORS(app)
+
+# Disable caching for API responses
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
 
 # Initialize components
 proxy_manager = ProxyManager()
@@ -57,67 +66,82 @@ def scrape():
         
         logger.info(f"Scraping {url}")
         
-        # Use advanced scraper pipeline for full data extraction with speed optimizations
-        from advanced_scraper_features import AdvancedScraperPipeline
-        pipeline = AdvancedScraperPipeline(
-            base_scraper=scraper,
-            max_workers=20,  # Increased parallelism
-            max_pages_per_site=2,  # Reduced from 3 to 2 (homepage + 1 more)
-            enable_address_extraction=True,
-            enable_company_info=True,
-            fast_mode=False
-        )
-        result = pipeline.scrape_url_advanced(url)
+        # PHASE 2: Use async scraper for better performance
+        # Use fast_mode=False to scrape contact/about pages too
+        result = scrape_url_async_wrapper(url, proxy_manager=proxy_manager, fast_mode=False)
+        
+        # Check if scraping failed
+        if not result or result.status == 'failed':
+            error_reason = getattr(result, 'reason', 'Unknown error') if result else 'Scraping failed'
+            logger.error(f"Scraping failed for {url}: {error_reason}")
+            return jsonify({
+                'url': url,
+                'status': 'failed',
+                'reason': error_reason,
+                'emails': [],
+                'phones': [],
+                'confidence_score': 0,
+                'company_name': None,
+                'addresses': []
+            })
+        
+        # Quick company/address extraction from HTML (no extra scraping)
+        company_name = None
+        company_description = None
+        addresses = []
+        
+        if hasattr(result, 'html') and result.html:
+            try:
+                from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
+                company_extractor = CompanyInfoExtractor()
+                address_extractor = AddressExtractor()
+                
+                company_name = company_extractor.extract_company_name(result.html)
+                company_description = company_extractor.extract_company_description(result.html)
+                addresses = address_extractor.extract_addresses(result.html)
+            except Exception as e:
+                logger.warning(f"Error extracting company/address for {url}: {str(e)}")
+        
+        # Get emails and phones (handle both set and list)
+        emails = list(result.emails) if hasattr(result, 'emails') else []
+        phones = list(result.phones) if hasattr(result, 'phones') else []
         
         # Apply keyword blocking
-        if block_keywords:
+        if block_keywords and emails:
             keywords = [kw.strip().lower() for kw in block_keywords.split(',') if kw.strip()]
-            result.emails = [e for e in result.emails if not any(kw in e.lower() for kw in keywords)]
-            result.phones = [p for p in result.phones if not any(kw in p.lower() for kw in keywords)]
+            emails = [e for e in emails if not any(kw in e.lower() for kw in keywords)]
+        if block_keywords and phones:
+            keywords = [kw.strip().lower() for kw in block_keywords.split(',') if kw.strip()]
+            phones = [p for p in phones if not any(kw in p.lower() for kw in keywords)]
         
         # Skip email validation for speed - emails already have syntax/MX checks
-        # SMTP validation adds 3-5 seconds per URL
-        # Uncomment below if you want validation (slower but more accurate)
-        # if result.emails:
-        #     logger.info(f"Validating {len(result.emails)} emails from {url}")
-        #     try:
-        #         validated, summary = email_validator.validate_emails(result.emails, url, use_batch_smtp=True)
-        #         result.emails = [r.email for r in validated if r.is_valid]
-        #         logger.info(f"After validation: {len(result.emails)} valid emails")
-        #     except Exception as e:
-        #         logger.warning(f"Email validation error: {str(e)}")
-        
-        # Skip role detection for speed (adds 0.5-1 second)
-        # Uncomment below if you want email categorization
-        # email_categories = role_detector.categorize(result.emails) if result.emails else {}
         email_categories = {}
         
         # Convert addresses to strings
-        addresses = []
-        if hasattr(result, 'addresses') and result.addresses:
-            addresses = [str(addr) for addr in result.addresses]
+        addresses_str = [str(addr) for addr in addresses] if addresses else []
         
+        # Build response with safe attribute access
         response = {
-            'url': result.url,
-            'status': result.status,
-            'emails': result.emails,
-            'phones': result.phones,
+            'url': result.url if hasattr(result, 'url') else url,
+            'status': result.status if hasattr(result, 'status') else 'success',
+            'emails': emails,
+            'phones': phones,
             'email_categories': email_categories,
-            'pages_scanned': result.pages_scanned,
-            'leadership_count': result.leadership_count,
-            'confidence_score': round(result.confidence_score, 2),
-            'fetch_mode': result.fetch_mode,
-            'load_time': round(result.load_time, 2),
-            'ssl_valid': getattr(result, 'ssl_valid', None),
-            'bot_protection': getattr(result, 'bot_protection', None),
-            'scrape_mode': getattr(result, 'scrape_mode', 'unknown'),
-            'retry_count': result.retry_count,
-            'social_links': result.social_links,
-            'reason': result.reason,
-            'company_name': getattr(result, 'company_name', None),
-            'company_description': getattr(result, 'company_description', None),
-            'addresses': addresses,
-            'data_quality_score': getattr(result, 'data_quality_score', 0)
+            'pages_scanned': getattr(result, 'pages_scanned', 1),
+            'leadership_count': getattr(result, 'leadership_count', 0),
+            'confidence_score': round(getattr(result, 'confidence_score', 0.0), 2),
+            'fetch_mode': getattr(result, 'fetch_mode', 'unknown'),
+            'load_time': round(getattr(result, 'load_time', 0.0), 2),
+            'ssl_valid': getattr(result, 'ssl_valid', True),
+            'bot_protection': getattr(result, 'bot_protection', False),
+            'scrape_mode': getattr(result, 'scrape_mode', 'fast'),
+            'retry_count': getattr(result, 'retry_count', 0),
+            'social_links': getattr(result, 'social_links', {}),
+            'reason': getattr(result, 'reason', ''),
+            'company_name': company_name,
+            'company_description': company_description,
+            'addresses': addresses_str,
+            'data_quality_score': 0
         }
         
         # Cache for download
@@ -126,13 +150,86 @@ def scrape():
         return jsonify(response)
     
     except Exception as e:
-        logger.error(f"Scrape error: {str(e)}")
-        return jsonify({'error': str(e)}), 500
+        import traceback
+        error_trace = traceback.format_exc()
+        logger.error(f"Scrape error: {str(e)}\n{error_trace}")
+        return jsonify({'error': str(e), 'trace': error_trace}), 500
+
+
+def scrape_single_url(url):
+    """Helper function to scrape a single URL (for parallel processing) - PHASE 2: Using async"""
+    if not url.startswith('http'):
+        url = f'https://{url}'
+    
+    try:
+        # PHASE 2: Use async scraper for better performance
+        result = scrape_url_async_wrapper(url, proxy_manager=proxy_manager, fast_mode=True)
+        
+        # Check if scraping was successful
+        if not result or result.status == 'failed':
+            logger.warning(f"Scraping failed for {url}: {getattr(result, 'reason', 'Unknown error')}")
+            return {
+                'url': url,
+                'status': 'failed',
+                'emails': [],
+                'phones': [],
+                'confidence_score': 0,
+                'company_name': None,
+                'company_description': None,
+                'addresses': [],
+                'reason': getattr(result, 'reason', 'Scraping failed')
+            }
+        
+        # Quick company/address extraction from HTML
+        company_name = None
+        company_description = None
+        addresses = []
+        
+        if hasattr(result, 'html') and result.html:
+            try:
+                from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
+                company_extractor = CompanyInfoExtractor()
+                address_extractor = AddressExtractor()
+                
+                company_name = company_extractor.extract_company_name(result.html)
+                company_description = company_extractor.extract_company_description(result.html)
+                addresses = address_extractor.extract_addresses(result.html)
+            except Exception as e:
+                logger.warning(f"Error extracting company/address for {url}: {str(e)}")
+        
+        # Convert addresses to strings
+        addresses_str = [str(addr) for addr in addresses] if addresses else []
+        
+        return {
+            'url': result.url,
+            'status': result.status,
+            'emails': list(result.emails) if hasattr(result, 'emails') else [],
+            'phones': list(result.phones) if hasattr(result, 'phones') else [],
+            'confidence_score': round(result.confidence_score, 2) if hasattr(result, 'confidence_score') else 0,
+            'company_name': company_name,
+            'company_description': company_description,
+            'addresses': addresses_str,
+            'social_links': result.social_links if hasattr(result, 'social_links') else {},
+            'fetch_time': round(result.fetch_time, 2) if hasattr(result, 'fetch_time') else 0
+        }
+    except Exception as e:
+        logger.error(f"Error scraping {url}: {str(e)}", exc_info=True)
+        return {
+            'url': url,
+            'status': 'failed',
+            'emails': [],
+            'phones': [],
+            'confidence_score': 0,
+            'company_name': None,
+            'company_description': None,
+            'addresses': [],
+            'reason': str(e)
+        }
 
 
 @app.route('/api/batch', methods=['POST'])
 def batch_scrape():
-    """Scrape multiple URLs"""
+    """Scrape multiple URLs in parallel"""
     try:
         data = request.json
         urls = data.get('urls', [])
@@ -140,41 +237,95 @@ def batch_scrape():
         if not urls:
             return jsonify({'error': 'URLs required'}), 400
         
-        logger.info(f"Batch scraping {len(urls)} URLs")
-        
-        results = []
+        # Clean and validate URLs
+        cleaned_urls = []
         for url in urls:
-            if not url.startswith('http'):
-                url = f'https://{url}'
-            
-            # Auto-aggressive: will escalate if normal modes fail
-            result = scraper.scrape_url(url, auto_aggressive=True)
-            
-            # Validate emails automatically
-            if result.emails:
-                validated, summary = email_validator.validate_emails(result.emails, url, use_batch_smtp=True)
-                result.emails = [r.email for r in validated if r.is_valid]
-            
-            # Convert addresses to strings
-            addresses = []
-            if hasattr(result, 'addresses') and result.addresses:
-                addresses = [str(addr) for addr in result.addresses]
-            
-            results.append({
-                'url': result.url,
-                'status': result.status,
-                'emails': result.emails,
-                'phones': result.phones,
-                'confidence_score': round(result.confidence_score, 2),
-                'company_name': getattr(result, 'company_name', None),
-                'company_description': getattr(result, 'company_description', None),
-                'addresses': addresses
-            })
+            url = url.strip()
+            if url:
+                if not url.startswith('http'):
+                    url = f'https://{url}'
+                cleaned_urls.append(url)
         
-        return jsonify({'results': results, 'total': len(results)})
+        if not cleaned_urls:
+            return jsonify({'error': 'No valid URLs provided'}), 400
+        
+        logger.info(f"Batch scraping {len(cleaned_urls)} URLs using async batch scraper")
+        
+        try:
+            # Use async batch scraper for better performance
+            results_objs = scrape_urls_batch_wrapper(cleaned_urls, proxy_manager=proxy_manager, fast_mode=True)
+            
+            # Convert results to dict format
+            results = []
+            for result in results_objs:
+                # Extract company/address info if available
+                company_name = None
+                company_description = None
+                addresses = []
+                
+                if hasattr(result, 'html') and result.html:
+                    try:
+                        from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
+                        company_extractor = CompanyInfoExtractor()
+                        address_extractor = AddressExtractor()
+                        
+                        company_name = company_extractor.extract_company_name(result.html)
+                        company_description = company_extractor.extract_company_description(result.html)
+                        addresses = address_extractor.extract_addresses(result.html)
+                    except Exception as e:
+                        logger.warning(f"Error extracting company/address for {result.url}: {str(e)}")
+                
+                # Convert addresses to strings
+                addresses_str = [str(addr) for addr in addresses] if addresses else []
+                
+                results.append({
+                    'url': result.url,
+                    'status': result.status,
+                    'emails': list(result.emails) if hasattr(result, 'emails') else [],
+                    'phones': list(result.phones) if hasattr(result, 'phones') else [],
+                    'confidence_score': round(result.confidence_score, 2) if hasattr(result, 'confidence_score') else 0,
+                    'company_name': company_name,
+                    'company_description': company_description,
+                    'addresses': addresses_str,
+                    'social_links': result.social_links if hasattr(result, 'social_links') else {},
+                    'fetch_time': round(result.fetch_time, 2) if hasattr(result, 'fetch_time') else 0
+                })
+            
+            logger.info(f"Batch scraping completed: {len(results)} URLs processed")
+            return jsonify({'results': results, 'total': len(results)})
+            
+        except Exception as e:
+            logger.error(f"Async batch scraper failed: {str(e)}, falling back to ThreadPoolExecutor")
+            
+            # Fallback to ThreadPoolExecutor if async batch fails
+            from concurrent.futures import ThreadPoolExecutor, as_completed
+            results = []
+            
+            with ThreadPoolExecutor(max_workers=5) as executor:
+                futures = {executor.submit(scrape_single_url, url): url for url in cleaned_urls}
+                for future in as_completed(futures):
+                    try:
+                        result = future.result()
+                        results.append(result)
+                    except Exception as e:
+                        url = futures[future]
+                        logger.error(f"Error processing {url}: {str(e)}")
+                        results.append({
+                            'url': url,
+                            'status': 'failed',
+                            'emails': [],
+                            'phones': [],
+                            'confidence_score': 0,
+                            'company_name': None,
+                            'company_description': None,
+                            'addresses': [],
+                            'reason': str(e)
+                        })
+            
+            return jsonify({'results': results, 'total': len(results)})
     
     except Exception as e:
-        logger.error(f"Batch scrape error: {str(e)}")
+        logger.error(f"Batch scrape error: {str(e)}", exc_info=True)
         return jsonify({'error': str(e)}), 500
 
 

@@ -25,6 +25,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, WebDriverException
 
+# Import cache module
+from cache import http_cache
+
 try:
     from advanced_scraper_features import AdvancedScraperPipeline
     ADVANCED_FEATURES_AVAILABLE = True
@@ -680,10 +683,12 @@ class DataValidator:
         'placeholder@', 'dummy@', 'temp@', 'temporary@'
     }
     
-    # Common fake/test phone patterns
+    # Common fake/test phone patterns (be specific to avoid false positives)
     FAKE_PHONES = {
-        '555-', '000-', '111-', '222-', '333-', '444-', '666-', '777-', '888-', '999-',
-        '123-456', '111-111', '000-000'
+        '555-0100', '555-0199',  # Reserved fictional numbers
+        '000-000-0000', '111-111-1111', '222-222-2222', '333-333-3333',
+        '444-444-4444', '666-666-6666', '777-777-7777', '888-888-8888', '999-999-9999',
+        '123-456-7890', '111-111', '000-000'
     }
     
     # Valid domain TLDs (basic check)
@@ -726,6 +731,21 @@ class DataValidator:
         # Remove non-digits for checking
         digits = re.sub(r'\D', '', phone)
         
+        # Minimum 10 digits for valid phone (US standard)
+        if len(digits) < 10:
+            return False
+        
+        # Maximum 15 digits (international standard)
+        if len(digits) > 15:
+            return False
+        
+        # For US numbers (10 digits), validate area code
+        if len(digits) == 10:
+            area_code = digits[:3]
+            # Invalid US area codes
+            if area_code[0] in ('0', '1'):  # Area codes can't start with 0 or 1
+                return False
+        
         # Check against fake patterns
         for fake in DataValidator.FAKE_PHONES:
             if fake in phone:
@@ -735,9 +755,14 @@ class DataValidator:
         if len(set(digits)) == 1:  # All same digit
             return False
         
-        # Check minimum length
-        if len(digits) < 7:
+        # Check for sequential digits (123456789, 987654321)
+        if digits in '0123456789' or digits in '9876543210':
             return False
+        
+        # Check for too many repeating digits (e.g., 1111111111)
+        for digit in '0123456789':
+            if digit * 7 in digits:  # 7 or more of same digit
+                return False
         
         return True
 
@@ -755,11 +780,10 @@ class DataValidator:
 class ContactExtractor:
     """Extract contact information from HTML"""
     
-    EMAIL_PATTERN = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-    PHONE_PATTERN = r'\b(?:\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})\b'
-    # STRICT: Only match phone numbers with proper formatting (not random digit sequences)
-    # Must have separators like -, ., space, or parentheses to be considered a phone
-    INTERNATIONAL_PHONE_PATTERN = r'(?:\+[0-9]{1,3}[-.\s]?)?(?:\(?[0-9]{2,4}\)?[-.\s]?)?[0-9]{3,4}[-.\s]?[0-9]{3,4}(?:[-.\s]?[0-9]{1,4})?'
+    # Pre-compiled regex patterns (compiled once at module load)
+    EMAIL_PATTERN = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
+    US_PHONE_PATTERN = re.compile(r'\b(?:\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})\b')
+    INTL_PHONE_PATTERN = re.compile(r'\+[0-9]{1,3}[-.\s]?(?:\(?[0-9]{2,4}\)?[-.\s]?)?[0-9]{3,4}[-.\s]?[0-9]{3,4}(?:[-.\s]?[0-9]{1,4})?')
     
     # Expanded leadership keywords
     LEADERSHIP_KEYWORDS = [
@@ -772,29 +796,41 @@ class ContactExtractor:
         'partner', 'principal'
     ]
     
-    # Social media patterns (more flexible to catch variations)
+    # Pre-compiled leadership patterns
+    LEADERSHIP_PATTERNS = {kw: re.compile(r'\b' + re.escape(kw) + r'\b', re.IGNORECASE) for kw in LEADERSHIP_KEYWORDS}
+    
+    # Social media patterns (pre-compiled)
     SOCIAL_PATTERNS = {
-        'linkedin': r'(?:https?://)?(?:www\.)?linkedin\.com/(?:company|in|profile)?/?[\w-]+',
-        'twitter': r'(?:https?://)?(?:www\.)?(?:twitter|x)\.com/[\w]+',
-        'facebook': r'(?:https?://)?(?:www\.)?facebook\.com/[\w.-]+',
-        'instagram': r'(?:https?://)?(?:www\.)?instagram\.com/[\w.]+',
-        'github': r'(?:https?://)?(?:www\.)?github\.com/[\w-]+',
-        'youtube': r'(?:https?://)?(?:www\.)?youtube\.com/(?:c|channel|user|@)?[\w-]+',
-        'tiktok': r'(?:https?://)?(?:www\.)?tiktok\.com/@[\w.-]+',
+        'linkedin': re.compile(r'(?:https?://)?(?:www\.)?linkedin\.com/(?:company|in|profile)?/?[\w-]+', re.IGNORECASE),
+        'twitter': re.compile(r'(?:https?://)?(?:www\.)?(?:twitter|x)\.com/[\w]+', re.IGNORECASE),
+        'facebook': re.compile(r'(?:https?://)?(?:www\.)?facebook\.com/[\w.-]+', re.IGNORECASE),
+        'instagram': re.compile(r'(?:https?://)?(?:www\.)?instagram\.com/[\w.]+', re.IGNORECASE),
+        'github': re.compile(r'(?:https?://)?(?:www\.)?github\.com/[\w-]+', re.IGNORECASE),
+        'youtube': re.compile(r'(?:https?://)?(?:www\.)?youtube\.com/(?:c|channel|user|@)?[\w-]+', re.IGNORECASE),
+        'tiktok': re.compile(r'(?:https?://)?(?:www\.)?tiktok\.com/@[\w.-]+', re.IGNORECASE),
     }
     
-    # No-reply email patterns to exclude
+    # No-reply email patterns (pre-compiled)
     NO_REPLY_PATTERNS = [
-        r'noreply', r'no-reply', r'do-not-reply', r'donotreply',
-        r'no_reply', r'notification', r'notifications',
-        r'automated', r'auto-reply', r'autoreply',
-        r'mailer-daemon', r'postmaster'
+        re.compile(r'noreply', re.IGNORECASE),
+        re.compile(r'no-reply', re.IGNORECASE),
+        re.compile(r'do-not-reply', re.IGNORECASE),
+        re.compile(r'donotreply', re.IGNORECASE),
+        re.compile(r'no_reply', re.IGNORECASE),
+        re.compile(r'notification', re.IGNORECASE),
+        re.compile(r'notifications', re.IGNORECASE),
+        re.compile(r'automated', re.IGNORECASE),
+        re.compile(r'auto-reply', re.IGNORECASE),
+        re.compile(r'autoreply', re.IGNORECASE),
+        re.compile(r'mailer-daemon', re.IGNORECASE),
+        re.compile(r'postmaster', re.IGNORECASE)
     ]
 
     @staticmethod
     def extract_emails(text: str) -> Set[str]:
         """Extract emails, filtering out no-reply and fake addresses"""
-        emails = set(re.findall(ContactExtractor.EMAIL_PATTERN, text))
+        # Use pre-compiled pattern
+        emails = set(ContactExtractor.EMAIL_PATTERN.findall(text))
         
         # Filter out invalid formats and no-reply addresses
         filtered_emails = set()
@@ -813,33 +849,61 @@ class ContactExtractor:
 
     @staticmethod
     def extract_phones(text: str) -> Set[str]:
-        """Extract and normalize phone numbers (minimum 6 digits), filtering fake ones"""
+        """Extract and normalize phone numbers (minimum 10 digits), filtering fake ones"""
         phones = set()
         
-        # STRICT: Only match phone numbers with proper formatting (dashes, parentheses, spaces)
-        # This prevents matching random digit sequences from code/timestamps
-        
-        # US format: (XXX) XXX-XXXX or XXX-XXX-XXXX or +1-XXX-XXX-XXXX
-        us_pattern = r'\b(?:\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})\b'
-        us_matches = re.findall(us_pattern, text)
+        # US format: Use pre-compiled pattern
+        us_matches = ContactExtractor.US_PHONE_PATTERN.findall(text)
         for match in us_matches:
             phone = f"{match[0]}-{match[1]}-{match[2]}"
+            # Validate before adding
             if DataValidator.is_valid_phone(phone):
                 phones.add(phone)
+            else:
+                # Debug: log rejected phones
+                import logging
+                logging.debug(f"Rejected phone (US): {phone}")
         
-        # International format: +XX-XXX-XXXX or similar (must have + and separators)
-        # This is STRICT - requires + prefix and proper formatting
-        intl_pattern = r'\+[0-9]{1,3}[-.\s]?(?:\(?[0-9]{2,4}\)?[-.\s]?)?[0-9]{3,4}[-.\s]?[0-9]{3,4}(?:[-.\s]?[0-9]{1,4})?'
-        intl_matches = re.findall(intl_pattern, text)
+        # International format: Use pre-compiled pattern
+        intl_matches = ContactExtractor.INTL_PHONE_PATTERN.findall(text)
         for phone in intl_matches:
             # Extract only digits
             digits = re.sub(r'\D', '', phone)
             # Only include if 10-15 digits (reasonable phone length)
             if 10 <= len(digits) <= 15:
+                # Validate before adding
                 if DataValidator.is_valid_phone(phone):
                     phones.add(phone)
         
-        return phones
+        # Additional filtering: Remove phones that look like dates, prices, etc.
+        filtered_phones = set()
+        for phone in phones:
+            digits = re.sub(r'\D', '', phone)
+            
+            # CRITICAL: Final check - must have at least 10 digits
+            if len(digits) < 10:
+                continue
+            
+            # Skip if looks like a year (19xx, 20xx)
+            if digits.startswith('19') or digits.startswith('20'):
+                if len(digits) == 4:
+                    continue
+            
+            # Skip if looks like a price (ends with 00, 99, etc.)
+            if len(digits) <= 6 and digits.endswith(('00', '99', '50')):
+                continue
+            
+            # Skip if all digits are the same or sequential
+            if len(set(digits)) <= 2:
+                continue
+            
+            # Final validation check
+            if not DataValidator.is_valid_phone(phone):
+                continue
+            
+            filtered_phones.add(phone)
+        
+        return filtered_phones
 
     @staticmethod
     def extract_leadership(html: str) -> int:
@@ -848,10 +912,9 @@ class ContactExtractor:
         text = soup.get_text().lower()
         count = 0
         
-        for keyword in ContactExtractor.LEADERSHIP_KEYWORDS:
-            # Use word boundaries to avoid partial matches
-            pattern = r'\b' + re.escape(keyword) + r'\b'
-            matches = re.findall(pattern, text)
+        # Use pre-compiled patterns
+        for keyword, pattern in ContactExtractor.LEADERSHIP_PATTERNS.items():
+            matches = pattern.findall(text)
             count += len(matches)
         
         # Normalize to reasonable range
@@ -864,17 +927,17 @@ class ContactExtractor:
         
         soup = BeautifulSoup(html, 'html.parser')
         
-        # Extract from links
+        # Extract from links (use pre-compiled patterns)
         for link in soup.find_all('a', href=True):
-            href = link.get('href', '').lower()
+            href = link.get('href', '')
             for platform, pattern in ContactExtractor.SOCIAL_PATTERNS.items():
-                if re.search(pattern, href):
+                if pattern.search(href):
                     social_links[platform].add(link['href'])
         
-        # Extract from text
+        # Extract from text (use pre-compiled patterns)
         text = soup.get_text()
         for platform, pattern in ContactExtractor.SOCIAL_PATTERNS.items():
-            matches = re.findall(pattern, text)
+            matches = pattern.findall(text)
             for match in matches:
                 social_links[platform].add(match)
         
@@ -1201,7 +1264,13 @@ class WebScraper:
         return html, success, mode.value, retries
 
     def _fetch_fast_html(self, url: str) -> Tuple[Optional[str], bool, int]:
-        """Fast HTML fetch using standard requests with header rotation"""
+        """Fast HTML fetch using standard requests with header rotation and caching"""
+        # PHASE 1 OPTIMIZATION: Check cache first
+        cached_html = http_cache.get(url)
+        if cached_html:
+            logger.debug(f"Cache hit for {url}")
+            return cached_html, True, 0
+        
         retries = 0
         headers_list = [
             AntiBlockingHeaders.get_random_headers(),
@@ -1222,6 +1291,8 @@ class WebScraper:
                 )
                 if response.status_code == 200:
                     logger.info(f"Fast HTML fetch succeeded for {url} on attempt {attempt}")
+                    # PHASE 1 OPTIMIZATION: Cache the response
+                    http_cache.set(url, response.text, ttl=3600)  # 1 hour TTL
                     return response.text, True, attempt - 1
                 elif response.status_code in [403, 429]:
                     logger.debug(f"Fast HTML got {response.status_code} for {url}, will retry")
@@ -1377,11 +1448,28 @@ class WebScraper:
                 driver.quit()
 
     def _extract_from_html(self, base_url: str, html: str) -> Tuple[Set[str], Set[str], int, int, Dict]:
-        emails = self.extractor.extract_emails(html)
-        phones = self.extractor.extract_phones(html)
-        leadership_count = self.extractor.extract_leadership(html)
-        social_links = self.extractor.extract_social_links(html)
+        """Extract all data from HTML using parallel extraction"""
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+        
+        # PHASE 1 OPTIMIZATION: Parallel extraction with ThreadPoolExecutor
+        emails = set()
+        phones = set()
+        leadership_count = 0
+        social_links = {}
         pages_scanned = 1
+        
+        # Extract from main page in parallel
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            email_future = executor.submit(self.extractor.extract_emails, html)
+            phone_future = executor.submit(self.extractor.extract_phones, html)
+            leadership_future = executor.submit(self.extractor.extract_leadership, html)
+            social_future = executor.submit(self.extractor.extract_social_links, html)
+            
+            # Gather results
+            emails = email_future.result()
+            phones = phone_future.result()
+            leadership_count = leadership_future.result()
+            social_links = social_future.result()
 
         # Discover contact and team pages
         contact_pages, team_pages = self.page_discovery.discover_all_pages(base_url, html)
@@ -1394,16 +1482,23 @@ class WebScraper:
             try:
                 discovered_html, success, _, _ = self._fetch_with_mode(discovered_url, FetchMode.FAST_HTML)
                 if success and discovered_html:
-                    emails.update(self.extractor.extract_emails(discovered_html))
-                    phones.update(self.extractor.extract_phones(discovered_html))
-                    leadership_count += self.extractor.extract_leadership(discovered_html)
-                    
-                    # Merge social links
-                    discovered_social = self.extractor.extract_social_links(discovered_html)
-                    for platform, links in discovered_social.items():
-                        if platform not in social_links:
-                            social_links[platform] = set()
-                        social_links[platform].update(links)
+                    # Parallel extraction for discovered pages too
+                    with ThreadPoolExecutor(max_workers=4) as executor:
+                        d_email_future = executor.submit(self.extractor.extract_emails, discovered_html)
+                        d_phone_future = executor.submit(self.extractor.extract_phones, discovered_html)
+                        d_leadership_future = executor.submit(self.extractor.extract_leadership, discovered_html)
+                        d_social_future = executor.submit(self.extractor.extract_social_links, discovered_html)
+                        
+                        emails.update(d_email_future.result())
+                        phones.update(d_phone_future.result())
+                        leadership_count += d_leadership_future.result()
+                        
+                        # Merge social links
+                        discovered_social = d_social_future.result()
+                        for platform, links in discovered_social.items():
+                            if platform not in social_links:
+                                social_links[platform] = set()
+                            social_links[platform].update(links)
                     
                     pages_scanned += 1
                     logger.debug(f"Successfully scanned discovered page: {discovered_url}")

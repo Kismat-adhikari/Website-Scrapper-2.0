@@ -1,0 +1,13 @@
+# Phase 3: Job Queue Dependencies
+
+# Redis client
+redis==5.0.1
+
+# Celery for task queue
+celery==5.3.4
+
+# Optional: Flower for monitoring Celery workers
+flower==2.0.1
+
+# All previous requirements
+-r requirements_flask.txt

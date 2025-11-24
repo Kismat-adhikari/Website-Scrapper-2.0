@@ -6,10 +6,8 @@ function addLog(message, type = 'info') {
     const timestamp = new Date().toLocaleTimeString();
     logs.push({ message, type, timestamp });
     
-    const logsContainer = document.getElementById('logsContainer');
     const logsList = document.getElementById('logsList');
-    
-    logsContainer.style.display = 'block';
+    if (!logsList) return; // Skip if logs not available
     
     const logEntry = document.createElement('div');
     logEntry.className = `log-entry ${type}`;
@@ -93,12 +91,16 @@ async function scrapeSingle() {
     
     // Clear logs without event
     logs = [];
-    document.getElementById('logsList').innerHTML = '';
+    const logsList = document.getElementById('logsList');
+    if (logsList) {
+        logsList.innerHTML = '';
+    }
     
     addLog(`Starting scrape for ${url}`, 'info');
     updateProgress(10, 'Initializing...');
     
-    const btn = event.target.closest('.btn');
+    // Find the button that was clicked
+    const btn = document.querySelector('#single .btn-primary');
     const btnText = btn.querySelector('.btn-text');
     const btnLoader = btn.querySelector('.btn-loader');
     
@@ -113,17 +115,20 @@ async function scrapeSingle() {
         const response = await fetch('/api/scrape', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url, block_keywords: blockKeywords })
+            body: JSON.stringify({ url, block_keywords: blockKeywords }),
+            timeout: 120000
         });
         
         updateProgress(50, 'Processing results...');
-        const data = await response.json();
         
         if (!response.ok) {
-            addLog('Error: ' + data.error, 'error');
-            alert('Error: ' + data.error);
+            const errorData = await response.json();
+            addLog('Error: ' + (errorData.error || response.statusText), 'error');
+            alert('Error: ' + (errorData.error || response.statusText));
             return;
         }
+        
+        const data = await response.json();
         
         addLog(`Found ${data.emails.length} emails`, 'success');
         addLog(`Found ${data.phones.length} phones`, 'success');
@@ -145,6 +150,7 @@ async function scrapeSingle() {
         }, 1500);
         
     } catch (error) {
+        console.error('Scrape error:', error);
         addLog('Error: ' + error.message, 'error');
         alert('Error: ' + error.message);
     } finally {
@@ -267,11 +273,6 @@ function displaySingleResults(data) {
             </div>
             
             <div class="result-field">
-                <span class="result-label">Load Time:</span>
-                <span class="result-value">${data.load_time.toFixed(2)}s</span>
-            </div>
-            
-            <div class="result-field">
                 <span class="result-label">SSL Valid:</span>
                 <span class="result-value">${data.ssl_valid ? '✅ Yes' : '❌ No'}</span>
             </div>
@@ -329,6 +330,7 @@ function displaySingleResults(data) {
 // Scrape batch URLs
 async function scrapeBatch() {
     const urlsText = document.getElementById('batchUrls').value.trim();
+    const blockKeywords = document.getElementById('batchBlockKeywords').value;
     
     if (!urlsText) {
         alert('Please enter URLs');
@@ -337,7 +339,13 @@ async function scrapeBatch() {
     
     const urls = urlsText.split('\n').map(u => u.trim()).filter(u => u);
     
-    const btn = event.target.closest('.btn');
+    if (urls.length === 0) {
+        alert('Please enter at least one URL');
+        return;
+    }
+    
+    // Find the button
+    const btn = document.querySelector('#batch .btn-primary');
     const btnText = btn.querySelector('.btn-text');
     const btnLoader = btn.querySelector('.btn-loader');
     
@@ -345,22 +353,69 @@ async function scrapeBatch() {
     btnLoader.style.display = 'inline';
     btn.disabled = true;
     
+    // Show progress
+    const progressContainer = document.getElementById('batchProgressContainer');
+    progressContainer.style.display = 'block';
+    
     try {
-        const response = await fetch('/api/batch', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ urls })
-        });
+        const results = [];
         
-        const data = await response.json();
-        
-        if (!response.ok) {
-            alert('Error: ' + data.error);
-            return;
+        // Scrape each URL individually to show progress
+        for (let i = 0; i < urls.length; i++) {
+            const url = urls[i];
+            const percent = Math.round((i / urls.length) * 100);
+            
+            document.getElementById('batchProgressText').textContent = `Scraping ${i + 1} of ${urls.length}...`;
+            document.getElementById('batchProgressPercent').textContent = percent + '%';
+            document.getElementById('batchProgressFill').style.width = percent + '%';
+            
+            try {
+                const response = await fetch('/api/scrape', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url, block_keywords: blockKeywords })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    results.push(data);
+                } else {
+                    const errorData = await response.json();
+                    results.push({
+                        url: url,
+                        status: 'failed',
+                        reason: errorData.error || 'Unknown error',
+                        emails: [],
+                        phones: [],
+                        confidence_score: 0
+                    });
+                }
+            } catch (error) {
+                results.push({
+                    url: url,
+                    status: 'failed',
+                    reason: error.message,
+                    emails: [],
+                    phones: [],
+                    confidence_score: 0
+                });
+            }
         }
         
-        displayBatchResults(data.results);
+        // Complete
+        document.getElementById('batchProgressText').textContent = 'Complete!';
+        document.getElementById('batchProgressPercent').textContent = '100%';
+        document.getElementById('batchProgressFill').style.width = '100%';
+        
+        displayBatchResults(results);
+        window.lastResults = results;
+        
+        setTimeout(() => {
+            progressContainer.style.display = 'none';
+        }, 1500);
+        
     } catch (error) {
+        console.error('Batch scrape error:', error);
         alert('Error: ' + error.message);
     } finally {
         btnText.style.display = 'inline';
@@ -374,27 +429,52 @@ function displayBatchResults(results) {
     const resultsDiv = document.getElementById('batchResults');
     const content = document.getElementById('batchResultsContent');
     
-    let html = `<table class="results-table">
-        <thead>
-            <tr>
-                <th>URL</th>
-                <th>Status</th>
-                <th>Emails</th>
-                <th>Phones</th>
-                <th>Confidence</th>
-            </tr>
-        </thead>
-        <tbody>
+    let html = `
+        <div class="batch-summary">
+            <div class="summary-stat">
+                <span class="summary-label">Total URLs:</span>
+                <span class="summary-value">${results.length}</span>
+            </div>
+            <div class="summary-stat">
+                <span class="summary-label">Successful:</span>
+                <span class="summary-value">${results.filter(r => r.status === 'success').length}</span>
+            </div>
+            <div class="summary-stat">
+                <span class="summary-label">Total Emails:</span>
+                <span class="summary-value">${results.reduce((sum, r) => sum + (r.emails ? r.emails.length : 0), 0)}</span>
+            </div>
+            <div class="summary-stat">
+                <span class="summary-label">Total Phones:</span>
+                <span class="summary-value">${results.reduce((sum, r) => sum + (r.phones ? r.phones.length : 0), 0)}</span>
+            </div>
+        </div>
+        
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>URL</th>
+                    <th>Status</th>
+                    <th>Emails</th>
+                    <th>Phones</th>
+                    <th>Company</th>
+                    <th>Confidence</th>
+                </tr>
+            </thead>
+            <tbody>
     `;
     
-    results.forEach(result => {
+    results.forEach((result, idx) => {
+        const company = result.company_name ? result.company_name.substring(0, 20) : '-';
         html += `
-            <tr>
-                <td><a href="${result.url}" target="_blank">${result.url.substring(0, 40)}...</a></td>
+            <tr class="result-row status-${result.status}">
+                <td>${idx + 1}</td>
+                <td><a href="${result.url}" target="_blank" title="${result.url}">${result.url.substring(0, 35)}...</a></td>
                 <td><span class="status-badge status-${result.status === 'success' ? 'success' : 'warning'}">${result.status}</span></td>
-                <td>${result.emails.length}</td>
-                <td>${result.phones.length}</td>
-                <td>${(result.confidence_score * 100).toFixed(0)}%</td>
+                <td>${result.emails ? result.emails.length : 0}</td>
+                <td>${result.phones ? result.phones.length : 0}</td>
+                <td>${company}</td>
+                <td>${((result.confidence_score || 0) * 100).toFixed(0)}%</td>
             </tr>
         `;
     });
@@ -403,9 +483,34 @@ function displayBatchResults(results) {
     
     content.innerHTML = html;
     resultsDiv.style.display = 'block';
+}
+
+// Download batch results
+async function downloadBatchResults() {
+    if (!window.lastResults || window.lastResults.length === 0) {
+        alert('No results to download');
+        return;
+    }
     
-    // Store for download
-    window.lastResults = results;
+    try {
+        const response = await fetch('/api/export', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ results: window.lastResults })
+        });
+        
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `bulk_results_${new Date().getTime()}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    } catch (error) {
+        alert('Error downloading: ' + error.message);
+    }
 }
 
 // Download results

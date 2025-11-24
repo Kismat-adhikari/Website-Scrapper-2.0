@@ -25,7 +25,7 @@
                 </button>
                 <button class="nav-item" data-tab="batch">
                     <span class="nav-icon">📦</span>
-                    <span class="nav-label">Batch URLs</span>
+                    <span class="nav-label">Bulk URLs</span>
                 </button>
             </nav>
 
@@ -106,27 +106,50 @@
                 <div id="batch" class="tab-content">
                     <div class="card">
                         <div class="card-header">
-                            <h3>Batch Scraping</h3>
-                            <p>Scrape multiple URLs at once</p>
+                            <h3>Bulk URL Scraping</h3>
+                            <p>Scrape multiple URLs at once and download results</p>
                         </div>
                         
                         <div class="card-body">
                             <div class="form-group">
                                 <label>URLs (one per line)</label>
-                                <textarea id="batchUrls" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com" class="textarea"></textarea>
+                                <textarea id="batchUrls" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com&#10;https://example4.com" class="textarea"></textarea>
+                                <small>Paste multiple URLs, one per line</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Block Keywords <span class="optional">(optional)</span></label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">🚫</span>
+                                    <input type="text" id="batchBlockKeywords" placeholder="e.g., noreply, @outlook, team" class="input">
+                                </div>
+                                <small>Apply to all URLs in batch</small>
                             </div>
 
                             <button class="btn btn-primary btn-lg" onclick="scrapeBatch()">
-                                <span class="btn-text">🚀 Scrape All</span>
+                                <span class="btn-text">🚀 Scrape All URLs</span>
                                 <span class="btn-loader" style="display:none;">⏳</span>
                             </button>
+
+                            <!-- Progress for batch -->
+                            <div id="batchProgressContainer" style="display:none; margin-top: 20px;">
+                                <div class="progress-section">
+                                    <div class="progress-info">
+                                        <span id="batchProgressText">Starting...</span>
+                                        <span id="batchProgressPercent">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div id="batchProgressFill" class="progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div id="batchResults" class="card results-card" style="display:none;">
                         <div class="card-header">
                             <h3>Batch Results</h3>
-                            <button class="btn btn-secondary btn-sm" onclick="downloadResults()">📥 Download CSV</button>
+                            <button class="btn btn-secondary btn-sm" onclick="downloadBatchResults()">📥 Download CSV</button>
                         </div>
                         <div id="batchResultsContent" class="card-body"></div>
                     </div>
