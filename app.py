@@ -18,6 +18,9 @@ from async_scraper import scrape_url_async_wrapper, scrape_urls_batch_wrapper
 from aggressive_scraper import create_aggressive_scraper
 from email_validator import create_validator
 from role_detector import create_role_detector
+from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
+from context_extractor import ContextExtractor
+from schema_extractor import SchemaExtractor
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -39,6 +42,10 @@ proxy_manager = ProxyManager()
 scraper = WebScraper(proxy_manager, enable_precheck=True)
 email_validator = create_validator(enable_smtp=True, enable_role_detection=True, smtp_max_workers=10)
 role_detector = create_role_detector()
+company_extractor = CompanyInfoExtractor()
+address_extractor = AddressExtractor()
+context_extractor = ContextExtractor()
+schema_extractor = SchemaExtractor()
 
 # Store results for download
 results_cache = {}
@@ -64,15 +71,31 @@ def scrape():
         if not url.startswith('http'):
             url = f'https://{url}'
         
+        # Create logs list to send back
+        logs = []
+        
+        logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': f'🔍 Starting scrape for {url}', 'type': 'info'})
         logger.info(f"Scraping {url}")
         
-        # PHASE 2: Use async scraper for better performance
-        # Use fast_mode=False to scrape contact/about pages too
-        result = scrape_url_async_wrapper(url, proxy_manager=proxy_manager, fast_mode=False)
+        # Try async scraper first (super fast - main page only)
+        logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': '⚡ Trying fast HTTP scraper...', 'type': 'info'})
+        result = scrape_url_async_wrapper(url, proxy_manager=proxy_manager, fast_mode=True)
+        
+        # Only use aggressive mode if completely failed (not just no data)
+        # This makes it much faster - most sites work with async
+        if result.status == 'failed':
+            logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': '❌ Fast scraper failed', 'type': 'warning'})
+            logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': '🚀 Trying aggressive mode...', 'type': 'info'})
+            logger.info(f"Async scraper failed for {url}, trying aggressive mode")
+            aggressive = create_aggressive_scraper(scraper)
+            result = aggressive.scrape_aggressive(url)
+        else:
+            logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': '✓ Fast scraper succeeded', 'type': 'success'})
         
         # Check if scraping failed
         if not result or result.status == 'failed':
             error_reason = getattr(result, 'reason', 'Unknown error') if result else 'Scraping failed'
+            logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': f'❌ Scraping failed: {error_reason}', 'type': 'error'})
             logger.error(f"Scraping failed for {url}: {error_reason}")
             return jsonify({
                 'url': url,
@@ -82,43 +105,49 @@ def scrape():
                 'phones': [],
                 'confidence_score': 0,
                 'company_name': None,
-                'addresses': []
+                'addresses': [],
+                'logs': logs
             })
         
-        # Quick company/address extraction from HTML (no extra scraping)
+        # Quick company name extraction only (for speed)
         company_name = None
-        company_description = None
-        addresses = []
+        company_description = None  # Skip for speed
+        addresses = []  # Skip for speed
         
         if hasattr(result, 'html') and result.html:
             try:
-                from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
-                company_extractor = CompanyInfoExtractor()
-                address_extractor = AddressExtractor()
-                
+                # Only extract company name (fast, ~0.1s)
                 company_name = company_extractor.extract_company_name(result.html)
-                company_description = company_extractor.extract_company_description(result.html)
-                addresses = address_extractor.extract_addresses(result.html)
             except Exception as e:
-                logger.warning(f"Error extracting company/address for {url}: {str(e)}")
+                logger.warning(f"Error extracting company name for {url}: {str(e)}")
         
         # Get emails and phones (handle both set and list)
         emails = list(result.emails) if hasattr(result, 'emails') else []
         phones = list(result.phones) if hasattr(result, 'phones') else []
         
+        logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': f'📧 Found {len(emails)} emails, {len(phones)} phones', 'type': 'success'})
+        
         # Apply keyword blocking
         if block_keywords and emails:
             keywords = [kw.strip().lower() for kw in block_keywords.split(',') if kw.strip()]
+            original_count = len(emails)
             emails = [e for e in emails if not any(kw in e.lower() for kw in keywords)]
+            if original_count != len(emails):
+                logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': f'🚫 Filtered {original_count - len(emails)} emails by keywords', 'type': 'info'})
         if block_keywords and phones:
             keywords = [kw.strip().lower() for kw in block_keywords.split(',') if kw.strip()]
+            original_count = len(phones)
             phones = [p for p in phones if not any(kw in p.lower() for kw in keywords)]
+            if original_count != len(phones):
+                logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': f'🚫 Filtered {original_count - len(phones)} phones by keywords', 'type': 'info'})
         
         # Skip email validation for speed - emails already have syntax/MX checks
         email_categories = {}
         
         # Convert addresses to strings
         addresses_str = [str(addr) for addr in addresses] if addresses else []
+        
+        logs.append({'time': datetime.now().strftime('%H:%M:%S'), 'message': '✅ Scraping complete!', 'type': 'success'})
         
         # Build response with safe attribute access
         response = {
@@ -141,7 +170,8 @@ def scrape():
             'company_name': company_name,
             'company_description': company_description,
             'addresses': addresses_str,
-            'data_quality_score': 0
+            'data_quality_score': 0,
+            'logs': logs
         }
         
         # Cache for download
@@ -187,13 +217,27 @@ def scrape_single_url(url):
         
         if hasattr(result, 'html') and result.html:
             try:
-                from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
-                company_extractor = CompanyInfoExtractor()
-                address_extractor = AddressExtractor()
-                
+                # Extract company info
                 company_name = company_extractor.extract_company_name(result.html)
                 company_description = company_extractor.extract_company_description(result.html)
-                addresses = address_extractor.extract_addresses(result.html)
+                
+                # Try multiple address extraction methods
+                schema_data = schema_extractor.extract_all(result.html)
+                if schema_data and 'address' in schema_data:
+                    addr_data = schema_data['address']
+                    if isinstance(addr_data, dict):
+                        addr_str = f"{addr_data.get('streetAddress', '')}, {addr_data.get('addressLocality', '')}, {addr_data.get('addressRegion', '')} {addr_data.get('postalCode', '')}".strip(', ')
+                        if addr_str:
+                            addresses.append(addr_str)
+                
+                context_addresses = context_extractor.extract_addresses_with_context(result.html)
+                addresses.extend(context_addresses)
+                
+                pattern_addresses = address_extractor.extract_addresses(result.html)
+                addresses.extend([str(addr) for addr in pattern_addresses])
+                
+                addresses = list(set(addresses))
+                
             except Exception as e:
                 logger.warning(f"Error extracting company/address for {url}: {str(e)}")
         
@@ -265,13 +309,27 @@ def batch_scrape():
                 
                 if hasattr(result, 'html') and result.html:
                     try:
-                        from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
-                        company_extractor = CompanyInfoExtractor()
-                        address_extractor = AddressExtractor()
-                        
+                        # Extract company info
                         company_name = company_extractor.extract_company_name(result.html)
                         company_description = company_extractor.extract_company_description(result.html)
-                        addresses = address_extractor.extract_addresses(result.html)
+                        
+                        # Try multiple address extraction methods
+                        schema_data = schema_extractor.extract_all(result.html)
+                        if schema_data and 'address' in schema_data:
+                            addr_data = schema_data['address']
+                            if isinstance(addr_data, dict):
+                                addr_str = f"{addr_data.get('streetAddress', '')}, {addr_data.get('addressLocality', '')}, {addr_data.get('addressRegion', '')} {addr_data.get('postalCode', '')}".strip(', ')
+                                if addr_str:
+                                    addresses.append(addr_str)
+                        
+                        context_addresses = context_extractor.extract_addresses_with_context(result.html)
+                        addresses.extend(context_addresses)
+                        
+                        pattern_addresses = address_extractor.extract_addresses(result.html)
+                        addresses.extend([str(addr) for addr in pattern_addresses])
+                        
+                        addresses = list(set(addresses))
+                        
                     except Exception as e:
                         logger.warning(f"Error extracting company/address for {result.url}: {str(e)}")
                 

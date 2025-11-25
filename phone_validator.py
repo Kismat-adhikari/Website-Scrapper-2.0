@@ -408,6 +408,31 @@ class PhoneValidator:
         if zero_count > len(digits_only) * 0.6 or one_count > len(digits_only) * 0.6:
             return normalized, False
         
+        # STRICT: Reject sequential numbers (123456789, 987654321)
+        is_sequential = True
+        for i in range(len(digits_only) - 1):
+            if abs(int(digits_only[i]) - int(digits_only[i+1])) > 1:
+                is_sequential = False
+                break
+        if is_sequential and len(digits_only) >= 7:
+            return normalized, False
+        
+        # STRICT: Reject numbers with invalid US area codes (starting with 0 or 1)
+        if len(digits_only) >= 10:
+            # Check if it's a US/CA number (10-11 digits)
+            if len(digits_only) in [10, 11]:
+                # Get area code (first 3 digits after country code)
+                area_code_start = 1 if len(digits_only) == 11 and digits_only[0] == '1' else 0
+                area_code = digits_only[area_code_start:area_code_start+3]
+                
+                # Area codes can't start with 0 or 1
+                if area_code[0] in ['0', '1']:
+                    return normalized, False
+        
+        # STRICT: Reject numbers that are too short to be real
+        if len(digits_only) < 10:
+            return normalized, False
+        
         return normalized, True
     
     def _check_length(self, normalized: str) -> bool:

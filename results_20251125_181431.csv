@@ -1,0 +1,7 @@
+url,status,emails,phones,addresses,social_links,company_name,company_description,pages_scraped,data_quality_score,confidence_score,pages_scanned,leadership_count,retry_count,fetch_mode,reason,load_time,validation_timestamp
+https://www.emissarycafe.com/,success,Not found,Not found,3308 Mary Street Coconut Grove FL 33133,"{""instagram"": [""https://www.instagram.com/emissary.miami/""]}",EMISSARY,"Welcome to Emissary Cafe & Coffeehouse in the heart of Coconut Grove, 
+Miami! Experience our commitment to local, seasonal ingredients, premium 
+coffee and espresso from roasters Counter Culture and Pergamino, and 
+authentic hospitality. Our bright, airy, friendly, and open space is 
+created for you and the community, and welcomes everyone, of all 
+backgrounds and beliefs.","{'homepage': False, 'contact': False, 'about': False, 'team': False, 'careers': False, 'services': False, 'blog': False}",0.39,0.28,1,0,0,fast_html,Success,14.06,2025-11-25T18:14:45.772270

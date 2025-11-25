@@ -60,14 +60,14 @@ class AggressiveScraper:
             logger.info(f"Trying {strategy.name} for {url}")
             result = self._try_strategy(url, strategy)
             
-            # If successful, remember this strategy for this domain
-            if result.status == "success" and result.emails or result.phones:
+            # If successful (found data), remember this strategy and return immediately
+            if result and result.status == "success" and (result.emails or result.phones):
                 self.strategy_history[domain] = strategy
-                logger.info(f"Success with {strategy.name} for {domain}")
+                logger.info(f"✓ Success with {strategy.name} for {domain} - found {len(result.emails)} emails, {len(result.phones)} phones")
                 return result
             
-            # If failed, try next strategy
-            logger.debug(f"{strategy.name} failed for {url}, trying next strategy")
+            # If failed or no data, try next strategy
+            logger.debug(f"✗ {strategy.name} failed for {url}, trying next strategy")
         
         # All strategies failed
         logger.warning(f"All strategies failed for {url}")
@@ -75,12 +75,12 @@ class AggressiveScraper:
     
     def _build_strategy_list(self, preferred: Optional[ScrapingStrategy]) -> List[ScrapingStrategy]:
         """Build list of strategies to try, with preferred first"""
+        # Start with fastest methods, only escalate if needed
         all_strategies = [
-            ScrapingStrategy.FAST_HTML,
-            ScrapingStrategy.JS_RENDERING,
-            ScrapingStrategy.HARD_MODE,
-            ScrapingStrategy.AGGRESSIVE_JS,
-            ScrapingStrategy.AGGRESSIVE_HARD,
+            ScrapingStrategy.FAST_HTML,      # Try fast first
+            ScrapingStrategy.JS_RENDERING,   # Then JS if fast fails
+            ScrapingStrategy.AGGRESSIVE_JS,  # Then aggressive JS
+            # Skip HARD_MODE and AGGRESSIVE_HARD unless really needed
         ]
         
         if preferred and preferred in all_strategies:
@@ -131,7 +131,8 @@ class AggressiveScraper:
                 page = browser.new_page()
                 
                 try:
-                    page.goto(url, wait_until='networkidle', timeout=15000)
+                    # Super fast - just load the page
+                    page.goto(url, wait_until='domcontentloaded', timeout=5000)
                     html = page.content()
                     
                     # Extract using base scraper's extraction methods
@@ -187,15 +188,12 @@ class AggressiveScraper:
                 page = browser.new_page()
                 
                 try:
-                    # Longer timeout and wait for all network requests
-                    page.goto(url, wait_until='networkidle', timeout=30000)
+                    # Fast timeout - don't wait too long
+                    page.goto(url, wait_until='domcontentloaded', timeout=8000)
                     
-                    # Wait for dynamic content
-                    time.sleep(2)
-                    
-                    # Scroll to trigger lazy loading
+                    # Quick scroll to trigger lazy loading
                     page.evaluate("window.scrollBy(0, document.body.scrollHeight)")
-                    time.sleep(1)
+                    time.sleep(0.3)
                     
                     html = page.content()
                     
@@ -239,15 +237,15 @@ class AggressiveScraper:
             from bs4 import BeautifulSoup
             from scraper import AntiBlockingHeaders, ScraperResult
             
-            max_retries = 10
+            max_retries = 3  # Reduced from 10 to 3
             for attempt in range(max_retries):
                 try:
                     headers = AntiBlockingHeaders.get_random_headers()
                     proxy = self.base_scraper.proxy_manager.get_next_proxy()
                     
-                    # Longer delay between attempts
+                    # Shorter delay between attempts
                     if attempt > 0:
-                        delay = 2 + (attempt * 1.5)
+                        delay = 1 + attempt  # Reduced delay
                         logger.debug(f"Aggressive hard mode delay: {delay}s")
                         time.sleep(delay)
                     
@@ -255,7 +253,7 @@ class AggressiveScraper:
                         url,
                         headers=headers,
                         proxies=proxy,
-                        timeout=15,
+                        timeout=8,  # Reduced from 15 to 8
                         allow_redirects=True,
                         verify=False
                     )

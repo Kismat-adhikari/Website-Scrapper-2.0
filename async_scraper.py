@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class AsyncWebScraper:
     """Async version of WebScraper for better performance"""
     
-    def __init__(self, proxy_manager=None, timeout: int = 10, max_pages: int = 3):
+    def __init__(self, proxy_manager=None, timeout: int = 4, max_pages: int = 1):
         self.proxy_manager = proxy_manager
         self.timeout = timeout
         self.max_pages = max_pages
@@ -61,19 +61,8 @@ class AsyncWebScraper:
                 # Extract data in parallel
                 emails, phones, leadership_count, social_links = await self._extract_all_async(html)
                 
-                # Discover and fetch additional pages in parallel (if not fast_mode)
+                # Skip additional pages for speed - let aggressive mode handle it if needed
                 pages_scanned = 1
-                if not fast_mode:
-                    additional_data = await self._fetch_additional_pages_async(url, html, session)
-                    if additional_data:
-                        emails.update(additional_data['emails'])
-                        phones.update(additional_data['phones'])
-                        leadership_count += additional_data['leadership']
-                        for platform, links in additional_data['social'].items():
-                            if platform not in social_links:
-                                social_links[platform] = set()
-                            social_links[platform].update(links)
-                        pages_scanned += additional_data['pages_scanned']
             
             # Calculate confidence
             confidence_score = self._calculate_confidence(

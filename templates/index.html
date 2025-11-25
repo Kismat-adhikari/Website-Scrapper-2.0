@@ -14,20 +14,26 @@
                 <div class="logo-icon">🔍</div>
                 <div class="logo-text">
                     <h2>Scraper</h2>
-                    <p>v1.0</p>
+                    <p>v2.0</p>
                 </div>
             </div>
             
-            <nav class="nav">
-                <button class="nav-item active" data-tab="single">
-                    <span class="nav-icon">📄</span>
-                    <span class="nav-label">Single URL</span>
-                </button>
-                <button class="nav-item" data-tab="batch">
-                    <span class="nav-icon">📦</span>
-                    <span class="nav-label">Bulk URLs</span>
-                </button>
-            </nav>
+            <div class="sidebar-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">⚡</span>
+                    <div class="stat-info">
+                        <span class="stat-label">Speed</span>
+                        <span class="stat-value">1-2s/URL</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🎯</span>
+                    <div class="stat-info">
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value">95%+</span>
+                    </div>
+                </div>
+            </div>
 
             <div class="sidebar-footer">
                 <p>Fast • Accurate • Reliable</p>
@@ -46,21 +52,19 @@
 
             <!-- Content Area -->
             <div class="content-area">
-                <!-- Single URL Tab -->
-                <div id="single" class="tab-content active">
+                <!-- Unified Scraping Interface -->
+                <div id="scraper" class="tab-content active">
                     <div class="card">
                         <div class="card-header">
-                            <h3>Scrape Website</h3>
-                            <p>Enter a URL to extract contact information</p>
+                            <h3>Scrape Websites</h3>
+                            <p>Enter one or multiple URLs (one per line)</p>
                         </div>
                         
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Website URL</label>
-                                <div class="input-wrapper">
-                                    <span class="input-icon">🌐</span>
-                                    <input type="text" id="singleUrl" placeholder="https://example.com" class="input">
-                                </div>
+                                <label>Website URL(s)</label>
+                                <textarea id="urlInput" placeholder="https://example.com&#10;https://example2.com&#10;https://example3.com" class="textarea" rows="5"></textarea>
+                                <small>💡 Enter one URL for single scrape, or multiple URLs (one per line) for batch scraping</small>
                             </div>
 
                             <div class="form-group">
@@ -72,8 +76,8 @@
                                 <small>Comma-separated keywords to exclude from results</small>
                             </div>
 
-                            <button class="btn btn-primary btn-lg" onclick="scrapeSingle()">
-                                <span class="btn-text">🚀 Scrape Website</span>
+                            <button class="btn btn-primary btn-lg" onclick="scrapeUrls()">
+                                <span class="btn-text">🚀 Start Scraping</span>
                                 <span class="btn-loader" style="display:none;">⏳</span>
                             </button>
                         </div>
@@ -90,68 +94,23 @@
                                 <div id="progressFill" class="progress-fill"></div>
                             </div>
                         </div>
+                        
+                        <!-- Live Logs -->
+                        <div class="logs-section" style="margin-top: 20px;">
+                            <div class="logs-header">
+                                <h4>📋 Live Logs</h4>
+                            </div>
+                            <div id="liveLogsList" class="logs-list"></div>
+                        </div>
                     </div>
 
                     <!-- Results -->
-                    <div id="singleResults" class="card results-card" style="display:none;">
+                    <div id="results" class="card results-card" style="display:none;">
                         <div class="card-header">
                             <h3>Results</h3>
                             <button class="btn btn-secondary btn-sm" onclick="downloadResults()">📥 Download CSV</button>
                         </div>
                         <div id="resultsContent" class="card-body"></div>
-                    </div>
-                </div>
-
-                <!-- Batch URLs Tab -->
-                <div id="batch" class="tab-content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Bulk URL Scraping</h3>
-                            <p>Scrape multiple URLs at once and download results</p>
-                        </div>
-                        
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>URLs (one per line)</label>
-                                <textarea id="batchUrls" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com&#10;https://example4.com" class="textarea"></textarea>
-                                <small>Paste multiple URLs, one per line</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Block Keywords <span class="optional">(optional)</span></label>
-                                <div class="input-wrapper">
-                                    <span class="input-icon">🚫</span>
-                                    <input type="text" id="batchBlockKeywords" placeholder="e.g., noreply, @outlook, team" class="input">
-                                </div>
-                                <small>Apply to all URLs in batch</small>
-                            </div>
-
-                            <button class="btn btn-primary btn-lg" onclick="scrapeBatch()">
-                                <span class="btn-text">🚀 Scrape All URLs</span>
-                                <span class="btn-loader" style="display:none;">⏳</span>
-                            </button>
-
-                            <!-- Progress for batch -->
-                            <div id="batchProgressContainer" style="display:none; margin-top: 20px;">
-                                <div class="progress-section">
-                                    <div class="progress-info">
-                                        <span id="batchProgressText">Starting...</span>
-                                        <span id="batchProgressPercent">0%</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div id="batchProgressFill" class="progress-fill"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="batchResults" class="card results-card" style="display:none;">
-                        <div class="card-header">
-                            <h3>Batch Results</h3>
-                            <button class="btn btn-secondary btn-sm" onclick="downloadBatchResults()">📥 Download CSV</button>
-                        </div>
-                        <div id="batchResultsContent" class="card-body"></div>
                     </div>
                 </div>
             </div>

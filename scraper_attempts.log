@@ -201,3 +201,6 @@
 2025-11-24 18:10:30,216 - URL: https://www.unionsquarecafe.com | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 1 | Confidence: 0.55 | LoadTime: 0.04s | Reason: Success
 2025-11-24 18:10:32,932 - URL: https://www.littlecollinsnyc.com | Status: success | Mode: fast_html | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 2 | Confidence: 0.75 | LoadTime: 1.01s | Reason: Success
 2025-11-24 18:10:48,986 - URL: https://www.birchcoffee.com | Status: success | Mode: hard_mode | Retries: 0 | Pages: 2 | Emails: 0 | Phones: 32 | Confidence: 0.70 | LoadTime: 0.29s | Reason: Success
+2025-11-25 11:15:09,537 - URL: https://www.kfc.com | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 0 | Confidence: 0.28 | LoadTime: 0.00s | Reason: Success
+2025-11-25 18:04:52,627 - URL: https://emissarycafe.com | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 0 | Confidence: 0.28 | LoadTime: 0.00s | Reason: Success
+2025-11-25 18:14:45,772 - URL: https://www.emissarycafe.com/ | Status: success | Mode: fast_html | Retries: 0 | Pages: 1 | Emails: 0 | Phones: 0 | Confidence: 0.28 | LoadTime: 0.00s | Reason: Success

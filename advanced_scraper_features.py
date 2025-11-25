@@ -479,20 +479,93 @@ class CompanyInfoExtractor:
         
         try:
             soup = BeautifulSoup(html, 'html.parser')
+            descriptions = []
             
             # Try meta description
             meta_desc = soup.find('meta', attrs={'name': 'description'})
             if meta_desc and meta_desc.get('content'):
                 desc = meta_desc.get('content').strip()
                 if len(desc) > 20:
-                    return desc
+                    descriptions.append(desc)
             
             # Try og:description
             og_desc = soup.find('meta', property='og:description')
             if og_desc and og_desc.get('content'):
                 desc = og_desc.get('content').strip()
-                if len(desc) > 20:
-                    return desc
+                if len(desc) > 20 and desc not in descriptions:
+                    descriptions.append(desc)
+            
+            # Try Schema.org description
+            for script in soup.find_all('script', type='application/ld+json'):
+                try:
+                    import json
+                    data = json.loads(script.string)
+                    if isinstance(data, dict):
+                        if 'description' in data:
+                            desc = data['description'].strip()
+                            if len(desc) > 20:
+                                descriptions.append(desc)
+                except:
+                    pass
+            
+            # Try to find longer description from page content
+            # Look for about/description sections
+            about_keywords = ['about', 'who-we-are', 'our-story', 'company', 'mission', 'welcome', 'intro']
+            for keyword in about_keywords:
+                # Find sections with these keywords in class or id
+                sections = soup.find_all(['div', 'section', 'article'], class_=re.compile(keyword, re.I))
+                sections.extend(soup.find_all(['div', 'section', 'article'], id=re.compile(keyword, re.I)))
+                
+                for section in sections:
+                    # Get all paragraphs in this section
+                    paragraphs = section.find_all('p')
+                    for p in paragraphs:
+                        text = p.get_text(strip=True, separator=' ')
+                        # Get meaningful paragraphs (30-800 chars)
+                        if 30 < len(text) < 800:
+                            descriptions.append(text)
+                            break
+                    
+                    # If no paragraphs, try the whole section
+                    if not paragraphs:
+                        text = section.get_text(strip=True, separator=' ')
+                        if 50 < len(text) < 800:
+                            descriptions.append(text)
+                
+                if len(descriptions) > 2:
+                    break
+            
+            # Try first few paragraphs on the page as fallback
+            if len(descriptions) < 2:
+                all_paragraphs = soup.find_all('p')
+                for p in all_paragraphs[:5]:  # Check first 5 paragraphs
+                    text = p.get_text(strip=True, separator=' ')
+                    if 50 < len(text) < 800:
+                        descriptions.append(text)
+                        if len(descriptions) >= 3:
+                            break
+            
+            # Return the longest description found
+            if descriptions:
+                longest = max(descriptions, key=len)
+                # If it's still very short, combine multiple descriptions
+                if len(longest) < 150 and len(descriptions) > 1:
+                    # Combine up to 3 descriptions
+                    combined = ' '.join(descriptions[:3])
+                    if len(combined) < 1000:
+                        return combined
+                return longest
+            
+            # Last resort: try to get ANY text from the page
+            # Look for main content areas
+            main_content = soup.find('main') or soup.find('article') or soup.find(id=re.compile('content|main', re.I))
+            if main_content:
+                paragraphs = main_content.find_all('p', limit=3)
+                texts = [p.get_text(strip=True) for p in paragraphs if len(p.get_text(strip=True)) > 30]
+                if texts:
+                    combined = ' '.join(texts)
+                    if 50 < len(combined) < 1000:
+                        return combined
         
         except Exception as e:
             self._log(f"Error extracting company description: {str(e)}", logging.DEBUG)

@@ -1,55 +1,9 @@
 // Logging system
 let logs = [];
-let logsExpanded = true;
 
 function addLog(message, type = 'info') {
     const timestamp = new Date().toLocaleTimeString();
     logs.push({ message, type, timestamp });
-    
-    const logsList = document.getElementById('logsList');
-    if (!logsList) return; // Skip if logs not available
-    
-    const logEntry = document.createElement('div');
-    logEntry.className = `log-entry ${type}`;
-    logEntry.innerHTML = `
-        <span class="log-time">${timestamp}</span>
-        <span class="log-message">${message}</span>
-    `;
-    logsList.appendChild(logEntry);
-    logsList.scrollTop = logsList.scrollHeight;
-}
-
-function toggleLogs() {
-    const logsList = document.getElementById('logsList');
-    const logsToggle = document.getElementById('logsToggle');
-    
-    logsExpanded = !logsExpanded;
-    
-    if (logsExpanded) {
-        logsList.classList.remove('logs-collapsed');
-        logsList.classList.add('logs-expanded');
-        logsToggle.textContent = '▼';
-    } else {
-        logsList.classList.remove('logs-expanded');
-        logsList.classList.add('logs-collapsed');
-        logsToggle.textContent = '▶';
-    }
-}
-
-function clearLogs(event) {
-    event.stopPropagation();
-    logs = [];
-    document.getElementById('logsList').innerHTML = '';
-}
-
-function collapseLogs() {
-    const logsList = document.getElementById('logsList');
-    const logsToggle = document.getElementById('logsToggle');
-    
-    logsExpanded = false;
-    logsList.classList.remove('logs-expanded');
-    logsList.classList.add('logs-collapsed');
-    logsToggle.textContent = '▶';
 }
 
 function updateProgress(percent, message) {
@@ -64,49 +18,78 @@ function updateProgress(percent, message) {
     progressPercent.textContent = percent + '%';
 }
 
-// Tab switching
-document.querySelectorAll('.nav-item').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const tab = btn.dataset.tab;
-        
-        // Remove active from all
-        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        
-        // Add active to clicked
-        btn.classList.add('active');
-        document.getElementById(tab).classList.add('active');
-    });
-});
+function addLiveLog(log) {
+    const logsList = document.getElementById('liveLogsList');
+    if (!logsList) return;
+    
+    const logEntry = document.createElement('div');
+    logEntry.className = `log-entry ${log.type || 'info'}`;
+    logEntry.innerHTML = `
+        <span class="log-time">${log.time}</span>
+        <span class="log-message">${log.message}</span>
+    `;
+    logsList.appendChild(logEntry);
+    logsList.scrollTop = logsList.scrollHeight;
+}
 
-// Scrape single URL
-async function scrapeSingle() {
-    const url = document.getElementById('singleUrl').value.trim();
-    const blockKeywords = document.getElementById('blockKeywords').value;
-    
-    if (!url) {
-        alert('Please enter a URL');
-        return;
-    }
-    
-    // Clear logs without event
-    logs = [];
-    const logsList = document.getElementById('logsList');
+function clearLiveLogs() {
+    const logsList = document.getElementById('liveLogsList');
     if (logsList) {
         logsList.innerHTML = '';
     }
+}
+
+// Unified scraping function
+async function scrapeUrls() {
+    const urlInput = document.getElementById('urlInput').value.trim();
+    const blockKeywords = document.getElementById('blockKeywords').value;
     
-    addLog(`Starting scrape for ${url}`, 'info');
-    updateProgress(10, 'Initializing...');
+    if (!urlInput) {
+        alert('Please enter at least one URL');
+        return;
+    }
     
-    // Find the button that was clicked
-    const btn = document.querySelector('#single .btn-primary');
+    // Parse URLs (split by newlines)
+    const urls = urlInput.split('\n').map(u => u.trim()).filter(u => u);
+    
+    if (urls.length === 0) {
+        alert('Please enter at least one valid URL');
+        return;
+    }
+    
+    // Clear previous results
+    document.getElementById('results').style.display = 'none';
+    clearLiveLogs();
+    logs = [];
+    
+    // Find the button
+    const btn = document.querySelector('.btn-primary');
     const btnText = btn.querySelector('.btn-text');
     const btnLoader = btn.querySelector('.btn-loader');
     
     btnText.style.display = 'none';
     btnLoader.style.display = 'inline';
     btn.disabled = true;
+    
+    try {
+        if (urls.length === 1) {
+            // Single URL - use single scrape endpoint
+            await scrapeSingleUrl(urls[0], blockKeywords);
+        } else {
+            // Multiple URLs - use batch endpoint
+            await scrapeBatchUrls(urls, blockKeywords);
+        }
+    } finally {
+        btnText.style.display = 'inline';
+        btnLoader.style.display = 'none';
+        btn.disabled = false;
+    }
+}
+
+// Scrape single URL
+async function scrapeSingleUrl(url, blockKeywords) {
+    addLog(`Starting scrape for ${url}`, 'info');
+    updateProgress(10, 'Initializing...');
     
     try {
         updateProgress(20, 'Sending request...');
@@ -130,6 +113,14 @@ async function scrapeSingle() {
         
         const data = await response.json();
         
+        // Display logs from backend
+        if (data.logs && data.logs.length > 0) {
+            data.logs.forEach(log => {
+                addLiveLog(log);
+                addLog(log.message, log.type);
+            });
+        }
+        
         addLog(`Found ${data.emails.length} emails`, 'success');
         addLog(`Found ${data.phones.length} phones`, 'success');
         addLog(`Scanned ${data.pages_scanned} pages`, 'info');
@@ -146,28 +137,128 @@ async function scrapeSingle() {
         
         setTimeout(() => {
             document.getElementById('progressContainer').style.display = 'none';
-            collapseLogs(); // Collapse logs after results load
         }, 1500);
         
     } catch (error) {
         console.error('Scrape error:', error);
         addLog('Error: ' + error.message, 'error');
         alert('Error: ' + error.message);
-    } finally {
-        btnText.style.display = 'inline';
-        btnLoader.style.display = 'none';
-        btn.disabled = false;
+    }
+}
+
+// Scrape batch URLs
+async function scrapeBatchUrls(urls, blockKeywords) {
+    updateProgress(0, 'Starting batch scrape...');
+    
+    try {
+        const results = [];
+        const batchSize = 5; // Scrape 5 URLs in parallel
+        
+        // Process URLs in batches for speed
+        for (let i = 0; i < urls.length; i += batchSize) {
+            const batch = urls.slice(i, i + batchSize);
+            const percent = Math.round((i / urls.length) * 100);
+            
+            updateProgress(percent, `Scraping batch ${Math.floor(i / batchSize) + 1}...`);
+            addLiveLog({time: new Date().toLocaleTimeString(), message: `🚀 Scraping ${batch.length} URLs in parallel...`, type: 'info'});
+            
+            // Scrape all URLs in this batch in parallel
+            const batchPromises = batch.map(async (url) => {
+                try {
+                    const response = await fetch('/api/scrape', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ url, block_keywords: blockKeywords })
+                    });
+                
+                    if (response.ok) {
+                        const data = await response.json();
+                        
+                        // Ensure all fields exist
+                        return {
+                            url: data.url || url,
+                            status: data.status || 'success',
+                            emails: data.emails || [],
+                            phones: data.phones || [],
+                            confidence_score: data.confidence_score || 0,
+                            company_name: data.company_name || null,
+                            company_description: data.company_description || null,
+                            addresses: data.addresses || [],
+                            social_links: data.social_links || {},
+                            pages_scanned: data.pages_scanned || 1
+                        };
+                    } else {
+                        const errorData = await response.json();
+                        return {
+                            url: url,
+                            status: 'failed',
+                            reason: errorData.error || 'Unknown error',
+                            emails: [],
+                            phones: [],
+                            confidence_score: 0,
+                            company_name: null,
+                            company_description: null,
+                            addresses: [],
+                            social_links: {},
+                            pages_scanned: 0
+                        };
+                    }
+                } catch (error) {
+                    return {
+                        url: url,
+                        status: 'failed',
+                        reason: error.message,
+                        emails: [],
+                        phones: [],
+                        confidence_score: 0,
+                        company_name: null,
+                        company_description: null,
+                        addresses: [],
+                        social_links: {},
+                        pages_scanned: 0
+                    };
+                }
+            });
+            
+            // Wait for all URLs in this batch to complete
+            const batchResults = await Promise.all(batchPromises);
+            results.push(...batchResults);
+            
+            // Log results for this batch
+            batchResults.forEach(result => {
+                if (result.status === 'success') {
+                    addLiveLog({time: new Date().toLocaleTimeString(), message: `✓ ${result.url} - ${result.emails.length} emails, ${result.phones.length} phones`, type: 'success'});
+                } else {
+                    addLiveLog({time: new Date().toLocaleTimeString(), message: `✗ ${result.url} - Failed`, type: 'error'});
+                }
+            });
+        }
+        
+        // Complete
+        updateProgress(100, 'Complete!');
+        addLiveLog({time: new Date().toLocaleTimeString(), message: `✅ Batch scraping complete - ${results.length} URLs processed`, type: 'success'});
+        
+        displayBatchResults(results);
+        window.lastResults = results;
+        
+        setTimeout(() => {
+            document.getElementById('progressContainer').style.display = 'none';
+        }, 1500);
+        
+    } catch (error) {
+        console.error('Batch scrape error:', error);
+        alert('Error: ' + error.message);
     }
 }
 
 // Display single results
 function displaySingleResults(data) {
-    const resultsDiv = document.getElementById('singleResults');
+    const resultsDiv = document.getElementById('results');
     const content = document.getElementById('resultsContent');
     
     let html = `
         <div class="result-item">
-            <h4>${data.url}</h4>
+            <h4><a href="${data.url}" target="_blank" class="result-url">${data.url}</a></h4>
             
             ${data.company_name ? `
             <div class="result-field">
@@ -245,80 +336,7 @@ function displaySingleResults(data) {
         html += `<div class="result-field"><span class="result-label">Phones:</span><span class="result-value">None found</span></div>`;
     }
     
-    // Additional info
-    html += `
-            <div class="result-field">
-                <span class="result-label">Pages Scanned:</span>
-                <span class="result-value">${data.pages_scanned}</span>
-            </div>
-            
-            <div class="result-field">
-                <span class="result-label">Leadership Mentions:</span>
-                <span class="result-value">${data.leadership_count}</span>
-            </div>
-            
-            <div class="result-field">
-                <span class="result-label">Fetch Mode:</span>
-                <span class="result-value">${data.fetch_mode}</span>
-            </div>
-            
-            <div class="result-field">
-                <span class="result-label">Scrape Mode:</span>
-                <span class="result-value">${data.scrape_mode}</span>
-            </div>
-            
-            <div class="result-field">
-                <span class="result-label">Retries:</span>
-                <span class="result-value">${data.retry_count}</span>
-            </div>
-            
-            <div class="result-field">
-                <span class="result-label">SSL Valid:</span>
-                <span class="result-value">${data.ssl_valid ? '✅ Yes' : '❌ No'}</span>
-            </div>
-            
-            ${data.bot_protection ? `
-            <div class="result-field">
-                <span class="result-label">Bot Protection:</span>
-                <span class="result-value">${data.bot_protection}</span>
-            </div>
-            ` : ''}
-            
-            ${data.social_links && data.social_links !== '{}' ? `
-            <div class="result-field">
-                <span class="result-label">Social Links:</span>
-                <div class="result-value">
-                    ${(() => {
-                        try {
-                            const links = typeof data.social_links === 'string' ? JSON.parse(data.social_links) : data.social_links;
-                            let html = '';
-                            for (const [platform, urls] of Object.entries(links)) {
-                                if (Array.isArray(urls) && urls.length > 0) {
-                                    html += `<div><strong>${platform}:</strong> ${urls.map(url => `<a href="${url}" target="_blank">${url}</a>`).join(', ')}</div>`;
-                                }
-                            }
-                            return html || 'No social links found';
-                        } catch (e) {
-                            return data.social_links;
-                        }
-                    })()}
-                </div>
-            </div>
-            ` : ''}
-            
-            <!-- Data Quality Breakdown -->
-            <div class="result-field">
-                <span class="result-label">Data Quality:</span>
-                <div style="margin-top: 8px;">
-                    <div style="font-size: 0.9em; color: var(--text-secondary); margin-bottom: 5px;">
-                        ${data.emails.length > 0 ? '✅ Emails found' : '❌ No emails'}
-                        ${data.phones.length > 0 ? ' • ✅ Phones found' : ' • ❌ No phones'}
-                        ${data.pages_scanned > 1 ? ' • ✅ Multiple pages' : ' • ⚠️ Single page'}
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+    html += `</div>`;
     
     content.innerHTML = html;
     resultsDiv.style.display = 'block';
@@ -327,107 +345,22 @@ function displaySingleResults(data) {
     window.lastResults = [data];
 }
 
-// Scrape batch URLs
-async function scrapeBatch() {
-    const urlsText = document.getElementById('batchUrls').value.trim();
-    const blockKeywords = document.getElementById('batchBlockKeywords').value;
-    
-    if (!urlsText) {
-        alert('Please enter URLs');
-        return;
-    }
-    
-    const urls = urlsText.split('\n').map(u => u.trim()).filter(u => u);
-    
-    if (urls.length === 0) {
-        alert('Please enter at least one URL');
-        return;
-    }
-    
-    // Find the button
-    const btn = document.querySelector('#batch .btn-primary');
-    const btnText = btn.querySelector('.btn-text');
-    const btnLoader = btn.querySelector('.btn-loader');
-    
-    btnText.style.display = 'none';
-    btnLoader.style.display = 'inline';
-    btn.disabled = true;
-    
-    // Show progress
-    const progressContainer = document.getElementById('batchProgressContainer');
-    progressContainer.style.display = 'block';
-    
-    try {
-        const results = [];
-        
-        // Scrape each URL individually to show progress
-        for (let i = 0; i < urls.length; i++) {
-            const url = urls[i];
-            const percent = Math.round((i / urls.length) * 100);
-            
-            document.getElementById('batchProgressText').textContent = `Scraping ${i + 1} of ${urls.length}...`;
-            document.getElementById('batchProgressPercent').textContent = percent + '%';
-            document.getElementById('batchProgressFill').style.width = percent + '%';
-            
-            try {
-                const response = await fetch('/api/scrape', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url, block_keywords: blockKeywords })
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    results.push(data);
-                } else {
-                    const errorData = await response.json();
-                    results.push({
-                        url: url,
-                        status: 'failed',
-                        reason: errorData.error || 'Unknown error',
-                        emails: [],
-                        phones: [],
-                        confidence_score: 0
-                    });
-                }
-            } catch (error) {
-                results.push({
-                    url: url,
-                    status: 'failed',
-                    reason: error.message,
-                    emails: [],
-                    phones: [],
-                    confidence_score: 0
-                });
-            }
-        }
-        
-        // Complete
-        document.getElementById('batchProgressText').textContent = 'Complete!';
-        document.getElementById('batchProgressPercent').textContent = '100%';
-        document.getElementById('batchProgressFill').style.width = '100%';
-        
-        displayBatchResults(results);
-        window.lastResults = results;
-        
-        setTimeout(() => {
-            progressContainer.style.display = 'none';
-        }, 1500);
-        
-    } catch (error) {
-        console.error('Batch scrape error:', error);
-        alert('Error: ' + error.message);
-    } finally {
-        btnText.style.display = 'inline';
-        btnLoader.style.display = 'none';
-        btn.disabled = false;
-    }
-}
+// Store full descriptions globally
+window.fullDescriptions = {};
 
 // Display batch results
 function displayBatchResults(results) {
-    const resultsDiv = document.getElementById('batchResults');
-    const content = document.getElementById('batchResultsContent');
+    const resultsDiv = document.getElementById('results');
+    const content = document.getElementById('resultsContent');
+    
+    if (!results || results.length === 0) {
+        content.innerHTML = '<p>No results found</p>';
+        resultsDiv.style.display = 'block';
+        return;
+    }
+    
+    // Clear previous descriptions
+    window.fullDescriptions = {};
     
     let html = `
         <div class="batch-summary">
@@ -459,22 +392,70 @@ function displayBatchResults(results) {
                     <th>Phones</th>
                     <th>Company</th>
                     <th>Confidence</th>
+                    <th>Details</th>
                 </tr>
             </thead>
             <tbody>
     `;
     
     results.forEach((result, idx) => {
-        const company = result.company_name ? result.company_name.substring(0, 20) : '-';
+        const company = result.company_name ? result.company_name.substring(0, 30) : '-';
+        const rowId = `row-${idx}`;
+        const detailsId = `details-${idx}`;
+        
+        // Main row
         html += `
-            <tr class="result-row status-${result.status}">
+            <tr class="result-row status-${result.status}" id="${rowId}">
                 <td>${idx + 1}</td>
-                <td><a href="${result.url}" target="_blank" title="${result.url}">${result.url.substring(0, 35)}...</a></td>
+                <td><a href="${result.url}" target="_blank" title="${result.url}">${result.url.substring(0, 40)}...</a></td>
                 <td><span class="status-badge status-${result.status === 'success' ? 'success' : 'warning'}">${result.status}</span></td>
                 <td>${result.emails ? result.emails.length : 0}</td>
                 <td>${result.phones ? result.phones.length : 0}</td>
-                <td>${company}</td>
+                <td title="${result.company_name || '-'}">${company}</td>
                 <td>${((result.confidence_score || 0) * 100).toFixed(0)}%</td>
+                <td><button class="btn-details" onclick="toggleDetails('${detailsId}', '${rowId}')">View</button></td>
+            </tr>
+        `;
+        
+        // Details row (hidden by default)
+        html += `
+            <tr class="details-row" id="${detailsId}" style="display: none;">
+                <td colspan="8">
+                    <div class="details-content">
+                        <div class="details-grid">
+                            <!-- Emails -->
+                            <div class="details-section">
+                                <h4>📧 Emails (${result.emails ? result.emails.length : 0})</h4>
+                                ${result.emails && result.emails.length > 0 ? 
+                                    `<div class="email-list">${result.emails.map(e => `<span class="email-tag">${e}</span>`).join('')}</div>` : 
+                                    '<p class="no-data">No emails found</p>'}
+                            </div>
+                            
+                            <!-- Phones -->
+                            <div class="details-section">
+                                <h4>📞 Phones (${result.phones ? result.phones.length : 0})</h4>
+                                ${result.phones && result.phones.length > 0 ? 
+                                    `<div class="phone-list">${result.phones.map(p => `<span class="phone-tag">${p}</span>`).join('')}</div>` : 
+                                    '<p class="no-data">No phones found</p>'}
+                            </div>
+                            
+                            <!-- Company Info -->
+                            <div class="details-section">
+                                <h4>🏢 Company</h4>
+                                <p><strong>Name:</strong> ${result.company_name || 'Not found'}</p>
+                                ${result.company_description ? `<p><strong>Description:</strong> ${result.company_description.substring(0, 200)}${result.company_description.length > 200 ? '...' : ''}</p>` : ''}
+                            </div>
+                            
+                            <!-- Addresses -->
+                            <div class="details-section">
+                                <h4>📍 Addresses</h4>
+                                ${result.addresses && result.addresses.length > 0 ? 
+                                    result.addresses.map(a => `<p class="address-text">${a}</p>`).join('') : 
+                                    '<p class="no-data">No addresses found</p>'}
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         `;
     });
@@ -485,31 +466,20 @@ function displayBatchResults(results) {
     resultsDiv.style.display = 'block';
 }
 
-// Download batch results
-async function downloadBatchResults() {
-    if (!window.lastResults || window.lastResults.length === 0) {
-        alert('No results to download');
-        return;
-    }
+// Toggle details row
+function toggleDetails(detailsId, rowId) {
+    const detailsRow = document.getElementById(detailsId);
+    const mainRow = document.getElementById(rowId);
+    const btn = mainRow.querySelector('.btn-details');
     
-    try {
-        const response = await fetch('/api/export', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ results: window.lastResults })
-        });
-        
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `bulk_results_${new Date().getTime()}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-    } catch (error) {
-        alert('Error downloading: ' + error.message);
+    if (detailsRow.style.display === 'none' || !detailsRow.style.display) {
+        detailsRow.style.display = 'table-row';
+        btn.textContent = 'Hide';
+        btn.classList.add('active');
+    } else {
+        detailsRow.style.display = 'none';
+        btn.textContent = 'View';
+        btn.classList.remove('active');
     }
 }
 
@@ -540,40 +510,3 @@ async function downloadResults() {
         alert('Error downloading: ' + error.message);
     }
 }
-
-// Add results table styling
-const style = document.createElement('style');
-style.textContent = `
-    .results-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
-    
-    .results-table th,
-    .results-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid var(--border);
-    }
-    
-    .results-table th {
-        background: var(--bg);
-        font-weight: 600;
-        color: var(--primary);
-    }
-    
-    .results-table tr:hover {
-        background: var(--bg);
-    }
-    
-    .results-table a {
-        color: var(--primary);
-        text-decoration: none;
-    }
-    
-    .results-table a:hover {
-        text-decoration: underline;
-    }
-`;
-document.head.appendChild(style);

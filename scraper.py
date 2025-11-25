@@ -680,7 +680,9 @@ class DataValidator:
         'user@test', 'admin@admin', 'info@info',
         'user@domain', 'test@domain', 'admin@example', 'info@example',
         'contact@example', 'support@example', 'hello@example',
-        'placeholder@', 'dummy@', 'temp@', 'temporary@'
+        'placeholder@', 'dummy@', 'temp@', 'temporary@',
+        '@example.com', '@example.org', '@test.com', '@test.org',
+        '@domain.com', '@localhost', '@sample.com', '@demo.com'
     }
     
     # Common fake/test phone patterns (be specific to avoid false positives)
@@ -691,11 +693,18 @@ class DataValidator:
         '123-456-7890', '111-111', '000-000'
     }
     
-    # Valid domain TLDs (basic check)
+    # Valid domain TLDs (basic check) - expanded list
     VALID_TLDS = {
         'com', 'org', 'net', 'edu', 'gov', 'mil', 'co', 'uk', 'de', 'fr', 'it', 'es',
         'ca', 'au', 'jp', 'cn', 'in', 'br', 'ru', 'io', 'app', 'dev', 'info', 'biz',
-        'us', 'tv', 'cc', 'ws', 'name', 'pro', 'mobi', 'asia', 'tel', 'travel'
+        'us', 'tv', 'cc', 'ws', 'name', 'pro', 'mobi', 'asia', 'tel', 'travel',
+        # Modern/city TLDs
+        'miami', 'nyc', 'london', 'tokyo', 'paris', 'berlin', 'sydney', 'la',
+        # New generic TLDs
+        'tech', 'store', 'online', 'site', 'website', 'space', 'club', 'xyz',
+        'top', 'shop', 'live', 'today', 'world', 'email', 'digital', 'studio',
+        'agency', 'company', 'solutions', 'services', 'group', 'center', 'cafe',
+        'restaurant', 'bar', 'pizza', 'coffee', 'kitchen', 'menu', 'food'
     }
 
     @staticmethod
