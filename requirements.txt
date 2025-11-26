@@ -1,4 +1,24 @@
-requests==2.31.0
+# Apify SDK
+apify==1.7.2
+
+# Async HTTP
+aiohttp==3.9.1
+
+# HTML Parsing
 beautifulsoup4==4.12.2
-selenium==4.15.2
+lxml==4.9.3
+
+# Browser Automation
 playwright==1.40.0
+
+# HTTP Requests (for sync fallback)
+requests==2.31.0
+
+# DNS and Email Validation
+dnspython==2.4.2
+
+# Phone Number Validation
+phonenumbers==8.13.0
+
+# Selenium (for fallback browser)
+selenium==4.15.2

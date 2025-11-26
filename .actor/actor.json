@@ -1,0 +1,65 @@
+{
+  "actorSpecification": 1,
+  "name": "web-contact-scraper",
+  "title": "Web Contact Information Scraper",
+  "description": "Fast async scraper for extracting emails, phones, company info, addresses, and social links from websites. Uses intelligent multi-page discovery and validation.",
+  "version": "1.0.0",
+  "meta": {
+    "templateId": "python-start"
+  },
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "readme": "./README.md",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Scraped Contacts",
+      "views": {
+        "overview": {
+          "title": "Overview",
+          "transformation": {
+            "fields": [
+              "url",
+              "status",
+              "emails",
+              "phones",
+              "company_name",
+              "company_description",
+              "addresses",
+              "social_links",
+              "confidence_score",
+              "fetch_time"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "url": {
+                "label": "URL",
+                "format": "link"
+              },
+              "status": {
+                "label": "Status"
+              },
+              "emails": {
+                "label": "Emails",
+                "format": "array"
+              },
+              "phones": {
+                "label": "Phones",
+                "format": "array"
+              },
+              "company_name": {
+                "label": "Company"
+              },
+              "confidence_score": {
+                "label": "Confidence",
+                "format": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

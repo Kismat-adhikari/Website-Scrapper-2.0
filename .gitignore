@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# Apify
+apify_storage/
+storage/
+.apify/
+
+# Logs
+*.log
+scraper.log
+scraper_attempts.log
+scraper_failures.log
+
+# CSV Results
+results_*.csv
+*.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+.playwright/
+
+# Test files (keep in web branch only)
+test_*.py
+!test_apify_local.py
+
+# Flask files (keep in web branch only)
+app.py
+app_queue.py
+static/
+templates/
+
+# Redis/Celery (keep in web branch only)
+queue_manager.py
+tasks.py
+requirements_phase3.txt
+requirements_flask.txt
