@@ -10,7 +10,7 @@ from typing import List, Dict, Any
 from apify import Actor
 
 # Import scraper modules
-from async_scraper import scrape_url_async_wrapper, scrape_urls_batch_wrapper
+from async_scraper import scrape_urls_batch_async
 from scraper import ProxyManager
 from advanced_scraper_features import CompanyInfoExtractor, AddressExtractor
 from context_extractor import ContextExtractor
@@ -90,7 +90,10 @@ async def main():
             
             # Scrape batch
             try:
-                results = scrape_urls_batch_wrapper(
+                # Import the async function directly
+                from async_scraper import scrape_urls_batch_async
+                
+                results = await scrape_urls_batch_async(
                     batch,
                     proxy_manager=None,  # Using Apify proxy instead
                     fast_mode=fast_mode
