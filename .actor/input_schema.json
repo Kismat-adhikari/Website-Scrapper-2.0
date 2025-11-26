@@ -7,10 +7,7 @@
       "title": "Start URLs",
       "type": "array",
       "description": "List of website URLs to extract contact information from",
-      "editor": "requestListSources",
-      "placeholderValue": [
-        { "url": "https://example.com" }
-      ]
+      "editor": "requestListSources"
     },
     "urls": {
       "title": "URLs (Simple List)",
