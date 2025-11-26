@@ -11886,3 +11886,790 @@ RuntimeError: There is no current event loop in thread 'Thread-6 (process_reques
 2025-11-25 18:45:42,413 - INFO - 127.0.0.1 - - [25/Nov/2025 18:45:42] "POST /api/scrape HTTP/1.1" 200 -
 2025-11-25 18:45:42,427 - INFO - Async fetch succeeded for https://www.miamcafe.com
 2025-11-25 18:45:43,047 - INFO - 127.0.0.1 - - [25/Nov/2025 18:45:43] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:38:25,688 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:38:25,691 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 20:38:25,691 - INFO - Email validator initialized with SMTP verification
+2025-11-25 20:38:25,692 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:38:25,692 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 20:38:25,693 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:38:25,693 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 20:38:25,693 - INFO - Initialized AddressExtractor
+2025-11-25 20:38:25,765 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.18.58:5000
+2025-11-25 20:38:25,765 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-25 20:38:25,794 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 20:38:26,998 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:38:26,998 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 20:38:26,998 - INFO - Email validator initialized with SMTP verification
+2025-11-25 20:38:26,998 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:38:26,998 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 20:38:27,000 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:38:27,001 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 20:38:27,002 - INFO - Initialized AddressExtractor
+2025-11-25 20:38:27,030 - WARNING -  * Debugger is active!
+2025-11-25 20:38:27,036 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 20:38:30,211 - INFO - 127.0.0.1 - - [25/Nov/2025 20:38:30] "GET / HTTP/1.1" 200 -
+2025-11-25 20:38:30,390 - INFO - 127.0.0.1 - - [25/Nov/2025 20:38:30] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 20:38:30,392 - INFO - 127.0.0.1 - - [25/Nov/2025 20:38:30] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 20:38:30,629 - INFO - 127.0.0.1 - - [25/Nov/2025 20:38:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-25 20:39:54,909 - INFO - Scraping https://www.cafemiamistl.com
+2025-11-25 20:39:54,911 - INFO - Scraping https://www.threefoldcafe.com
+2025-11-25 20:39:54,912 - INFO - Scraping https://yescafe.us
+2025-11-25 20:39:54,913 - INFO - Scraping https://vicecitybean.com
+2025-11-25 20:39:54,914 - INFO - Scraping https://www.miamcafe.com
+2025-11-25 20:39:55,314 - INFO - Async fetch succeeded for https://vicecitybean.com
+2025-11-25 20:39:55,534 - INFO - 127.0.0.1 - - [25/Nov/2025 20:39:55] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:39:55,854 - INFO - Async fetch succeeded for https://www.miamcafe.com
+2025-11-25 20:39:56,056 - INFO - 127.0.0.1 - - [25/Nov/2025 20:39:56] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:39:56,176 - INFO - Async fetch succeeded for https://www.threefoldcafe.com
+2025-11-25 20:39:56,334 - INFO - 127.0.0.1 - - [25/Nov/2025 20:39:56] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:39:56,575 - INFO - Async fetch succeeded for https://www.cafemiamistl.com
+2025-11-25 20:39:56,699 - INFO - Async fetch succeeded for https://yescafe.us
+2025-11-25 20:39:56,830 - INFO - 127.0.0.1 - - [25/Nov/2025 20:39:56] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:39:56,862 - INFO - 127.0.0.1 - - [25/Nov/2025 20:39:56] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:41:06,015 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\advanced_scraper_features.py', reloading
+2025-11-25 20:41:06,019 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\aggressive_scraper.py', reloading
+2025-11-25 20:41:06,030 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\async_scraper.py', reloading
+2025-11-25 20:41:06,038 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\phone_validator.py', reloading
+2025-11-25 20:41:06,099 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-25 20:41:06,196 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\fast_scrape.py', reloading
+2025-11-25 20:41:06,200 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\phone_cleaner.py', reloading
+2025-11-25 20:41:06,223 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\test_app_backend.py', reloading
+2025-11-25 20:41:06,227 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\test_complete_system.py', reloading
+2025-11-25 20:41:06,232 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\test_description_length.py', reloading
+2025-11-25 20:41:06,236 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\test_flask_address.py', reloading
+2025-11-25 20:41:06,239 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\test_phone_cleaner.py', reloading
+2025-11-25 20:41:06,244 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\test_phone_filtering.py', reloading
+2025-11-25 20:41:06,250 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\test_real_url.py', reloading
+2025-11-25 20:41:07,292 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 20:41:08,938 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:41:08,939 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 20:41:08,939 - INFO - Email validator initialized with SMTP verification
+2025-11-25 20:41:08,939 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:41:08,939 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 20:41:08,940 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 20:41:08,940 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 20:41:08,940 - INFO - Initialized AddressExtractor
+2025-11-25 20:41:08,958 - WARNING -  * Debugger is active!
+2025-11-25 20:41:08,962 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 20:48:29,803 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:29] "GET / HTTP/1.1" 200 -
+2025-11-25 20:48:29,889 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:29] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 20:48:29,890 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:29] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 20:48:30,018 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:30] "GET / HTTP/1.1" 200 -
+2025-11-25 20:48:30,043 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:30] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 20:48:30,044 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:30] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 20:48:30,187 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:30] "GET / HTTP/1.1" 200 -
+2025-11-25 20:48:30,219 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:30] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 20:48:30,224 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:30] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 20:48:31,831 - INFO - Scraping https://www.cafemiamistl.com
+2025-11-25 20:48:31,832 - INFO - Scraping https://www.threefoldcafe.com
+2025-11-25 20:48:31,833 - INFO - Scraping https://yescafe.us
+2025-11-25 20:48:31,835 - INFO - Scraping https://vicecitybean.com
+2025-11-25 20:48:31,841 - INFO - Scraping https://www.miamcafe.com
+2025-11-25 20:48:32,092 - INFO - Async fetch succeeded for https://vicecitybean.com
+2025-11-25 20:48:32,393 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:32] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:48:32,442 - INFO - Async fetch succeeded for https://www.miamcafe.com
+2025-11-25 20:48:32,698 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:32] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:48:32,710 - INFO - Async fetch succeeded for https://www.threefoldcafe.com
+2025-11-25 20:48:33,046 - INFO - Async fetch succeeded for https://www.cafemiamistl.com
+2025-11-25 20:48:33,054 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:33] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:48:33,154 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:33] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 20:48:33,373 - INFO - Async fetch succeeded for https://yescafe.us
+2025-11-25 20:48:33,503 - INFO - 127.0.0.1 - - [25/Nov/2025 20:48:33] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:34:20,717 - INFO - 127.0.0.1 - - [25/Nov/2025 21:34:20] "GET / HTTP/1.1" 200 -
+2025-11-25 21:34:20,784 - INFO - 127.0.0.1 - - [25/Nov/2025 21:34:20] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 21:34:20,787 - INFO - 127.0.0.1 - - [25/Nov/2025 21:34:20] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 21:37:27,378 - INFO - Scraping https://www.cafemiamistl.com
+2025-11-25 21:37:27,380 - INFO - Scraping https://www.threefoldcafe.com
+2025-11-25 21:37:27,389 - INFO - Scraping https://yescafe.us
+2025-11-25 21:37:27,392 - INFO - Scraping https://vicecitybean.com
+2025-11-25 21:37:27,417 - INFO - Scraping https://www.miamcafe.com
+2025-11-25 21:37:29,412 - INFO - 127.0.0.1 - - [25/Nov/2025 21:37:29] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:37:29,678 - INFO - 127.0.0.1 - - [25/Nov/2025 21:37:29] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:37:29,978 - INFO - 127.0.0.1 - - [25/Nov/2025 21:37:29] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:37:30,008 - INFO - 127.0.0.1 - - [25/Nov/2025 21:37:30] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:37:30,223 - INFO - 127.0.0.1 - - [25/Nov/2025 21:37:30] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:38:23,847 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-25 21:38:23,850 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-25 21:38:25,109 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 21:38:27,255 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 21:38:27,255 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 21:38:27,256 - INFO - Email validator initialized with SMTP verification
+2025-11-25 21:38:27,257 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 21:38:27,257 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 21:38:27,257 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 21:38:27,258 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 21:38:27,258 - INFO - Initialized AddressExtractor
+2025-11-25 21:38:27,296 - WARNING -  * Debugger is active!
+2025-11-25 21:38:27,305 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 21:38:39,598 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-25 21:38:39,599 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-25 21:38:39,600 - INFO -  * Detected change in 'C:\\Users\\kisma\\Desktop\\WEBSIET SCRAPPER 2\\scraper.py', reloading
+2025-11-25 21:38:40,167 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 21:38:41,712 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 21:38:41,712 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 21:38:41,712 - INFO - Email validator initialized with SMTP verification
+2025-11-25 21:38:41,712 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 21:38:41,712 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 21:38:41,712 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 21:38:41,713 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 21:38:41,713 - INFO - Initialized AddressExtractor
+2025-11-25 21:38:41,732 - WARNING -  * Debugger is active!
+2025-11-25 21:38:41,738 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 21:56:34,287 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:34] "GET / HTTP/1.1" 200 -
+2025-11-25 21:56:34,569 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:34] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 21:56:34,571 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:34] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 21:56:36,372 - INFO - Scraping https://www.cafemiamistl.com
+2025-11-25 21:56:36,374 - INFO - Scraping https://www.threefoldcafe.com
+2025-11-25 21:56:36,375 - INFO - Scraping https://yescafe.us
+2025-11-25 21:56:36,377 - INFO - Scraping https://vicecitybean.com
+2025-11-25 21:56:36,384 - INFO - Scraping https://www.miamcafe.com
+2025-11-25 21:56:36,834 - INFO - Async fetch succeeded for https://vicecitybean.com
+2025-11-25 21:56:37,385 - INFO - Async fetch succeeded for https://www.cafemiamistl.com
+2025-11-25 21:56:37,680 - INFO - Async fetch succeeded for https://www.threefoldcafe.com
+2025-11-25 21:56:38,315 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:38] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:56:38,339 - INFO - Async fetch succeeded for https://yescafe.us
+2025-11-25 21:56:38,439 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:38] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:56:38,948 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:38] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:56:38,989 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:38] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 21:56:38,999 - INFO - Async fetch succeeded for https://www.miamcafe.com
+2025-11-25 21:56:39,596 - INFO - 127.0.0.1 - - [25/Nov/2025 21:56:39] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:18:49,801 - INFO - 127.0.0.1 - - [25/Nov/2025 23:18:49] "GET / HTTP/1.1" 200 -
+2025-11-25 23:18:49,853 - INFO - 127.0.0.1 - - [25/Nov/2025 23:18:49] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 23:18:49,853 - INFO - 127.0.0.1 - - [25/Nov/2025 23:18:49] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 23:20:10,883 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:10] "GET / HTTP/1.1" 200 -
+2025-11-25 23:20:10,912 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:10] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 23:20:10,915 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:10] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 23:20:24,683 - INFO - Scraping https://www.cafemiamistl.com
+2025-11-25 23:20:24,689 - INFO - Scraping https://www.threefoldcafe.com
+2025-11-25 23:20:24,705 - INFO - Scraping https://yescafe.us
+2025-11-25 23:20:24,711 - INFO - Scraping https://vicecitybean.com
+2025-11-25 23:20:24,762 - INFO - Scraping https://www.miamcafe.com
+2025-11-25 23:20:25,255 - INFO - Async fetch succeeded for https://www.miamcafe.com
+2025-11-25 23:20:25,539 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:25] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:20:25,548 - INFO - Async fetch succeeded for https://vicecitybean.com
+2025-11-25 23:20:25,846 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:25] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:20:25,848 - INFO - Async fetch succeeded for https://www.cafemiamistl.com
+2025-11-25 23:20:25,998 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:25] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:20:26,096 - INFO - Async fetch succeeded for https://www.threefoldcafe.com
+2025-11-25 23:20:26,377 - INFO - Async fetch succeeded for https://yescafe.us
+2025-11-25 23:20:26,507 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:26] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:20:26,529 - INFO - 127.0.0.1 - - [25/Nov/2025 23:20:26] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:23:35,018 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:35] "GET / HTTP/1.1" 200 -
+2025-11-25 23:23:35,044 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:35] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 23:23:35,045 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:35] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 23:23:38,920 - INFO - Scraping https://panthercoffee.com
+2025-11-25 23:23:38,922 - INFO - Scraping https://cafedemetrio.com
+2025-11-25 23:23:38,925 - INFO - Scraping https://macondocoffee.com
+2025-11-25 23:23:38,928 - INFO - Scraping https://suitehabanacafe.com
+2025-11-25 23:23:38,931 - INFO - Scraping https://emissarycafe.com
+2025-11-25 23:23:39,631 - INFO - Async fetch succeeded for https://suitehabanacafe.com
+2025-11-25 23:23:39,907 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:39] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:23:40,018 - INFO - Async fetch succeeded for https://panthercoffee.com
+2025-11-25 23:23:40,112 - INFO - Async fetch succeeded for https://cafedemetrio.com
+2025-11-25 23:23:40,448 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:40] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:23:40,590 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:40] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:23:40,594 - INFO - Async fetch succeeded for https://emissarycafe.com
+2025-11-25 23:23:40,803 - INFO - Async fetch succeeded for https://macondocoffee.com
+2025-11-25 23:23:41,170 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:41] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:23:41,275 - INFO - 127.0.0.1 - - [25/Nov/2025 23:23:41] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:25:39,314 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\apify\\__init__.py', reloading
+2025-11-25 23:25:39,351 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\apify\\_actor.py', reloading
+2025-11-25 23:25:39,467 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\apify\\_utils.py', reloading
+2025-11-25 23:25:39,476 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\lazy_object_proxy\\__init__.py', reloading
+2025-11-25 23:25:39,564 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\apify\\_models.py', reloading
+2025-11-25 23:25:39,572 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\__init__.py', reloading
+2025-11-25 23:25:39,584 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\errors.py', reloading
+2025-11-25 23:25:39,593 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\main.py', reloading
+2025-11-25 23:25:39,626 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\networks.py', reloading
+2025-11-25 23:25:39,645 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\types.py', reloading
+2025-11-25 23:25:39,699 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\deprecated\\tools.py', reloading
+2025-11-25 23:25:39,705 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\_internal\\_model_construction.py', reloading
+2025-11-25 23:25:39,724 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\fields.py', reloading
+2025-11-25 23:25:39,762 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic_core\\__init__.py', reloading
+2025-11-25 23:25:39,779 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\aliases.py', reloading
+2025-11-25 23:25:39,792 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\_internal\\_internal_dataclass.py', reloading
+2025-11-25 23:25:39,803 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\_internal\\_repr.py', reloading
+2025-11-25 23:25:39,810 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\_migration.py', reloading
+2025-11-25 23:25:39,833 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic_core\\core_schema.py', reloading
+2025-11-25 23:25:39,981 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\config.py', reloading
+2025-11-25 23:25:39,988 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\annotated_types\\__init__.py', reloading
+2025-11-25 23:25:40,042 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic\\_internal\\_generate_schema.py', reloading
+2025-11-25 23:25:40,516 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 23:25:42,047 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:42,047 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:42,047 - INFO - Email validator initialized with SMTP verification
+2025-11-25 23:25:42,048 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:42,048 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:42,048 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:42,049 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 23:25:42,049 - INFO - Initialized AddressExtractor
+2025-11-25 23:25:42,075 - WARNING -  * Debugger is active!
+2025-11-25 23:25:42,079 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 23:25:43,262 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\concurrent\\__init__.py', reloading
+2025-11-25 23:25:43,263 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\idlelib\\__init__.py', reloading
+2025-11-25 23:25:43,265 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\lib2to3\\__init__.py', reloading
+2025-11-25 23:25:43,265 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\msilib\\__init__.py', reloading
+2025-11-25 23:25:43,267 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\test\\__init__.py', reloading
+2025-11-25 23:25:43,268 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\turtledemo\\__init__.py', reloading
+2025-11-25 23:25:43,268 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\wsgiref\\__init__.py', reloading
+2025-11-25 23:25:43,269 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\xmlrpc\\__init__.py', reloading
+2025-11-25 23:25:43,270 - INFO -  * Detected change in 'C:\\Program Files\\Python312\\Lib\\__phello__\\__init__.py', reloading
+2025-11-25 23:25:43,756 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\core\\intfunc.py', reloading
+2025-11-25 23:25:43,807 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\functions\\elementary\\integers.py', reloading
+2025-11-25 23:25:43,825 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\geometry\\exceptions.py', reloading
+2025-11-25 23:25:43,897 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\matrices\\exceptions.py', reloading
+2025-11-25 23:25:43,901 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\matrices\\sparsetools.py', reloading
+2025-11-25 23:25:43,994 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\polys\\domains\\gmpyfinitefield.py', reloading
+2025-11-25 23:25:44,003 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\polys\\domains\\pythonfinitefield.py', reloading
+2025-11-25 23:25:44,069 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\printing\\smtlib.py', reloading
+2025-11-25 23:25:44,080 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\release.py', reloading
+2025-11-25 23:25:44,097 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\series\\residues.py', reloading
+2025-11-25 23:25:44,099 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sympy\\series\\series.py', reloading
+2025-11-25 23:25:44,217 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\accelerate\\__init__.py', reloading
+2025-11-25 23:25:44,431 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 23:25:45,641 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:45,641 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:45,641 - INFO - Email validator initialized with SMTP verification
+2025-11-25 23:25:45,642 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:45,642 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:45,642 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:45,642 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 23:25:45,643 - INFO - Initialized AddressExtractor
+2025-11-25 23:25:45,660 - WARNING -  * Debugger is active!
+2025-11-25 23:25:45,665 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 23:25:45,720 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\fsspec\\callbacks.py', reloading
+2025-11-25 23:25:45,721 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\fsspec\\compression.py', reloading
+2025-11-25 23:25:45,731 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\fsspec\\core.py', reloading
+2025-11-25 23:25:45,736 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\fsspec\\exceptions.py', reloading
+2025-11-25 23:25:45,737 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\fsspec\\mapping.py', reloading
+2025-11-25 23:25:45,740 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\fsspec\\registry.py', reloading
+2025-11-25 23:25:45,745 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\fsspec\\spec.py', reloading
+2025-11-25 23:25:45,753 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\functorch\\__init__.py', reloading
+2025-11-25 23:25:45,755 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\future\\__init__.py', reloading
+2025-11-25 23:25:45,756 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gcloud\\__init__.py', reloading
+2025-11-25 23:25:45,756 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\geographiclib\\__init__.py', reloading
+2025-11-25 23:25:45,757 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\geopy\\__init__.py', reloading
+2025-11-25 23:25:45,760 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\geopy\\geocoders\\__init__.py', reloading
+2025-11-25 23:25:45,765 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\__init__.py', reloading
+2025-11-25 23:25:45,787 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\util.py', reloading
+2025-11-25 23:25:45,792 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\exc.py', reloading
+2025-11-25 23:25:45,795 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\exc.py', reloading
+2025-11-25 23:25:45,797 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\types.py', reloading
+2025-11-25 23:25:45,800 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\compat.py', reloading
+2025-11-25 23:25:45,806 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\config.py', reloading
+2025-11-25 23:25:45,812 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\__init__.py', reloading
+2025-11-25 23:25:45,817 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\blob.py', reloading
+2025-11-25 23:25:45,821 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\commit.py', reloading
+2025-11-25 23:25:45,827 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\base.py', reloading
+2025-11-25 23:25:45,830 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\submodule\\__init__.py', reloading
+2025-11-25 23:25:45,832 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\submodule\\root.py', reloading
+2025-11-25 23:25:45,838 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\submodule\\base.py', reloading
+2025-11-25 23:25:45,844 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\tag.py', reloading
+2025-11-25 23:25:45,847 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\objects\\tree.py', reloading
+2025-11-25 23:25:45,850 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\refs\\__init__.py', reloading
+2025-11-25 23:25:45,852 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\refs\\head.py', reloading
+2025-11-25 23:25:45,855 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\refs\\log.py', reloading
+2025-11-25 23:25:45,860 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\refs\\reference.py', reloading
+2025-11-25 23:25:45,862 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\refs\\remote.py', reloading
+2025-11-25 23:25:45,875 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\refs\\symbolic.py', reloading
+2025-11-25 23:25:45,880 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\refs\\tag.py', reloading
+2025-11-25 23:25:45,883 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\diff.py', reloading
+2025-11-25 23:25:45,888 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\db.py', reloading
+2025-11-25 23:25:45,892 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\db\\__init__.py', reloading
+2025-11-25 23:25:45,894 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\db\\base.py', reloading
+2025-11-25 23:25:45,897 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\db\\loose.py', reloading
+2025-11-25 23:25:45,900 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\db\\mem.py', reloading
+2025-11-25 23:25:45,901 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\db\\pack.py', reloading
+2025-11-25 23:25:45,904 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\db\\git.py', reloading
+2025-11-25 23:25:45,905 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\db\\ref.py', reloading
+2025-11-25 23:25:45,907 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\cmd.py', reloading
+2025-11-25 23:25:45,912 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\repo\\__init__.py', reloading
+2025-11-25 23:25:45,915 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\repo\\base.py', reloading
+2025-11-25 23:25:45,922 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\remote.py', reloading
+2025-11-25 23:25:45,927 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\util.py', reloading
+2025-11-25 23:25:45,933 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\index\\__init__.py', reloading
+2025-11-25 23:25:45,934 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\index\\typ.py', reloading
+2025-11-25 23:25:45,936 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\git\\index\\base.py', reloading
+2025-11-25 23:25:45,942 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gitdb\\__init__.py', reloading
+2025-11-25 23:25:45,943 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\googleapiclient\\__init__.py', reloading
+2025-11-25 23:25:45,944 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\google_auth_oauthlib\\__init__.py', reloading
+2025-11-25 23:25:45,946 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\google_auth_oauthlib\\interactive.py', reloading
+2025-11-25 23:25:45,948 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\google_crc32c\\__init__.py', reloading
+2025-11-25 23:25:45,951 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gotrue\\__init__.py', reloading
+2025-11-25 23:25:45,951 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gpt4all\\__init__.py', reloading
+2025-11-25 23:25:45,952 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gridfs\\__init__.py', reloading
+2025-11-25 23:25:45,958 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gridfs\\errors.py', reloading
+2025-11-25 23:25:45,960 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\gridfs\\grid_file.py', reloading
+2025-11-25 23:25:45,965 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\__init__.py', reloading
+2025-11-25 23:25:45,972 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_types.py', reloading
+2025-11-25 23:25:45,976 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_utils\\__init__.py', reloading
+2025-11-25 23:25:45,978 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_utils\\_utils.py', reloading
+2025-11-25 23:25:45,982 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_client.py', reloading
+2025-11-25 23:25:45,991 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_streaming.py', reloading
+2025-11-25 23:25:45,993 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\__init__.py', reloading
+2025-11-25 23:25:45,996 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_config.py', reloading
+2025-11-25 23:25:46,000 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_models.py', reloading
+2025-11-25 23:25:46,005 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_version.py', reloading
+2025-11-25 23:25:46,007 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_response.py', reloading
+2025-11-25 23:25:46,010 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_constants.py', reloading
+2025-11-25 23:25:46,012 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_exceptions.py', reloading
+2025-11-25 23:25:46,014 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\groq\\_base_client.py', reloading
+2025-11-25 23:25:46,025 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\h11\\__init__.py', reloading
+2025-11-25 23:25:46,028 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\h11\\_connection.py', reloading
+2025-11-25 23:25:46,033 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\h11\\_events.py', reloading
+2025-11-25 23:25:46,036 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\h11\\_state.py', reloading
+2025-11-25 23:25:46,038 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\h11\\_util.py', reloading
+2025-11-25 23:25:46,039 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\h2\\__init__.py', reloading
+2025-11-25 23:25:46,041 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\haversine\\__init__.py', reloading
+2025-11-25 23:25:46,042 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hpack\\__init__.py', reloading
+2025-11-25 23:25:46,043 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hpack\\exceptions.py', reloading
+2025-11-25 23:25:46,046 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hpack\\hpack.py', reloading
+2025-11-25 23:25:46,049 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hpack\\struct.py', reloading
+2025-11-25 23:25:46,052 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\__init__.py', reloading
+2025-11-25 23:25:46,057 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_api.py', reloading
+2025-11-25 23:25:46,058 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\__init__.py', reloading
+2025-11-25 23:25:46,060 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\interfaces.py', reloading
+2025-11-25 23:25:46,062 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\connection_pool.py', reloading
+2025-11-25 23:25:46,066 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\http2.py', reloading
+2025-11-25 23:25:46,070 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\http11.py', reloading
+2025-11-25 23:25:46,073 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\connection.py', reloading
+2025-11-25 23:25:46,076 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\http_proxy.py', reloading
+2025-11-25 23:25:46,078 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_async\\socks_proxy.py', reloading
+2025-11-25 23:25:46,082 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_backends\\base.py', reloading
+2025-11-25 23:25:46,084 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_backends\\mock.py', reloading
+2025-11-25 23:25:46,086 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_backends\\sync.py', reloading
+2025-11-25 23:25:46,088 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_exceptions.py', reloading
+2025-11-25 23:25:46,090 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_models.py', reloading
+2025-11-25 23:25:46,093 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_ssl.py', reloading
+2025-11-25 23:25:46,094 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\__init__.py', reloading
+2025-11-25 23:25:46,096 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\interfaces.py', reloading
+2025-11-25 23:25:46,098 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\connection_pool.py', reloading
+2025-11-25 23:25:46,101 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\http2.py', reloading
+2025-11-25 23:25:46,106 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\http11.py', reloading
+2025-11-25 23:25:46,109 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\connection.py', reloading
+2025-11-25 23:25:46,111 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\http_proxy.py', reloading
+2025-11-25 23:25:46,114 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpcore\\_sync\\socks_proxy.py', reloading
+2025-11-25 23:25:46,118 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\__version__.py', reloading
+2025-11-25 23:25:46,119 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_api.py', reloading
+2025-11-25 23:25:46,123 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_auth.py', reloading
+2025-11-25 23:25:46,127 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_client.py', reloading
+2025-11-25 23:25:46,132 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_content.py', reloading
+2025-11-25 23:25:46,134 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_exceptions.py', reloading
+2025-11-25 23:25:46,137 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_models.py', reloading
+2025-11-25 23:25:46,153 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_status_codes.py', reloading
+2025-11-25 23:25:46,155 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_transports\\asgi.py', reloading
+2025-11-25 23:25:46,161 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_transports\\base.py', reloading
+2025-11-25 23:25:46,162 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_transports\\default.py', reloading
+2025-11-25 23:25:46,166 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_transports\\mock.py', reloading
+2025-11-25 23:25:46,167 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_transports\\wsgi.py', reloading
+2025-11-25 23:25:46,170 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_types.py', reloading
+2025-11-25 23:25:46,174 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\httpx\\_urls.py', reloading
+2025-11-25 23:25:46,176 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huepy\\__init__.py', reloading
+2025-11-25 23:25:46,178 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huepy\\huepy.py', reloading
+2025-11-25 23:25:46,185 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\__init__.py', reloading
+2025-11-25 23:25:46,205 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_commit_scheduler.py', reloading
+2025-11-25 23:25:46,207 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_inference_endpoints.py', reloading
+2025-11-25 23:25:46,212 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\errors.py', reloading
+2025-11-25 23:25:46,214 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_jobs_api.py', reloading
+2025-11-25 23:25:46,216 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_login.py', reloading
+2025-11-25 23:25:46,221 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_oauth.py', reloading
+2025-11-25 23:25:46,225 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_snapshot_download.py', reloading
+2025-11-25 23:25:46,230 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_space_api.py', reloading
+2025-11-25 23:25:46,232 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_tensorboard_logger.py', reloading
+2025-11-25 23:25:46,238 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_webhooks_payload.py', reloading
+2025-11-25 23:25:46,241 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_webhooks_server.py', reloading
+2025-11-25 23:25:46,243 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\community.py', reloading
+2025-11-25 23:25:46,247 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\constants.py', reloading
+2025-11-25 23:25:46,256 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\fastai_utils.py', reloading
+2025-11-25 23:25:46,261 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\file_download.py', reloading
+2025-11-25 23:25:46,277 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\hf_api.py', reloading
+2025-11-25 23:25:46,318 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\_commit_api.py', reloading
+2025-11-25 23:25:46,323 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\hf_file_system.py', reloading
+2025-11-25 23:25:46,328 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\hub_mixin.py', reloading
+2025-11-25 23:25:46,364 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_client.py', reloading
+2025-11-25 23:25:46,376 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\_async_client.py', reloading
+2025-11-25 23:25:46,389 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\__init__.py', reloading
+2025-11-25 23:25:46,392 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\audio_classification.py', reloading
+2025-11-25 23:25:46,395 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\audio_to_audio.py', reloading
+2025-11-25 23:25:46,396 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\automatic_speech_recognition.py', reloading
+2025-11-25 23:25:46,398 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\chat_completion.py', reloading
+2025-11-25 23:25:46,401 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\depth_estimation.py', reloading
+2025-11-25 23:25:46,402 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\document_question_answering.py', reloading
+2025-11-25 23:25:46,404 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\feature_extraction.py', reloading
+2025-11-25 23:25:46,405 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\fill_mask.py', reloading
+2025-11-25 23:25:46,406 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\image_classification.py', reloading
+2025-11-25 23:25:46,407 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\image_segmentation.py', reloading
+2025-11-25 23:25:46,409 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\image_to_image.py', reloading
+2025-11-25 23:25:46,410 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\image_to_text.py', reloading
+2025-11-25 23:25:46,412 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\image_to_video.py', reloading
+2025-11-25 23:25:46,414 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\object_detection.py', reloading
+2025-11-25 23:25:46,415 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\table_question_answering.py', reloading
+2025-11-25 23:25:46,417 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\question_answering.py', reloading
+2025-11-25 23:25:46,419 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\sentence_similarity.py', reloading
+2025-11-25 23:25:46,420 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\summarization.py', reloading
+2025-11-25 23:25:46,422 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\text2text_generation.py', reloading
+2025-11-25 23:25:46,425 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\text_classification.py', reloading
+2025-11-25 23:25:46,426 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\text_generation.py', reloading
+2025-11-25 23:25:46,428 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\text_to_audio.py', reloading
+2025-11-25 23:25:46,429 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\text_to_image.py', reloading
+2025-11-25 23:25:46,432 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\text_to_speech.py', reloading
+2025-11-25 23:25:46,434 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\text_to_video.py', reloading
+2025-11-25 23:25:46,435 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\token_classification.py', reloading
+2025-11-25 23:25:46,437 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\translation.py', reloading
+2025-11-25 23:25:46,439 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\video_classification.py', reloading
+2025-11-25 23:25:46,440 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\visual_question_answering.py', reloading
+2025-11-25 23:25:46,442 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\zero_shot_classification.py', reloading
+2025-11-25 23:25:46,444 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\zero_shot_image_classification.py', reloading
+2025-11-25 23:25:46,446 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_generated\\types\\zero_shot_object_detection.py', reloading
+2025-11-25 23:25:46,447 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_mcp\\agent.py', reloading
+2025-11-25 23:25:46,460 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference\\_mcp\\mcp_client.py', reloading
+2025-11-25 23:25:46,463 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\inference_api.py', reloading
+2025-11-25 23:25:46,466 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\keras_mixin.py', reloading
+2025-11-25 23:25:46,470 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\repocard.py', reloading
+2025-11-25 23:25:46,476 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\repocard_data.py', reloading
+2025-11-25 23:25:46,479 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\repository.py', reloading
+2025-11-25 23:25:46,484 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\serialization\\__init__.py', reloading
+2025-11-25 23:25:46,485 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\serialization\\_base.py', reloading
+2025-11-25 23:25:46,488 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\serialization\\_tensorflow.py', reloading
+2025-11-25 23:25:46,490 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\serialization\\_torch.py', reloading
+2025-11-25 23:25:46,497 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\serialization\\_dduf.py', reloading
+2025-11-25 23:25:46,500 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\utils\\__init__.py', reloading
+2025-11-25 23:25:46,502 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\utils\\_cache_manager.py', reloading
+2025-11-25 23:25:46,508 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\utils\\_hf_folder.py', reloading
+2025-11-25 23:25:46,510 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\utils\\_cache_assets.py', reloading
+2025-11-25 23:25:46,513 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\utils\\_http.py', reloading
+2025-11-25 23:25:46,520 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\utils\\_runtime.py', reloading
+2025-11-25 23:25:46,524 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\huggingface_hub\\utils\\_auth.py', reloading
+2025-11-25 23:25:46,526 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\humanfriendly\\__init__.py', reloading
+2025-11-25 23:25:46,535 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypercorn\\__init__.py', reloading
+2025-11-25 23:25:46,537 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypercorn\\config.py', reloading
+2025-11-25 23:25:46,542 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hyperframe\\__init__.py', reloading
+2025-11-25 23:25:46,544 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypothesis\\__init__.py', reloading
+2025-11-25 23:25:46,547 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypothesis\\_settings.py', reloading
+2025-11-25 23:25:46,552 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypothesis\\control.py', reloading
+2025-11-25 23:25:46,558 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypothesis\\core.py', reloading
+2025-11-25 23:25:46,571 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypothesis\\internal\\entropy.py', reloading
+2025-11-25 23:25:46,573 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypothesis\\utils\\conventions.py', reloading
+2025-11-25 23:25:46,575 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\hypothesis\\version.py', reloading
+2025-11-25 23:25:46,579 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\idna\\__init__.py', reloading
+2025-11-25 23:25:46,582 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\idna\\core.py', reloading
+2025-11-25 23:25:46,586 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\idna\\intranges.py', reloading
+2025-11-25 23:25:46,589 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\idna\\package_data.py', reloading
+2025-11-25 23:25:46,591 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\imageio\\__init__.py', reloading
+2025-11-25 23:25:46,610 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\impit\\__init__.py', reloading
+2025-11-25 23:25:46,614 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\impit\\cookies.py', reloading
+2025-11-25 23:25:46,629 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\importlib_metadata\\__init__.py', reloading
+2025-11-25 23:25:46,640 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\importlib_metadata\\_meta.py', reloading
+2025-11-25 23:25:46,645 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\iniconfig\\__init__.py', reloading
+2025-11-25 23:25:46,652 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\iniconfig\\_parse.py', reloading
+2025-11-25 23:25:46,654 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\iniconfig\\exceptions.py', reloading
+2025-11-25 23:25:46,656 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\itsdangerous\\__init__.py', reloading
+2025-11-25 23:25:46,657 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\itsdangerous\\encoding.py', reloading
+2025-11-25 23:25:46,660 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\itsdangerous\\exc.py', reloading
+2025-11-25 23:25:46,662 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\itsdangerous\\serializer.py', reloading
+2025-11-25 23:25:46,666 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\itsdangerous\\signer.py', reloading
+2025-11-25 23:25:46,668 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\itsdangerous\\timed.py', reloading
+2025-11-25 23:25:46,671 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\itsdangerous\\url_safe.py', reloading
+2025-11-25 23:25:46,672 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\jinja2\\__init__.py', reloading
+2025-11-25 23:25:46,674 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\jinja2\\bccache.py', reloading
+2025-11-25 23:25:46,677 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\jinja2\\environment.py', reloading
+2025-11-25 23:25:46,684 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\jinja2\\exceptions.py', reloading
+2025-11-25 23:25:46,686 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\jinja2\\loaders.py', reloading
+2025-11-25 23:25:46,691 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\jinja2\\runtime.py', reloading
+2025-11-25 23:25:46,699 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\jinja2\\utils.py', reloading
+2025-11-25 23:25:46,707 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\joblib\\__init__.py', reloading
+2025-11-25 23:25:46,712 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\joblib\\memory.py', reloading
+2025-11-25 23:25:46,722 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\joblib\\logger.py', reloading
+2025-11-25 23:25:46,726 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\joblib\\hashing.py', reloading
+2025-11-25 23:25:46,729 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\joblib\\numpy_pickle.py', reloading
+2025-11-25 23:25:46,737 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\joblib\\compressor.py', reloading
+2025-11-25 23:25:46,745 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\joblib\\parallel.py', reloading
+2025-11-25 23:25:46,954 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 23:25:48,159 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:48,160 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:48,160 - INFO - Email validator initialized with SMTP verification
+2025-11-25 23:25:48,161 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:48,161 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:48,162 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:48,162 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 23:25:48,162 - INFO - Initialized AddressExtractor
+2025-11-25 23:25:48,179 - WARNING -  * Debugger is active!
+2025-11-25 23:25:48,184 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 23:25:48,232 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\pydantic_extra_types\\__init__.py', reloading
+2025-11-25 23:25:48,398 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 23:25:49,589 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:49,589 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:49,590 - INFO - Email validator initialized with SMTP verification
+2025-11-25 23:25:49,590 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:49,590 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:49,590 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:49,591 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 23:25:49,591 - INFO - Initialized AddressExtractor
+2025-11-25 23:25:49,604 - WARNING -  * Debugger is active!
+2025-11-25 23:25:49,609 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 23:25:49,659 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\__init__.py', reloading
+2025-11-25 23:25:49,662 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_base.py', reloading
+2025-11-25 23:25:49,669 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_csr.py', reloading
+2025-11-25 23:25:49,672 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_csc.py', reloading
+2025-11-25 23:25:49,675 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_lil.py', reloading
+2025-11-25 23:25:49,680 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_dok.py', reloading
+2025-11-25 23:25:49,686 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_coo.py', reloading
+2025-11-25 23:25:49,693 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_dia.py', reloading
+2025-11-25 23:25:49,697 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_bsr.py', reloading
+2025-11-25 23:25:49,701 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_construct.py', reloading
+2025-11-25 23:25:49,705 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_extract.py', reloading
+2025-11-25 23:25:49,707 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\sparse\\_matrix_io.py', reloading
+2025-11-25 23:25:49,709 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\spatial\\__init__.py', reloading
+2025-11-25 23:25:49,712 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\spatial\\_kdtree.py', reloading
+2025-11-25 23:25:49,716 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\spatial\\_plotutils.py', reloading
+2025-11-25 23:25:49,718 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\__init__.py', reloading
+2025-11-25 23:25:49,728 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_basic.py', reloading
+2025-11-25 23:25:49,736 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_multiufuncs.py', reloading
+2025-11-25 23:25:49,750 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_sf_error.py', reloading
+2025-11-25 23:25:49,752 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_logsumexp.py', reloading
+2025-11-25 23:25:49,754 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_spfun_stats.py', reloading
+2025-11-25 23:25:49,756 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_ellip_harm.py', reloading
+2025-11-25 23:25:49,758 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_lambertw.py', reloading
+2025-11-25 23:25:49,759 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\special\\_spherical_bessel.py', reloading
+2025-11-25 23:25:49,763 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\__init__.py', reloading
+2025-11-25 23:25:49,770 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_stats_py.py', reloading
+2025-11-25 23:25:49,796 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\distributions.py', reloading
+2025-11-25 23:25:49,802 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_continuous_distns.py', reloading
+2025-11-25 23:25:49,838 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_discrete_distns.py', reloading
+2025-11-25 23:25:49,848 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_morestats.py', reloading
+2025-11-25 23:25:49,860 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_multicomp.py', reloading
+2025-11-25 23:25:49,865 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_binned_statistic.py', reloading
+2025-11-25 23:25:49,870 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_multivariate.py', reloading
+2025-11-25 23:25:49,892 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_entropy.py', reloading
+2025-11-25 23:25:49,896 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_hypotests.py', reloading
+2025-11-25 23:25:49,903 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_sensitivity_analysis.py', reloading
+2025-11-25 23:25:49,906 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\stats\\_survival.py', reloading
+2025-11-25 23:25:49,908 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\version.py', reloading
+2025-11-25 23:25:49,909 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\__config__.py', reloading
+2025-11-25 23:25:49,911 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\scipy\\__init__.py', reloading
+2025-11-25 23:25:49,915 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\selenium\\__init__.py', reloading
+2025-11-25 23:25:49,915 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\seleniumwire\\__init__.py', reloading
+2025-11-25 23:25:49,916 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sentencepiece\\__init__.py', reloading
+2025-11-25 23:25:49,917 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\__init__.py', reloading
+2025-11-25 23:25:49,923 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\conflicts.py', reloading
+2025-11-25 23:25:49,926 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\decorators.py', reloading
+2025-11-25 23:25:49,928 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\help_formatter.py', reloading
+2025-11-25 23:25:49,929 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\__init__.py', reloading
+2025-11-25 23:25:49,933 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\fields.py', reloading
+2025-11-25 23:25:49,938 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\partial.py', reloading
+2025-11-25 23:25:49,941 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\serialization\\__init__.py', reloading
+2025-11-25 23:25:49,942 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\serialization\\decoding.py', reloading
+2025-11-25 23:25:49,946 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\serialization\\encoding.py', reloading
+2025-11-25 23:25:49,948 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\serialization\\serializable.py', reloading
+2025-11-25 23:25:49,952 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\helpers\\subgroups.py', reloading
+2025-11-25 23:25:49,954 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\parsing.py', reloading
+2025-11-25 23:25:49,966 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\wrappers\\field_wrapper.py', reloading
+2025-11-25 23:25:49,970 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\wrappers\\__init__.py', reloading
+2025-11-25 23:25:49,971 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\replace.py', reloading
+2025-11-25 23:25:49,973 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_parsing\\utils.py', reloading
+2025-11-25 23:25:49,977 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\simple_websocket\\__init__.py', reloading
+2025-11-25 23:25:49,978 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\smmap\\__init__.py', reloading
+2025-11-25 23:25:49,979 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sniffio\\__init__.py', reloading
+2025-11-25 23:25:49,979 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sniffio\\_impl.py', reloading
+2025-11-25 23:25:49,982 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\__init__.py', reloading
+2025-11-25 23:25:49,986 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\client.py', reloading
+2025-11-25 23:25:49,993 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\simple_client.py', reloading
+2025-11-25 23:25:49,995 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\manager.py', reloading
+2025-11-25 23:25:49,998 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\pubsub_manager.py', reloading
+2025-11-25 23:25:49,999 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\kombu_manager.py', reloading
+2025-11-25 23:25:50,003 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\redis_manager.py', reloading
+2025-11-25 23:25:50,004 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\kafka_manager.py', reloading
+2025-11-25 23:25:50,006 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\zmq_manager.py', reloading
+2025-11-25 23:25:50,008 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\server.py', reloading
+2025-11-25 23:25:50,013 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\namespace.py', reloading
+2025-11-25 23:25:50,016 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\middleware.py', reloading
+2025-11-25 23:25:50,016 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\tornado.py', reloading
+2025-11-25 23:25:50,019 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\async_client.py', reloading
+2025-11-25 23:25:50,024 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\async_simple_client.py', reloading
+2025-11-25 23:25:50,026 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\async_server.py', reloading
+2025-11-25 23:25:50,032 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\async_manager.py', reloading
+2025-11-25 23:25:50,036 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\async_namespace.py', reloading
+2025-11-25 23:25:50,037 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\async_redis_manager.py', reloading
+2025-11-25 23:25:50,040 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\async_aiopika_manager.py', reloading
+2025-11-25 23:25:50,042 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\socketio\\asgi.py', reloading
+2025-11-25 23:25:50,043 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sortedcontainers\\__init__.py', reloading
+2025-11-25 23:25:50,046 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sortedcontainers\\sortedlist.py', reloading
+2025-11-25 23:25:50,056 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sortedcontainers\\sortedset.py', reloading
+2025-11-25 23:25:50,060 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sortedcontainers\\sorteddict.py', reloading
+2025-11-25 23:25:50,065 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\soupsieve\\__init__.py', reloading
+2025-11-25 23:25:50,069 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\soupsieve\\util.py', reloading
+2025-11-25 23:25:50,072 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\__init__.py', reloading
+2025-11-25 23:25:50,077 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\__init__.py', reloading
+2025-11-25 23:25:50,080 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\interfaces.py', reloading
+2025-11-25 23:25:50,092 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\row.py', reloading
+2025-11-25 23:25:50,095 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\_py_row.py', reloading
+2025-11-25 23:25:50,098 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\result.py', reloading
+2025-11-25 23:25:50,143 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\compiler.py', reloading
+2025-11-25 23:25:50,153 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\base.py', reloading
+2025-11-25 23:25:50,164 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\create.py', reloading
+2025-11-25 23:25:50,169 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\mock.py', reloading
+2025-11-25 23:25:50,172 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\cursor.py', reloading
+2025-11-25 23:25:50,180 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\reflection.py', reloading
+2025-11-25 23:25:50,187 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\engine\\url.py', reloading
+2025-11-25 23:25:50,195 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\inspection.py', reloading
+2025-11-25 23:25:50,198 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\pool\\__init__.py', reloading
+2025-11-25 23:25:50,200 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\pool\\impl.py', reloading
+2025-11-25 23:25:50,203 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\pool\\base.py', reloading
+2025-11-25 23:25:50,209 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\schema.py', reloading
+2025-11-25 23:25:50,212 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\ddl.py', reloading
+2025-11-25 23:25:50,218 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\schema.py', reloading
+2025-11-25 23:25:50,237 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\__init__.py', reloading
+2025-11-25 23:25:50,252 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\_typing.py', reloading
+2025-11-25 23:25:50,258 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\expression.py', reloading
+2025-11-25 23:25:50,261 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\selectable.py', reloading
+2025-11-25 23:25:50,277 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\_selectable_constructors.py', reloading
+2025-11-25 23:25:50,280 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\_elements_constructors.py', reloading
+2025-11-25 23:25:50,284 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\elements.py', reloading
+2025-11-25 23:25:50,298 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\cache_key.py', reloading
+2025-11-25 23:25:50,302 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\base.py', reloading
+2025-11-25 23:25:50,307 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\operators.py', reloading
+2025-11-25 23:25:50,314 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\dml.py', reloading
+2025-11-25 23:25:50,319 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\_dml_constructors.py', reloading
+2025-11-25 23:25:50,322 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\functions.py', reloading
+2025-11-25 23:25:50,326 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\lambdas.py', reloading
+2025-11-25 23:25:50,333 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\visitors.py', reloading
+2025-11-25 23:25:50,338 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\types.py', reloading
+2025-11-25 23:25:50,340 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\sqltypes.py', reloading
+2025-11-25 23:25:50,350 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\sqlalchemy\\sql\\type_api.py', reloading
+2025-11-25 23:25:50,360 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\storage3\\__init__.py', reloading
+2025-11-25 23:25:50,365 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\storage3\\utils.py', reloading
+2025-11-25 23:25:50,367 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\streamlit\\__init__.py', reloading
+2025-11-25 23:25:50,387 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\streamlit\\echo.py', reloading
+2025-11-25 23:25:50,389 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\streamlit\\elements\\spinner.py', reloading
+2025-11-25 23:25:50,393 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\streamlit\\commands\\page_config.py', reloading
+2025-11-25 23:25:50,401 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\streamlit\\commands\\execution_control.py', reloading
+2025-11-25 23:25:50,404 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\streamlit_folium\\__init__.py', reloading
+2025-11-25 23:25:50,406 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\supabase\\__init__.py', reloading
+2025-11-25 23:25:50,409 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\supafunc\\__init__.py', reloading
+2025-11-25 23:25:50,411 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\__init__.py', reloading
+2025-11-25 23:25:50,420 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\retry.py', reloading
+2025-11-25 23:25:50,423 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\nap.py', reloading
+2025-11-25 23:25:50,424 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\stop.py', reloading
+2025-11-25 23:25:50,426 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\wait.py', reloading
+2025-11-25 23:25:50,428 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\before.py', reloading
+2025-11-25 23:25:50,430 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\after.py', reloading
+2025-11-25 23:25:50,431 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\before_sleep.py', reloading
+2025-11-25 23:25:50,433 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tenacity\\asyncio\\__init__.py', reloading
+2025-11-25 23:25:50,436 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\termcolor\\__init__.py', reloading
+2025-11-25 23:25:50,438 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\termcolor\\termcolor.py', reloading
+2025-11-25 23:25:50,440 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\textstat\\__init__.py', reloading
+2025-11-25 23:25:50,441 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tifffile\\__init__.py', reloading
+2025-11-25 23:25:50,447 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tifffile\\tifffile.py', reloading
+2025-11-25 23:25:50,525 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tiktoken\\__init__.py', reloading
+2025-11-25 23:25:50,528 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tiktoken\\core.py', reloading
+2025-11-25 23:25:50,531 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tiktoken\\model.py', reloading
+2025-11-25 23:25:50,532 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tiktoken\\registry.py', reloading
+2025-11-25 23:25:50,534 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tldextract\\__init__.py', reloading
+2025-11-25 23:25:50,537 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\tldextract\\tldextract.py', reloading
+2025-11-25 23:25:50,546 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\torch\\__init__.py', reloading
+2025-11-25 23:25:50,685 - INFO -  * Detected change in 'C:\\Users\\kisma\\AppData\\Roaming\\Python\\Python312\\site-packages\\torch\\functional.py', reloading
+2025-11-25 23:25:50,855 - INFO -  * Restarting with watchdog (windowsapi)
+2025-11-25 23:25:51,973 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:51,974 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:51,974 - INFO - Email validator initialized with SMTP verification
+2025-11-25 23:25:51,975 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:51,975 - INFO - Initialized EmailValidator with SMTP pooling, role detection
+2025-11-25 23:25:51,976 - INFO - Initialized RoleDetector with 60+ patterns
+2025-11-25 23:25:51,976 - INFO - Initialized CompanyInfoExtractor
+2025-11-25 23:25:51,977 - INFO - Initialized AddressExtractor
+2025-11-25 23:25:52,010 - WARNING -  * Debugger is active!
+2025-11-25 23:25:52,018 - INFO -  * Debugger PIN: 739-534-583
+2025-11-25 23:37:59,272 - INFO - 127.0.0.1 - - [25/Nov/2025 23:37:59] "GET / HTTP/1.1" 200 -
+2025-11-25 23:37:59,432 - INFO - 127.0.0.1 - - [25/Nov/2025 23:37:59] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 23:37:59,434 - INFO - 127.0.0.1 - - [25/Nov/2025 23:37:59] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 23:38:01,081 - INFO - Scraping https://panthercoffee.com
+2025-11-25 23:38:01,084 - INFO - Scraping https://cafedemetrio.com
+2025-11-25 23:38:01,087 - INFO - Scraping https://macondocoffee.com
+2025-11-25 23:38:01,101 - INFO - Scraping https://suitehabanacafe.com
+2025-11-25 23:38:01,103 - INFO - Scraping https://emissarycafe.com
+2025-11-25 23:38:01,517 - INFO - Async fetch succeeded for https://panthercoffee.com
+2025-11-25 23:38:02,019 - INFO - 127.0.0.1 - - [25/Nov/2025 23:38:02] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:38:02,020 - INFO - Async fetch succeeded for https://suitehabanacafe.com
+2025-11-25 23:38:02,379 - INFO - Async fetch succeeded for https://cafedemetrio.com
+2025-11-25 23:38:02,479 - INFO - 127.0.0.1 - - [25/Nov/2025 23:38:02] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:38:02,553 - INFO - 127.0.0.1 - - [25/Nov/2025 23:38:02] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:38:02,887 - INFO - Async fetch succeeded for https://emissarycafe.com
+2025-11-25 23:38:03,112 - INFO - 127.0.0.1 - - [25/Nov/2025 23:38:03] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:38:03,251 - INFO - Async fetch succeeded for https://macondocoffee.com
+2025-11-25 23:38:03,795 - INFO - 127.0.0.1 - - [25/Nov/2025 23:38:03] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:52:07,288 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:07] "GET / HTTP/1.1" 200 -
+2025-11-25 23:52:07,333 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:07] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 23:52:07,334 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:07] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 23:52:08,998 - INFO - Scraping https://panthercoffee.com
+2025-11-25 23:52:09,005 - INFO - Scraping https://cafedemetrio.com
+2025-11-25 23:52:09,008 - INFO - Scraping https://macondocoffee.com
+2025-11-25 23:52:09,010 - INFO - Scraping https://suitehabanacafe.com
+2025-11-25 23:52:09,025 - INFO - Scraping https://emissarycafe.com
+2025-11-25 23:52:09,645 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:09] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:52:10,356 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:10] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:52:10,610 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:10] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:52:10,670 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:10] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:52:10,793 - INFO - 127.0.0.1 - - [25/Nov/2025 23:52:10] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:59:02,413 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:02] "GET / HTTP/1.1" 200 -
+2025-11-25 23:59:02,440 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:02] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-25 23:59:02,440 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:02] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-25 23:59:04,448 - INFO - Scraping https://panthercoffee.com
+2025-11-25 23:59:04,451 - INFO - Scraping https://cafedemetrio.com
+2025-11-25 23:59:04,452 - INFO - Scraping https://macondocoffee.com
+2025-11-25 23:59:04,454 - INFO - Scraping https://suitehabanacafe.com
+2025-11-25 23:59:04,458 - INFO - Scraping https://emissarycafe.com
+2025-11-25 23:59:05,075 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:05] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:59:05,673 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:05] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:59:05,874 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:05] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:59:05,922 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:05] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-25 23:59:06,034 - INFO - 127.0.0.1 - - [25/Nov/2025 23:59:06] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:03:06,814 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:06] "GET / HTTP/1.1" 200 -
+2025-11-26 00:03:06,840 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:06] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:03:06,841 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:06] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:03:10,570 - INFO - Scraping https://panthercoffee.com
+2025-11-26 00:03:10,572 - INFO - Scraping https://cafedemetrio.com
+2025-11-26 00:03:10,574 - INFO - Scraping https://macondocoffee.com
+2025-11-26 00:03:10,575 - INFO - Scraping https://suitehabanacafe.com
+2025-11-26 00:03:10,715 - INFO - Scraping https://emissarycafe.com
+2025-11-26 00:03:12,068 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:12] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:03:12,073 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:12] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:03:12,139 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:12] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:03:12,168 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:12] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:03:12,172 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:12] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:03:23,959 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:23] "GET / HTTP/1.1" 200 -
+2025-11-26 00:03:23,987 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:23] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:03:23,988 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:23] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:03:24,732 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:24] "GET / HTTP/1.1" 200 -
+2025-11-26 00:03:24,753 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:24] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:03:24,754 - INFO - 127.0.0.1 - - [26/Nov/2025 00:03:24] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:06:52,174 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:52] "GET / HTTP/1.1" 200 -
+2025-11-26 00:06:52,201 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:52] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:06:52,202 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:52] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:06:52,778 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:52] "GET / HTTP/1.1" 200 -
+2025-11-26 00:06:52,802 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:52] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:06:52,805 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:52] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:06:53,102 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:53] "GET / HTTP/1.1" 200 -
+2025-11-26 00:06:53,120 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:53] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:06:53,121 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:53] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:06:53,285 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:53] "GET / HTTP/1.1" 200 -
+2025-11-26 00:06:53,304 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:53] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:06:53,305 - INFO - 127.0.0.1 - - [26/Nov/2025 00:06:53] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:11:20,162 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:20] "GET / HTTP/1.1" 200 -
+2025-11-26 00:11:20,183 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:20] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:11:20,185 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:20] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:11:21,659 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:21] "GET / HTTP/1.1" 200 -
+2025-11-26 00:11:21,677 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:21] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-26 00:11:21,678 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:21] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-26 00:11:27,223 - INFO - Scraping https://panthercoffee.com
+2025-11-26 00:11:27,227 - INFO - Scraping https://cafedemetrio.com
+2025-11-26 00:11:27,228 - INFO - Scraping https://macondocoffee.com
+2025-11-26 00:11:27,231 - INFO - Scraping https://suitehabanacafe.com
+2025-11-26 00:11:27,236 - INFO - Scraping https://emissarycafe.com
+2025-11-26 00:11:28,321 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:28] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:11:28,590 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:28] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:11:28,707 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:28] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:11:29,016 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:29] "POST /api/scrape HTTP/1.1" 200 -
+2025-11-26 00:11:29,066 - INFO - 127.0.0.1 - - [26/Nov/2025 00:11:29] "POST /api/scrape HTTP/1.1" 200 -

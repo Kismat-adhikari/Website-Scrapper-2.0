@@ -671,7 +671,7 @@ class PageDiscovery:
 class DataValidator:
     """Validate extracted data to ensure it's real and not fake"""
     
-    # Common fake/test emails
+    # Common fake/test emails and system emails
     FAKE_EMAILS = {
         'test@', 'fake@', 'demo@', 'example@', 'sample@',
         'noreply@', 'no-reply@', 'donotreply@', 'notification@',
@@ -682,7 +682,11 @@ class DataValidator:
         'contact@example', 'support@example', 'hello@example',
         'placeholder@', 'dummy@', 'temp@', 'temporary@',
         '@example.com', '@example.org', '@test.com', '@test.org',
-        '@domain.com', '@localhost', '@sample.com', '@demo.com'
+        '@domain.com', '@localhost', '@sample.com', '@demo.com',
+        # System/tracking emails
+        '@sentry.io', '@sentry.wixpress.com', '@sentry-next.wixpress.com',
+        '@wixpress.com', '@segment.com', '@mixpanel.com', '@amplitude.com',
+        '@bugsnag.com', '@rollbar.com', '@raygun.com', '@airbrake.io'
     }
     
     # Common fake/test phone patterns (be specific to avoid false positives)
@@ -715,6 +719,13 @@ class DataValidator:
         # Check against fake patterns
         for fake in DataValidator.FAKE_EMAILS:
             if fake in email_lower:
+                return False
+        
+        # Check for hash-like emails (e.g., 605a7baede844d278b89dc95ae0a9123@sentry.io)
+        if '@' in email:
+            local_part = email.split('@')[0]
+            # If local part is 32+ chars and all hex (likely a hash/ID)
+            if len(local_part) >= 32 and all(c in '0123456789abcdefABCDEF' for c in local_part):
                 return False
         
         # Check domain has valid TLD

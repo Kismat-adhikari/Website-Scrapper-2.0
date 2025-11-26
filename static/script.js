@@ -24,6 +24,12 @@ function addLiveLog(log) {
     
     const logEntry = document.createElement('div');
     logEntry.className = `log-entry ${log.type || 'info'}`;
+    
+    let icon = 'info';
+    if (log.type === 'success') icon = 'check-circle';
+    else if (log.type === 'error') icon = 'x-circle';
+    else if (log.type === 'warning') icon = 'alert-circle';
+    
     logEntry.innerHTML = `
         <span class="log-time">${log.time}</span>
         <span class="log-message">${log.message}</span>
@@ -425,7 +431,7 @@ function displayBatchResults(results) {
                         <div class="details-grid">
                             <!-- Emails -->
                             <div class="details-section">
-                                <h4>📧 Emails (${result.emails ? result.emails.length : 0})</h4>
+                                <h4><i data-lucide="mail" width="16" height="16"></i> Emails (${result.emails ? result.emails.length : 0})</h4>
                                 ${result.emails && result.emails.length > 0 ? 
                                     `<div class="email-list">${result.emails.map(e => `<span class="email-tag">${e}</span>`).join('')}</div>` : 
                                     '<p class="no-data">No emails found</p>'}
@@ -433,7 +439,7 @@ function displayBatchResults(results) {
                             
                             <!-- Phones -->
                             <div class="details-section">
-                                <h4>📞 Phones (${result.phones ? result.phones.length : 0})</h4>
+                                <h4><i data-lucide="phone" width="16" height="16"></i> Phones (${result.phones ? result.phones.length : 0})</h4>
                                 ${result.phones && result.phones.length > 0 ? 
                                     `<div class="phone-list">${result.phones.map(p => `<span class="phone-tag">${p}</span>`).join('')}</div>` : 
                                     '<p class="no-data">No phones found</p>'}
@@ -441,14 +447,14 @@ function displayBatchResults(results) {
                             
                             <!-- Company Info -->
                             <div class="details-section">
-                                <h4>🏢 Company</h4>
+                                <h4><i data-lucide="building-2" width="16" height="16"></i> Company</h4>
                                 <p><strong>Name:</strong> ${result.company_name || 'Not found'}</p>
                                 ${result.company_description ? `<p><strong>Description:</strong> ${result.company_description.substring(0, 200)}${result.company_description.length > 200 ? '...' : ''}</p>` : ''}
                             </div>
                             
                             <!-- Addresses -->
                             <div class="details-section">
-                                <h4>📍 Addresses</h4>
+                                <h4><i data-lucide="map-pin" width="16" height="16"></i> Addresses</h4>
                                 ${result.addresses && result.addresses.length > 0 ? 
                                     result.addresses.map(a => `<p class="address-text">${a}</p>`).join('') : 
                                     '<p class="no-data">No addresses found</p>'}
@@ -464,6 +470,11 @@ function displayBatchResults(results) {
     
     content.innerHTML = html;
     resultsDiv.style.display = 'block';
+    
+    // Refresh Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 }
 
 // Toggle details row
