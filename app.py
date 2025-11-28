@@ -35,7 +35,7 @@ def add_header(response):
     return response
 
 # Initialize components
-proxy_manager = ProxyManager()
+proxy_manager = ProxyManager(proxy_file='proxies.txt')
 scraper = WebScraper(proxy_manager, enable_precheck=True)
 email_validator = create_validator(enable_smtp=True, enable_role_detection=True, smtp_max_workers=10)
 role_detector = create_role_detector()
